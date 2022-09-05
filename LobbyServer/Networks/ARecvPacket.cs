@@ -17,7 +17,7 @@ namespace LobbyServer.Networks
 
             using (Reader = new BinaryReader(new MemoryStream(sess.Buffer)))
             {
-                Read();
+                ExecuteRead();
             }
 
             try
@@ -30,7 +30,7 @@ namespace LobbyServer.Networks
             }
         }
 
-        public abstract void Read();
+        public abstract void ExecuteRead();
 
         public abstract void Process();
 

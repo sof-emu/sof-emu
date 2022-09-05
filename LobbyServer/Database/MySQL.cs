@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace LobbyServer.Database
 {
-    public class MySQL : IDBConnection
+    public class MySQL
     {
         protected MySqlConnection Connection;
 

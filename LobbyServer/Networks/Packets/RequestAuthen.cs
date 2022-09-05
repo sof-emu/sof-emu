@@ -7,7 +7,7 @@ namespace LobbyServer.Networks.Packets
         protected string Username;
         protected string Password;
 
-        public override void Read()
+        public override void ExecuteRead()
         {
             int nameLen = ReadH();
             Username = ReadS(nameLen);

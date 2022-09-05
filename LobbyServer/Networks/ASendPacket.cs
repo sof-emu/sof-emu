@@ -46,7 +46,7 @@ namespace LobbyServer.Networks
                             Data = stream.ToArray();
                             BitConverter.GetBytes((short)(Data.Length - 4)).CopyTo(Data, 2);
 
-                            Log.Debug(Data.FormatHex());
+                            // Log.Debug(Data.FormatHex());
                         }
                     }
                     catch (Exception ex)
@@ -58,7 +58,7 @@ namespace LobbyServer.Networks
                 }
             }
 
-            state.PushPacket(Data);
+            state.SendPacket(Data);
         }
 
         public abstract void Write(BinaryWriter writer);

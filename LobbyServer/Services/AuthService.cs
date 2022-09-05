@@ -30,6 +30,7 @@ namespace LobbyServer.Services
             }
 
             // TODO response ok
+            new ResponseAuthen(ResponseAuthenType.Success).Send(session);
         }
     }
 }

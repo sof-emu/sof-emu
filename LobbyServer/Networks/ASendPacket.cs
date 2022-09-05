@@ -1,6 +1,7 @@
 ﻿using Data.Interfaces;
 using System;
 using System.IO;
+using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
 using Utility;
@@ -13,7 +14,7 @@ namespace LobbyServer.Networks
         protected byte[] Data;
         protected object WriteLock = new object();
 
-        public void Send(Client state)
+        public void Send(Session state)
         {
             if (state == null)
                 return;
@@ -31,17 +32,21 @@ namespace LobbyServer.Networks
                 {
                     try
                     {
+                        Log.Info("Write packet: {0}", GetType().Name);
+
                         using (MemoryStream stream = new MemoryStream())
                         {
                             using (BinaryWriter writer = new BinaryWriter(stream, new UTF8Encoding()))
                             {
-                                WriteH(writer, 0); //Reserved for length
                                 WriteH(writer, OpCodes.Send[GetType()]);
+                                WriteH(writer, 0); //Reserved for length
                                 Write(writer);
                             }
 
                             Data = stream.ToArray();
-                            BitConverter.GetBytes((short)Data.Length).CopyTo(Data, 0);
+                            BitConverter.GetBytes((short)(Data.Length - 4)).CopyTo(Data, 2);
+
+                            Log.Debug(Data.FormatHex());
                         }
                     }
                     catch (Exception ex)
@@ -96,9 +101,9 @@ namespace LobbyServer.Networks
             }
             else
             {
-                Encoding encoding = Encoding.Unicode;
+                Encoding encoding = Encoding.Default;
+                writer.Write((short)text.Length);
                 writer.Write(encoding.GetBytes(text));
-                writer.Write((short)0);
             }
         }
 

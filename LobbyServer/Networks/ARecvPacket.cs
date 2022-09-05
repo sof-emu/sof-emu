@@ -9,13 +9,13 @@ namespace LobbyServer.Networks
     public abstract class ARecvPacket : IRecvPacket
     {
         public BinaryReader Reader;
-        public Client sClient;
+        public Session session;
 
-        public void Process(Client cli)
+        public void Process(Session sess)
         {
-            sClient = cli;
+            session = sess;
 
-            using (Reader = new BinaryReader(new MemoryStream(sClient.Buffer)))
+            using (Reader = new BinaryReader(new MemoryStream(sess.Buffer)))
             {
                 Read();
             }
@@ -112,15 +112,14 @@ namespace LobbyServer.Networks
             return 0;
         }
 
-        protected String ReadS()
+        protected String ReadS(int length)
         {
-            Encoding encoding = Encoding.Unicode;
+            Encoding encoding = Encoding.Default;
             String result = "";
             try
             {
-                short ch;
-                while ((ch = Reader.ReadInt16()) != 0)
-                    result += encoding.GetString(BitConverter.GetBytes(ch));
+                byte[] bytes = ReadB(length);
+                result = encoding.GetString(bytes);
             }
             catch (Exception)
             {

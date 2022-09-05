@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LobbyServer.Networks.Packets
 {
@@ -13,13 +9,17 @@ namespace LobbyServer.Networks.Packets
 
         public override void Read()
         {
-            Username = ReadS();
-            Password = ReadS();
+            int nameLen = ReadH();
+            Username = ReadS(nameLen);
+            int pwdLen = ReadH();
+            Password = ReadS(pwdLen);
         }
 
         public override void Process()
         {
-            
+            session
+                .authService
+                .Authenticate(Username, Password);
         }
     }
 }

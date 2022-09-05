@@ -18,7 +18,7 @@ namespace LobbyServer.Networks
             // Recv.Add(unchecked((short)0x800C), typeof(RequestSelectServer));
 
 
-            // Send.Add(typeof(ResponseLogin), unchecked((short)0x8001));
+            Send.Add(typeof(ResponseAuthen), unchecked((short)0x8001));
             // Send.Add(typeof(ResponseServerList), unchecked((short)0x8017));
             // Send.Add(typeof(ResponseSelectServer), unchecked((short)0x8064));
         }

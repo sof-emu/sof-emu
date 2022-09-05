@@ -30,21 +30,21 @@ namespace LobbyServer.Networks.Protocols
             byte[] headerBytes = new byte[4];
             Stream.Read(headerBytes, 0, 4);
 
-            short opcode = BitConverter.ToInt16(headerBytes, 0);
+            ushort opcode = BitConverter.ToUInt16(headerBytes, 0);
             int length = BitConverter.ToUInt16(headerBytes, 2);
-
-            Console.WriteLine("opcode = " + opcode);
 
             if (Stream.Length < length)
                 return false;
 
             GameMessage message = new GameMessage
             {
-                OpCode = opcode,
-                Data = new byte[length - 4]
+                OpCode = (short)opcode,
+                Data = new byte[length]
             };
 
             Stream.Read(message.Data, 0, message.Data.Length);
+
+            messages.Add(message);
 
             TrimStream();
 

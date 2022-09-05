@@ -10,6 +10,12 @@ namespace Utility
 
         private static readonly string[] Baths;
 
+        private static byte[] PwdCryptKeys = new byte[12]
+                {
+                    170, 171, 172, 173, 174, 175, 186, 187, 188, 189,
+                    190, 191
+                };
+
         static Funcs()
         {
             Baths = new string[256];
@@ -86,6 +92,22 @@ namespace Utility
                 Console.WriteLine("Invalid hex string: {0}", hexString);
                 throw;
             }
+        }
+
+        public static string DecryptPassword(this string encpwd)
+        {
+            int keyIndex = Convert.ToInt32(encpwd.Remove(2, encpwd.Length - 2), 16);
+            int cryptKey = PwdCryptKeys[keyIndex];
+            byte[] pwdBytes = encpwd.ToBytes();
+            for (int i = 0; i < pwdBytes.Length; i++)
+            {
+                pwdBytes[i] ^= (byte)cryptKey;
+            }
+            string decPwd = pwdBytes
+                .ToHex()
+                .ToLower();
+
+            return decPwd.Substring(2, decPwd.Length - 4);
         }
     }
 }

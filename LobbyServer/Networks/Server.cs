@@ -1,6 +1,5 @@
 ﻿using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.Scs.Server;
-using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Utility;
@@ -22,6 +21,9 @@ namespace LobbyServer.Networks
             bindPort = port;
             backLog = backlog;
             ConnectionTimes = new Dictionary<string, long>();
+
+            OpCodes.Init();
+            Session.SendAllThread.Start();
         }
 
 
@@ -39,8 +41,8 @@ namespace LobbyServer.Networks
         {
             string ip = Regex.Match(e.Client.RemoteEndPoint.ToString(), "([0-9]+).([0-9]+).([0-9]+).([0-9]+)").Value;
 
-            if (ip == "159.253.18.161")
-                return;
+            //if (ip == "159.253.18.161")
+            //  return;
 
             Log.Info("Client connected!");
 
@@ -60,7 +62,7 @@ namespace LobbyServer.Networks
             else
                 ConnectionTimes.Add(ip, Funcs.GetCurrentMilliseconds());
 
-            new Client(e.Client);
+            new Session(e.Client);
         }
 
         private void ClientDisconnected(object sender, ServerClientEventArgs e)

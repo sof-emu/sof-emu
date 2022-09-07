@@ -18,7 +18,9 @@ namespace LobbyServer
 
             DBOManager = new DBOManager();
 
-            new Server("0.0.0.0", 1300, 100)
+            // Services
+
+            new Server()
                 .BeginListening();
 
             sw.Stop();

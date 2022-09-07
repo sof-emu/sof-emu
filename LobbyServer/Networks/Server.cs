@@ -1,5 +1,6 @@
 ﻿using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.Scs.Server;
+using LobbyServer.Configs;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Utility;
@@ -15,11 +16,12 @@ namespace LobbyServer.Networks
         protected int backLog;
         protected Dictionary<string, long> ConnectionTimes;
 
-        public Server(string address, int port, int backlog)
+        public Server()
         {
-            bindAddress = address;
-            bindPort = port;
-            backLog = backlog;
+            
+            bindAddress = Config.GetString("network", "ip"); ;
+            bindPort = Config.GetInt("network", "port"); ;
+            backLog = Config.GetInt("network", "backlog"); ;
             ConnectionTimes = new Dictionary<string, long>();
 
             OpCodes.Init();

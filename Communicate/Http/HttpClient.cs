@@ -1,13 +1,13 @@
 ﻿using RestSharp;
 using System.Collections.Generic;
 
-namespace Communicate
+namespace Communicate.Http
 {
-    public class HTTPRequest
+    public class HttpClient
     {
         protected RestClient Client;
 
-        public HTTPRequest(string baseURL, string api_token)
+        public HttpClient(string baseURL, string api_token)
         {
             Client = new RestClient(baseURL);
             Client.AddDefaultHeaders(new Dictionary<string, string>()

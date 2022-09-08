@@ -1,5 +1,4 @@
 ﻿using ApiServer.Models;
-using ApiServer.Models.Contracts;
 
 namespace ApiServer.Services
 {

@@ -9,17 +9,15 @@ namespace LobbyServer.Networks.Packets
 
         public override void ExecuteRead()
         {
-            int nameLen = ReadH();
-            Username = ReadS(nameLen);
-            int pwdLen = ReadH();
-            Password = ReadS(pwdLen);
+            Username = ReadS();
+            Password = ReadS();
         }
 
         public override void Process()
         {
-            session
-                .authService
-                .Authenticate(Username, Password);
+            Program
+                .AuthService
+                .Authenticate(session, Username, Password);
         }
     }
 }

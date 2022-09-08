@@ -102,8 +102,10 @@
     <Compile Include="Database\MySQL.cs" />
     <Compile Include="Networks\ARecvPacket.cs" />
     <Compile Include="Networks\ASendPacket.cs" />
+    <Compile Include="Networks\Packets\RequestSelectServer.cs" />
     <Compile Include="Networks\Packets\RequestServerList.cs" />
     <Compile Include="Networks\Packets\ResponseAuthen.cs" />
+    <Compile Include="Networks\Packets\ResponseSelectServer.cs" />
     <Compile Include="Networks\Packets\ResponseServerList.cs" />
     <Compile Include="Networks\Session.cs" />
     <Compile Include="Networks\Messages\GameMessage.cs" />
@@ -114,7 +116,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\FeedbackService.cs" />
+    <Compile Include="Services\BroadcastService.cs" />
     <Compile Include="Services\ApiService.cs" />
   </ItemGroup>
   <ItemGroup>

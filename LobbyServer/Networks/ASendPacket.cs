@@ -73,6 +73,11 @@ namespace LobbyServer.Networks
             writer.Write(val);
         }
 
+        protected void WriteH(BinaryWriter writer, int val)
+        {
+            writer.Write((short)val);
+        }
+
         protected void WriteC(BinaryWriter writer, byte val)
         {
             writer.Write(val);

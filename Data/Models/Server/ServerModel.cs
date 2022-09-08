@@ -9,9 +9,9 @@ namespace Data.Models.Server
         public string Name { get; set; }
         public string Address { get; set; }
 
-        public Dictionary<int, ChannelModel> Channels;
+        public List<ChannelModel> Channels;
 
-        public ServerModel(int id, string name, string address, Dictionary<int, ChannelModel> channels)
+        public ServerModel(int id, string name, string address, List<ChannelModel> channels)
         {
             Id = id;
             Name = name;

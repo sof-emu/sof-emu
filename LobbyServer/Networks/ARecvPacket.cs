@@ -112,12 +112,13 @@ namespace LobbyServer.Networks
             return 0;
         }
 
-        protected String ReadS(int length)
+        protected String ReadS()
         {
             Encoding encoding = Encoding.Default;
             String result = "";
             try
             {
+                int length = ReadH();
                 byte[] bytes = ReadB(length);
                 result = encoding.GetString(bytes);
             }

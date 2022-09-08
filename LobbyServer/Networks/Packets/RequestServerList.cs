@@ -10,7 +10,9 @@ namespace LobbyServer.Networks.Packets
 
         public override void Process()
         {
-            
+            Program
+                .BroadcastService
+                .SendServerList(session);
         }
     }
 }

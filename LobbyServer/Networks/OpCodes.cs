@@ -14,13 +14,13 @@ namespace LobbyServer.Networks
         public static void Init()
         {
             Recv.Add(unchecked((short)0x8000), typeof(RequestAuthen));
-            // Recv.Add(unchecked((short)0x8016), typeof(RequestServerList));
-            // Recv.Add(unchecked((short)0x800C), typeof(RequestSelectServer));
+            Recv.Add(unchecked((short)0x8016), typeof(RequestServerList));
+            Recv.Add(unchecked((short)0x800C), typeof(RequestSelectServer));
 
 
             Send.Add(typeof(ResponseAuthen), unchecked((short)0x8001));
-            // Send.Add(typeof(ResponseServerList), unchecked((short)0x8017));
-            // Send.Add(typeof(ResponseSelectServer), unchecked((short)0x8064));
+            Send.Add(typeof(ResponseServerList), unchecked((short)0x8017));
+            Send.Add(typeof(ResponseSelectServer), unchecked((short)0x8064));
         }
     }
 }

@@ -21,13 +21,8 @@ namespace LobbyServer.Networks
         protected int SendDataSize;
         protected object SendLock = new object();
 
-        // Services
-        public AuthService authService;
-
         public Session(IScsServerClient client)
         {
-            authService = new AuthService(this);
-
             Client = client;
             Client.WireProtocol = new GameProtocol();
             Client.Disconnected += OnDisconnected;

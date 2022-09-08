@@ -1,5 +1,6 @@
 ﻿using LobbyServer.Database;
 using LobbyServer.Networks;
+using LobbyServer.Services;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -10,6 +11,11 @@ namespace LobbyServer
     {
         public static DBOManager DBOManager;
 
+        // Services
+        public static ApiService ApiService;
+        public static AuthService AuthService;
+        public static BroadcastService BroadcastService;
+
         static void Main(string[] args)
         {
             Console.Title = "SOF-Emu LobbyServer";
@@ -19,6 +25,9 @@ namespace LobbyServer
             DBOManager = new DBOManager();
 
             // Services
+            ApiService = new ApiService();
+            AuthService = new AuthService();
+            BroadcastService = new BroadcastService();
 
             new Server()
                 .BeginListening();

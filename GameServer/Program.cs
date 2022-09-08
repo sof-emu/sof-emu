@@ -1,22 +1,38 @@
 ﻿using GameServer.Configs;
+using GameServer.Networks;
 using System;
 using System.Diagnostics;
-using System.Linq;
+using System.Threading;
 
 namespace GameServer
 {
     internal class Program
     {
         public static Config Config;
+
+        public static Server Server;
+
+        // Services
+
         static void Main(string[] args)
         {
+            Console.Title = "SOF-Emu LobbyServer";
+
+            Stopwatch sw = Stopwatch.StartNew();
+
             Config = new Config();
 
-            //Console.WriteLine(Config["database"].Configs["database"].GetString("host"));
+            Server = new Server();
 
-            Config.Where(i => i.Key.StartsWith("server")).ToList().ForEach(i => {
-                Console.WriteLine(i.Value.Configs["server"].GetString("ip"));
-            });
+            // Services
+
+            sw.Stop();
+            Thread.Sleep(100);
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine("           Server start in {0}", (sw.ElapsedMilliseconds / 1000.0).ToString("0.00s"));
+            Console.WriteLine("-------------------------------------------");
+
+            Process.GetCurrentProcess().WaitForExit();
 
             Process.GetCurrentProcess().WaitForExit();
         }

@@ -7,14 +7,11 @@ namespace LobbyServer.Services
 {
     public class AuthService : IService
     {
-        protected Session session;
-
-        public AuthService(Session sess)
+        public AuthService()
         {
-            session = sess;
         }
 
-        public void Authenticate(string username, string password)
+        public void Authenticate(Session session, string username, string password)
         {
             var account = Program.DBOManager.accountDBO.GetAccountByUsername(username);
 

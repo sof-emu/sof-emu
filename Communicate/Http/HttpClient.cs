@@ -1,5 +1,7 @@
 ﻿using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Communicate.Http
 {
@@ -10,16 +12,18 @@ namespace Communicate.Http
         public HttpClient(string baseURL, string api_token)
         {
             Client = new RestClient(baseURL);
+            Client.UseNewtonsoftJson();
             Client.AddDefaultHeaders(new Dictionary<string, string>()
             {
                 {"x-api-token", api_token}
             });
         }
 
-        public RestResponse Get(string path)
+        public async Task<T> Get<T>(string path)
         {
-            var request = new RestRequest(path);
-            return Client.Get(request);
+            //var request = new RestRequest(path);
+            var response = Client.GetJsonAsync<T>(path);
+            return response.Result;
         }
     }
 }

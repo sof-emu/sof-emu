@@ -1,11 +1,13 @@
-﻿using RestSharp;
+﻿using Data.Interfaces;
+using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Communicate.Http
 {
-    public class HttpClient
+    public class HttpClient : IHttpClient, IDisposable
     {
         protected RestClient Client;
 
@@ -24,6 +26,16 @@ namespace Communicate.Http
             //var request = new RestRequest(path);
             var response = Client.GetJsonAsync<T>(path);
             return response.Result;
+        }
+
+        public async void Post<T>()
+        {
+
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

@@ -16,7 +16,7 @@ namespace GameServer
 
         static void Main(string[] args)
         {
-            Console.Title = "SOF-Emu LobbyServer";
+            Console.Title = "SOF-Emu GameServer";
 
             Stopwatch sw = Stopwatch.StartNew();
 

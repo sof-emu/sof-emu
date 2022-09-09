@@ -11,14 +11,16 @@ namespace ApiServer.Controllers
     public class ServerController : ControllerBase
     {
         private readonly ContainerService _container;
+        private IConfiguration _config;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="accountRepository"></param>
-        public ServerController(ContainerService container)
+        public ServerController(ContainerService container, IConfiguration config)
         {
             _container = container;
+            _config = config;
         }
 
         /// <summary>

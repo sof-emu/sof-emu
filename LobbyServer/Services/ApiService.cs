@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LobbyServer.Services
 {
-    public class ApiService : IService
+    public class ApiService
     {
         protected HttpClient Client;
 

@@ -9,8 +9,13 @@ namespace GameServer.Networks
 {
     public class Server
     {
+        protected int ServerId;
+        protected string ServerName;
+
         protected Dictionary<int, ChannelModel> Channels;
         protected Dictionary<string, long> ConnectionTimes;
+
+        protected Dictionary<int, IScsServer> ChannelServers;
 
         public Server()
         {
@@ -22,7 +27,7 @@ namespace GameServer.Networks
 
         private void GenerateServer()
         {
-            // todo
+            // todo server data
         }
 
         private void GenerateChannels()
@@ -76,13 +81,18 @@ namespace GameServer.Networks
 
         private void Initilize()
         {
-            for(int i = 1; i <= Channels.Count; i++)
+            ChannelServers = new Dictionary<int, IScsServer>();
+            ConnectionTimes = new Dictionary<string, long>();
+
+            for (int i = 1; i <= Channels.Count; i++)
             {
                 var channelModel = Channels[i];
                 var channel = ScsServerFactory.CreateServer(new ScsTcpEndPoint(channelModel.Port));
                 channel.ClientConnected += ChannelClientConnected;
                 channel.ClientDisconnected += ChannelClientDisconnected;
                 channel.Start();
+
+                ChannelServers.Add(channel.GetHashCode(), channel);
 
                 Log.Info($"Start channel {channelModel.Id} at port: {channelModel.Port}");
             }
@@ -95,12 +105,7 @@ namespace GameServer.Networks
         private void ChannelClientConnected(object sender, ServerClientEventArgs e)
         {
             string ip = Regex.Match(e.Client.RemoteEndPoint.ToString(), "([0-9]+).([0-9]+).([0-9]+).([0-9]+)").Value;
-
-            Log.Debug($"sender: {sender}");
-
-            //if (ip == "159.253.18.161")
-            //  return;
-
+            
             Log.Info("Client connected!");
 
             if (ConnectionTimes.ContainsKey(ip))
@@ -116,7 +121,8 @@ namespace GameServer.Networks
             else
                 ConnectionTimes.Add(ip, Funcs.GetCurrentMilliseconds());
 
-            //new Session(e.Client);
+            IScsServer channel = ChannelServers[((IScsServer)sender).GetHashCode()];
+            new Session(e.Client, channel);
         }
 
         /// <summary>

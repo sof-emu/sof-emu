@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
     <Compile Include="Interfaces\ISendPacket.cs" />

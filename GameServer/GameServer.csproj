@@ -50,9 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\Config.cs" />
+    <Compile Include="Networks\Messages\GameMessage.cs" />
+    <Compile Include="Networks\OpCodes.cs" />
+    <Compile Include="Networks\Packets\ARecvPacket.cs" />
+    <Compile Include="Networks\Packets\Request\RequestAuth.cs" />
+    <Compile Include="Networks\Protocols\GameProtocol.cs" />
     <Compile Include="Networks\Server.cs" />
+    <Compile Include="Networks\Session.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ApiService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -83,7 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Engines\" />
-    <Folder Include="Services\" />
+    <Folder Include="Networks\Packets\Response\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Changes.txt" />

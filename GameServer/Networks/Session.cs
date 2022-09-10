@@ -1,14 +1,18 @@
-﻿using GameServer.Networks.Messages;
+﻿using Data.Interfaces;
+using Data.Models.Account;
+using Data.Models.Player;
+using GameServer.Networks.Messages;
 using GameServer.Networks.Packets;
 using GameServer.Networks.Protocols;
 using Hik.Communication.Scs.Server;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Utility;
 
 namespace GameServer.Networks
 {
-    public class Session
+    public class Session : ISession
     {
         public static List<Session> Sessions = new List<Session>();
 
@@ -21,7 +25,15 @@ namespace GameServer.Networks
         protected object SendLock = new object();
 
         public int hash = 0;
+        protected AccountData account;
+        protected Dictionary<int, Player> players;
+        protected Player selectedPlayer;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="channel"></param>
         public Session(IScsServerClient client, IScsServer channel)
         {
             Client = client;
@@ -32,8 +44,15 @@ namespace GameServer.Networks
             Client.MessageReceived += OnMessageReceived;
 
             Sessions.Add(this);
+
+            players = new Dictionary<int, Player>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnMessageReceived(object sender, Hik.Communication.Scs.Communication.Messages.MessageEventArgs e)
         {
             GameMessage message = (GameMessage)e.Message;
@@ -64,11 +83,20 @@ namespace GameServer.Networks
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDisconnected(object sender, System.EventArgs e)
         {
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
         public void SendPacket(byte[] data)
         {
             if (SendLock == null)
@@ -88,6 +116,72 @@ namespace GameServer.Networks
                     //Already closed
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public AccountData GetAccount()
+        {
+            return account;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acc"></param>
+        public void SetAccount(AccountData acc)
+        {
+            account = acc;
+        }
+
+        /// <summary>
+        /// Get List of Player
+        /// </summary>
+        /// <returns>List<Player></returns>
+        public List<Player> GetPlayers()
+        {
+            return players
+                .Values
+                .ToList();
+        }
+
+        /// <summary>
+        /// Get Player by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Player</returns>
+        public Player GetPlayer(int id)
+        {
+            return players[id];
+        }
+
+        /// <summary>
+        /// Add Player to Dictionary
+        /// </summary>
+        /// <param name="player"></param>
+        public void AddPlayer(Player player)
+        {
+            players.Add(player.Id, player);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public void SetSelectPlayer(Player player)
+        {
+            selectedPlayer = player;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Player GetSelectedPlayer()
+        {
+            return selectedPlayer;
         }
     }
 }

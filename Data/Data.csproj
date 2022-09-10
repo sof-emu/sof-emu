@@ -72,19 +72,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PlayerClass.cs" />
+    <Compile Include="Enums\StorageType.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
     <Compile Include="Interfaces\ISendPacket.cs" />
     <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\ISession.cs" />
+    <Compile Include="Interfaces\IVisible.cs" />
     <Compile Include="Models\Account\AccountData.cs" />
+    <Compile Include="Models\Creature\Creature.cs" />
+    <Compile Include="Models\Player\Player.cs" />
+    <Compile Include="Models\Player\PlayerData.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
+    <Compile Include="Models\VisibleObject.cs" />
+    <Compile Include="Models\World\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,6 +16,7 @@ namespace GameServer
         // Services
         public static ApiService ApiService;
         public static AuthService AuthService;
+        public static FeedbackService FeedbackService;
 
         static void Main(string[] args)
         {
@@ -29,6 +30,7 @@ namespace GameServer
             // Services
             ApiService = new ApiService();
             AuthService = new AuthService();
+            FeedbackService = new FeedbackService();
 
 
             Server = new Server();

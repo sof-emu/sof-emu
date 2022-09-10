@@ -125,6 +125,23 @@ namespace GameServer.Networks.Packets
             }
         }
 
+        protected void WriteSH(BinaryWriter writer, String text)
+        {
+            if (text.Length > 0)
+            {
+                writer.Write((short)text.Length);
+                writer.Write(Encoding.Default.GetBytes(text));
+            }
+        }
+
+        protected void WriteSN(BinaryWriter writer, String text)
+        {
+            byte[] names = Encoding.Default.GetBytes(text);
+            byte[] val = new byte[15];
+            Buffer.BlockCopy(names, 0, val, 0, names.Length);
+            writer.Write(val);
+        }
+
         protected void WriteB(BinaryWriter writer, string hex)
         {
             writer.Write(hex.ToBytes());
@@ -133,6 +150,41 @@ namespace GameServer.Networks.Packets
         protected void WriteB(BinaryWriter writer, byte[] data)
         {
             writer.Write(data);
+        }
+
+        protected void WriteItemInfo(BinaryWriter writer, object item)
+        {
+            if (item != null)
+            {
+                /*
+                WriteQ(writer, item.ObjectId);
+                WriteQ(writer, item.ItemId);
+                WriteD(writer, item.Amount); // Amount
+                WriteD(writer, item.Magic0); // FLD_MAGIC0
+                WriteD(writer, item.Magic1); // FLD_MAGIC1
+                WriteD(writer, item.Magic2); // FLD_MAGIC2
+                WriteD(writer, item.Magic3); // FLD_MAGIC3
+                WriteD(writer, item.Magic4); // FLD_MAGIC4
+                WriteH(writer, 0);
+                WriteH(writer, 0); // (IsBlue == true ? 1 : 0)
+                WriteH(writer, item.BonusMagic1); // BonusMagic1
+                WriteH(writer, item.BonusMagic2); // BonusMagic2
+                WriteH(writer, item.BonusMagic3); // BonusMagic3
+                WriteH(writer, item.BonusMagic4); // BonusMagic4
+                WriteH(writer, item.BonusMagic5); // BonusMagic5
+                WriteD(writer, 0);
+                WriteD(writer, (item.LimitTime > 0 ? 1 : 0));
+                WriteD(writer, item.LimitTime);
+                WriteH(writer, item.Upgrade);
+                WriteH(writer, 0); // ItemType : item.ItemTemplate.Category
+                WriteH(writer, 0); // 0
+                WriteH(writer, 0);
+                WriteQ(writer, 0);
+                WriteB(writer, new byte[6]);
+                */
+            }
+            else
+                WriteB(writer, new byte[88]);
         }
     }
 }

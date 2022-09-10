@@ -13,7 +13,7 @@ namespace LobbyServer
         // Services
         public static ApiService ApiService;
         public static AuthService AuthService;
-        public static BroadcastService BroadcastService;
+        public static FeedbackService BroadcastService;
 
         static void Main(string[] args)
         {
@@ -26,7 +26,7 @@ namespace LobbyServer
             // Services
             ApiService = new ApiService();
             AuthService = new AuthService();
-            BroadcastService = new BroadcastService();
+            BroadcastService = new FeedbackService();
 
             new Server()
                 .BeginListening();

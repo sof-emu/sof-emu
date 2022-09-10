@@ -1,7 +1,6 @@
 ﻿using Data.Interfaces;
 using Data.Models.Account;
 using GameServer.Networks;
-using GameServer.Networks.Packets.Response;
 
 namespace GameServer.Services
 {
@@ -17,8 +16,11 @@ namespace GameServer.Services
                 return;
 
             // todo send Auth Response
+            session.SetAccount(accountData);
 
-            new ResponseAuth(accountData).Send(session);
+            GameServer
+                .FeedbackService
+                .OnAuthorized(session);
         }
     }
 }

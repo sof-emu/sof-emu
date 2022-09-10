@@ -4,6 +4,7 @@ using Hik.Communication.Scs.Communication.Protocols;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Utility;
 
 namespace GameServer.Networks.Protocols
 {
@@ -13,6 +14,9 @@ namespace GameServer.Networks.Protocols
 
         public IEnumerable<IScsMessage> CreateMessages(byte[] receivedBytes)
         {
+            Log.Debug("receivedBytes");
+            Console.WriteLine(receivedBytes.FormatHex());
+
             byte[] unpackBytes = new byte[receivedBytes.Length - 4];
             Buffer.BlockCopy(receivedBytes, 2, unpackBytes, 0, unpackBytes.Length);
 

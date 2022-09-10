@@ -1,6 +1,7 @@
 ﻿using Data.Interfaces;
 using Data.Models.Account;
 using GameServer.Networks;
+using GameServer.Networks.Packets.Response;
 
 namespace GameServer.Services
 {
@@ -15,7 +16,9 @@ namespace GameServer.Services
             if (accountData == null)
                 return;
 
+            // todo send Auth Response
 
+            new ResponseAuth(accountData).Send(session);
         }
     }
 }

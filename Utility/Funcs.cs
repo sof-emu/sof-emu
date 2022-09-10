@@ -16,6 +16,8 @@ namespace Utility
                     190, 191
                 };
 
+        private static readonly Random Randomizer = new Random((int)DateTime.Now.Ticks);
+
         static Funcs()
         {
             Baths = new string[256];
@@ -23,9 +25,28 @@ namespace Utility
                 Baths[i] = String.Format("{0:X2}", i);
         }
 
+        
+
+        public static Random Random()
+        {
+            return Randomizer;
+        }
+
+        public static byte[] NextBytes(int len)
+        {
+            byte[] rand = new byte[len];
+            Random().NextBytes(rand);
+            return rand;
+        }
+
         public static long GetCurrentMilliseconds()
         {
             return (long)(DateTime.UtcNow - StaticDate).TotalMilliseconds;
+        }
+
+        public static int GetRoundedLocal()
+        {
+            return (int)Math.Round((double)(GetCurrentMilliseconds() / 1000));
         }
 
         public static string ToHex(this byte[] array)

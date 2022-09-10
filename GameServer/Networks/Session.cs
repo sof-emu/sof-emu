@@ -20,6 +20,8 @@ namespace GameServer.Networks
         protected int SendDataSize;
         protected object SendLock = new object();
 
+        public int hash = 0;
+
         public Session(IScsServerClient client, IScsServer channel)
         {
             Client = client;
@@ -36,6 +38,9 @@ namespace GameServer.Networks
         {
             GameMessage message = (GameMessage)e.Message;
             Buffer = message.Data;
+
+            if(hash == 0)
+                hash = message.Hash;
 
             if (OpCodes.Recv.ContainsKey(message.OpCode))
             {

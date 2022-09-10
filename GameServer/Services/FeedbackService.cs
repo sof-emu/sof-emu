@@ -1,17 +1,18 @@
 ﻿using Data.Interfaces;
 using GameServer.Networks;
 using GameServer.Networks.Packets.Response;
+using System;
+using System.Threading.Tasks;
+using Utility;
 
 namespace GameServer.Services
 {
     public class FeedbackService : IService
     {
-        public void OnAuthorized(Session session)
+        public async void OnAuthorized(Session session)
         {
             new ResponseAuth(session.GetAccount())
                 .Send(session);
-
-            SendPlayerLists(session);
         }
 
         public void SendPlayerLists(Session session)
@@ -28,6 +29,17 @@ namespace GameServer.Services
             }
             else*/
                 new ResponsePlayerList().Send(session);
+        }
+
+        public async void CheckNameExist(Session session, string name)
+        {
+            bool isExists = await GameServer
+                .ApiService
+                .CheckNameExist(name);
+
+            Log.Debug($"isExists: {isExists}");
+
+            new ResponseCheckName(name, isExists).Send(session);
         }
     }
 }

@@ -35,5 +35,11 @@ namespace GameServer.Services
             var account = await Client.Get<AccountData>($"/api/account/{username}");
             return account;
         }
+
+        public async Task<bool> CheckNameExist(string name)
+        {
+            bool result = await Client.Get<bool>($"/api/player/{name}/exist");
+            return result;
+        }
     }
 }

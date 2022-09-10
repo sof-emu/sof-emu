@@ -37,7 +37,7 @@ namespace GameServer.Networks.Packets
                             using (BinaryWriter writer = new BinaryWriter(stream, new UTF8Encoding()))
                             {
                                 WriteH(writer, 0); //Reserved for packet length
-                                WriteH(writer, state.hash);
+                                WriteH(writer, state.SessionId); // object uid
                                 WriteH(writer, OpCodes.Send[GetType()]);
                                 WriteH(writer, 0); //Reserved for data length
                                 Write(writer);
@@ -47,7 +47,7 @@ namespace GameServer.Networks.Packets
                             BitConverter.GetBytes((short)(Data.Length - 2)).CopyTo(Data, 0);
                             BitConverter.GetBytes((short)(Data.Length - 8)).CopyTo(Data, 6);
 
-                            // Log.Debug(Data.FormatHex());
+                            //Log.Debug(Data.FormatHex());
                             WriteScope(ref Data);
                         }
                     }
@@ -138,6 +138,14 @@ namespace GameServer.Networks.Packets
         {
             byte[] names = Encoding.Default.GetBytes(text);
             byte[] val = new byte[15];
+            Buffer.BlockCopy(names, 0, val, 0, names.Length);
+            writer.Write(val);
+        }
+        
+        protected void WriteSL(BinaryWriter writer, String text, int length)
+        {
+            byte[] names = Encoding.Default.GetBytes(text);
+            byte[] val = new byte[length];
             Buffer.BlockCopy(names, 0, val, 0, names.Length);
             writer.Write(val);
         }

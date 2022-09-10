@@ -6,9 +6,11 @@
         Swordman = 2,
         Spearman = 3,
         Bowman = 4,
-        Medic = 5,
+        Healer = 5,
         Ninja = 6,
         Busker = 7,
         Hanbi = 8,
+        DamHwalyn = 9,
+        Fighter = 10,
     }
 }

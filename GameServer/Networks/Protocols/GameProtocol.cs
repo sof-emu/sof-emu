@@ -33,21 +33,17 @@ namespace GameServer.Networks.Protocols
             if (Stream.Length < 8)
                 return false;
 
-            byte[] headerBytes = new byte[10];
-            Stream.Read(headerBytes, 0, 10);
+            byte[] headerBytes = new byte[8];
+            Stream.Read(headerBytes, 0, 8);
 
-            uint packSize = BitConverter.ToUInt32(headerBytes, 0);
-            ushort hashCode = BitConverter.ToUInt16(headerBytes, 4);
+            ushort opcode = BitConverter.ToUInt16(headerBytes, 4);
             int length = BitConverter.ToUInt16(headerBytes, 6);
-            ushort opcode = BitConverter.ToUInt16(headerBytes, 8);
 
             if (Stream.Length < length)
                 return false;
 
             GameMessage message = new GameMessage
             {
-                PackSize = (short)packSize,
-                Hash = (short)hashCode,
                 OpCode = (short)opcode,
                 Data = new byte[length]
             };

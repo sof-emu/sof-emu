@@ -24,7 +24,6 @@ namespace GameServer.Networks
         protected int SendDataSize;
         protected object SendLock = new object();
 
-        public int hash = 0;
         protected AccountData account;
         protected Dictionary<int, Player> players;
         protected Player selectedPlayer;
@@ -58,8 +57,8 @@ namespace GameServer.Networks
             GameMessage message = (GameMessage)e.Message;
             Buffer = message.Data;
 
-            if(hash == 0)
-                hash = message.Hash;
+            //if(hash == 0)
+            //    hash = message.Hash;
 
             if (OpCodes.Recv.ContainsKey(message.OpCode))
             {
@@ -116,6 +115,14 @@ namespace GameServer.Networks
                     //Already closed
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public short SessionId
+        {
+            get { return (short)Client.ClientId; }
         }
 
         /// <summary>

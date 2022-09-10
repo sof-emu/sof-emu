@@ -13,11 +13,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for rxjh_game
-CREATE DATABASE IF NOT EXISTS `rxjh_game` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
-USE `rxjh_game`;
+-- Dumping database structure for sof_game
+CREATE DATABASE IF NOT EXISTS `sof_game` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
+USE `sof_game`;
 
--- Dumping structure for table rxjh_game.player
+-- Dumping structure for table sof_game.player
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL,
   `account_id` int(11) NOT NULL,
@@ -33,31 +33,27 @@ CREATE TABLE IF NOT EXISTS `player` (
   `y` float NOT NULL,
   `z` float NOT NULL,
   `money` bigint(20) NOT NULL DEFAULT 0,
-  `title` int(2) DEFAULT NULL,
-  `hp` int(11) DEFAULT NULL,
-  `mp` int(11) DEFAULT NULL,
-  `sp` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name_unique` (`name`) USING BTREE,
   KEY `account_id` (`account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table rxjh_game.player: ~0 rows (approximately)
+-- Dumping data for table sof_game.player: ~0 rows (approximately)
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 
--- Dumping structure for table rxjh_game.player_data
+-- Dumping structure for table sof_game.player_data
 CREATE TABLE IF NOT EXISTS `player_data` (
   `player_id` int(11) NOT NULL,
-  `force` int(2) NOT NULL,
-  `hair_style` int(2) NOT NULL,
-  `hair_color` int(2) NOT NULL,
-  `face` int(2) NOT NULL,
-  `voice` int(2) NOT NULL,
+  `force` int(1) NOT NULL,
+  `hair_style` int(1) NOT NULL,
+  `hair_color` int(1) NOT NULL,
+  `face` int(1) NOT NULL,
+  `voice` int(1) NOT NULL,
   `gender` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- Dumping data for table rxjh_game.player_data: ~0 rows (approximately)
+-- Dumping data for table sof_game.player_data: ~0 rows (approximately)
 /*!40000 ALTER TABLE `player_data` DISABLE KEYS */;
 /*!40000 ALTER TABLE `player_data` ENABLE KEYS */;
 

@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddSingleton<ContainerService>();
 builder.Services.AddScoped<IAccountDataRepository, AccountDataRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
 

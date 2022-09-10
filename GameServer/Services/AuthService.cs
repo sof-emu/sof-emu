@@ -6,7 +6,7 @@ namespace GameServer.Services
 {
     public class AuthService : IService
     {
-        public async void Authenticate(Session session, string username)
+        public async void Authenticate(Session session, string username, string ip, string mac)
         {
             AccountData accountData = await GameServer
                 .ApiService

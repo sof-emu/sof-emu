@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\PlayerClass.cs" />
-    <Compile Include="Enums\StorageType.cs" />
     <Compile Include="Interfaces\IHttpClient.cs" />
     <Compile Include="Interfaces\IModel.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />

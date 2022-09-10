@@ -1,5 +1,6 @@
 ﻿using GameServer.Configs;
 using GameServer.Networks;
+using GameServer.Services;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -13,6 +14,8 @@ namespace GameServer
         public static Server Server;
 
         // Services
+        public static ApiService ApiService;
+        public static AuthService AuthService;
 
         static void Main(string[] args)
         {
@@ -21,10 +24,13 @@ namespace GameServer
             Stopwatch sw = Stopwatch.StartNew();
 
             Config = new Config();
+            
+            // Services
+            ApiService = new ApiService();
+            AuthService = new AuthService();
+
 
             Server = new Server();
-
-            // Services
 
             sw.Stop();
             Thread.Sleep(100);

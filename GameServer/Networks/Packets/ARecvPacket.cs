@@ -129,6 +129,22 @@ namespace GameServer.Networks.Packets
             return result;
         }
 
+        protected String ReadS(int length)
+        {
+            Encoding encoding = Encoding.Default;
+            String result = "";
+            try
+            {
+                byte[] bytes = ReadB(length);
+                result = encoding.GetString(bytes);
+            }
+            catch (Exception)
+            {
+                Log.Warn("Missing S for: {0}", GetType());
+            }
+            return result;
+        }
+
         protected byte[] ReadB(int length)
         {
             byte[] result = new byte[length];

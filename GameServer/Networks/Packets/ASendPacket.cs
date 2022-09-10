@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using Utility;
 
-namespace LobbyServer.Networks
+namespace GameServer.Networks.Packets
 {
     public abstract class ASendPacket : ISendPacket
     {

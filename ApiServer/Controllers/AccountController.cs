@@ -35,24 +35,6 @@ namespace ApiServer.Controllers
         }
 
         /// <summary>
-        /// GET api/<AccountController>/1
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<AccountData> Get(int id)
-        {
-            try
-            {
-                return await _accountRepository.GetAccount(id);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// GET api/<AccountController>/username
         /// </summary>
         /// <param name="username"></param>

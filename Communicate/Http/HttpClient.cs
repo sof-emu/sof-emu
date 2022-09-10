@@ -4,6 +4,7 @@ using RestSharp.Serializers.NewtonsoftJson;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Utility;
 
 namespace Communicate.Http
 {
@@ -28,9 +29,15 @@ namespace Communicate.Http
             return response.Result;
         }
 
-        public async void Post<T>()
+        public async void Post(string path, object body)
         {
+            var request = new RestRequest(path)
+                .AddJsonBody(body);
 
+            var response = await Client
+                .PostAsync(request);
+
+            Log.Debug($"POST Response: {response.Content}");
         }
 
         public void Dispose()

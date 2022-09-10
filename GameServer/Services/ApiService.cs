@@ -1,7 +1,9 @@
 ﻿using Communicate.Http;
 using Data.Interfaces;
+using Data.Models.Account;
 using Data.Models.Server;
 using Nini.Config;
+using System.Threading.Tasks;
 
 namespace GameServer.Services
 {
@@ -14,9 +16,9 @@ namespace GameServer.Services
         {
             ApiConfig = Program.Config["api"].Configs["api"];
 
-            string host = ApiConfig.GetString("api", "host");
-            string port = ApiConfig.GetString("api", "port");
-            string token = ApiConfig.GetString("api", "token");
+            string host = ApiConfig.GetString("host");
+            string port = ApiConfig.GetString("port");
+            string token = ApiConfig.GetString("token");
 
             string baseURL = $"{host}:{port}";
 
@@ -25,7 +27,13 @@ namespace GameServer.Services
 
         public void SendServerInfo(ServerModel server)
         {
-            //
+            Client.Post("/api/server", server);
+        }
+
+        public async Task<AccountData> RequestAccountData(string username)
+        {
+            var account = await Client.Get<AccountData>($"/api/account/{username}");
+            return account;
         }
     }
 }

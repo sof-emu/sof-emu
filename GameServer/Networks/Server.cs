@@ -2,6 +2,7 @@
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.Scs.Server;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Utility;
 
@@ -11,6 +12,7 @@ namespace GameServer.Networks
     {
         protected int ServerId;
         protected string ServerName;
+        protected string ServerAddess;
 
         protected Dictionary<int, ChannelModel> Channels;
         protected Dictionary<string, long> ConnectionTimes;
@@ -19,18 +21,39 @@ namespace GameServer.Networks
 
         public Server()
         {
-            GenerateServer();
-            GenerateChannels();
+            GetServerData();
+            GetChannels();
             Initilize();
+
+            SendServerInfoToApi();
         }
 
-
-        private void GenerateServer()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetServerData()
         {
             // todo server data
+            ServerId = Program
+                .Config["gameserver"]
+                .Configs["server"]
+                .GetInt("id");
+
+            ServerName = Program
+                .Config["gameserver"]
+                .Configs["server"]
+                .GetString("name");
+
+            ServerAddess = Program
+                .Config["gameserver"]
+                .Configs["server"]
+                .GetString("ip");
         }
 
-        private void GenerateChannels()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetChannels()
         {
             Channels = new Dictionary<int, ChannelModel>();
 
@@ -79,6 +102,29 @@ namespace GameServer.Networks
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SendServerInfoToApi()
+        {
+            List<ChannelModel> channels = Channels
+                .Values
+                .ToList();
+
+            ServerModel model = new ServerModel(
+                ServerId,
+                ServerName,
+                ServerAddess,
+                channels);
+
+            Program
+                .ApiService
+                .SendServerInfo(model);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void Initilize()
         {
             ChannelServers = new Dictionary<int, IScsServer>();
@@ -134,7 +180,5 @@ namespace GameServer.Networks
         {
             Log.Info("Client disconnected!");
         }
-
-        
     }
 }

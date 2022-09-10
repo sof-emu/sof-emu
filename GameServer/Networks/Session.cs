@@ -63,5 +63,26 @@ namespace GameServer.Networks
         {
             
         }
+
+        public void SendPacket(byte[] data)
+        {
+            if (SendLock == null)
+                return;
+
+            lock (SendLock)
+            {
+                GameMessage message = new GameMessage { Data = data };
+
+                try
+                {
+                    Log.Debug($"Send Message: {message.Data.FormatHex()}");
+                    Client.SendMessage(message);
+                }
+                catch
+                {
+                    //Already closed
+                }
+            }
+        }
     }
 }

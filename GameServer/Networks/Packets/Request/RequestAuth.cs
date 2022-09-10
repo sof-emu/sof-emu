@@ -10,12 +10,12 @@ namespace GameServer.Networks.Packets.Request
         public override void ExecuteRead()
         {
             unk1 = ReadH(); // 1
-            username = ReadS(22);
+            username = ReadS(22).Replace("\0", "");
         }
 
         public override void Process()
         {
-            Program
+            GameServer
                 .AuthService
                 .Authenticate(session, username);
         }

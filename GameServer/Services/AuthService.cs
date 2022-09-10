@@ -8,7 +8,7 @@ namespace GameServer.Services
     {
         public async void Authenticate(Session session, string username)
         {
-            AccountData accountData = await Program
+            AccountData accountData = await GameServer
                 .ApiService
                 .RequestAccountData(username);
 

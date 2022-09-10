@@ -11,13 +11,16 @@ namespace LobbyServer.Services
         {
         }
 
-        public void Authenticate(Session session, string username, string password)
+        public async void Authenticate(Session session, string username, string password)
         {
-            var account = Program.DBOManager.accountDBO.GetAccountByUsername(username);
+            var account = await LobbyServer
+                .ApiService
+                .RequestAccountData(username);
 
             if (account == null)
             {
                 // todo response account not found
+                new ResponseAuthen(ResponseAuthenType.WrongPassword).Send(session);
             }
 
             string decryptPassword = password.DecryptPassword();

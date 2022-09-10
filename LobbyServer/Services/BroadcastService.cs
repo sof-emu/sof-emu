@@ -19,7 +19,7 @@ namespace LobbyServer.Services
         /// <param name="session"></param>
         public async void SendServerList(Session session)
         {
-            List<ServerModel> servers = await Program.ApiService.RequestServerList();
+            List<ServerModel> servers = await LobbyServer.ApiService.RequestServerList();
 
             new ResponseServerList(servers)
                 .Send(session);
@@ -34,7 +34,7 @@ namespace LobbyServer.Services
         /// <param name="macAddress"></param>
         public async void SelectServerList(Session session, int serverId, int channelId, string macAddress)
         {
-            ServerModel server = await Program
+            ServerModel server = await LobbyServer
                 .ApiService
                 .RequestServer(serverId);
 

@@ -16,7 +16,7 @@
 
         public override void Process()
         {
-            Program
+            LobbyServer
                 .BroadcastService
                 .SelectServerList(
                     session,

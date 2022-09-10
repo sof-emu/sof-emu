@@ -15,7 +15,7 @@ namespace LobbyServer.Networks.Packets
 
         public override void Process()
         {
-            Program
+            LobbyServer
                 .AuthService
                 .Authenticate(session, Username, Password);
         }

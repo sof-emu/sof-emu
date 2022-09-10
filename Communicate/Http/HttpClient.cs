@@ -25,8 +25,8 @@ namespace Communicate.Http
         public async Task<T> Get<T>(string path)
         {
             //var request = new RestRequest(path);
-            var response = Client.GetJsonAsync<T>(path);
-            return response.Result;
+            var response = await Client.GetJsonAsync<T>(path);
+            return response;
         }
 
         public async void Post(string path, object body)

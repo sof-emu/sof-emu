@@ -14,7 +14,7 @@ namespace GameServer.Services
 
         public ApiService()
         {
-            ApiConfig = Program.Config["api"].Configs["api"];
+            ApiConfig = GameServer.Config["api"].Configs["api"];
 
             string host = ApiConfig.GetString("host");
             string port = ApiConfig.GetString("port");

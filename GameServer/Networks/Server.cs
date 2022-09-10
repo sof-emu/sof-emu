@@ -34,17 +34,17 @@ namespace GameServer.Networks
         private void GetServerData()
         {
             // todo server data
-            ServerId = Program
+            ServerId = GameServer
                 .Config["gameserver"]
                 .Configs["server"]
                 .GetInt("id");
 
-            ServerName = Program
+            ServerName = GameServer
                 .Config["gameserver"]
                 .Configs["server"]
                 .GetString("name");
 
-            ServerAddess = Program
+            ServerAddess = GameServer
                 .Config["gameserver"]
                 .Configs["server"]
                 .GetString("ip");
@@ -57,30 +57,30 @@ namespace GameServer.Networks
         {
             Channels = new Dictionary<int, ChannelModel>();
 
-            int channelNumber = Program
+            int channelNumber = GameServer
                 .Config["gameserver"]
                 .Configs["channel"]
                 .GetInt("count");
 
-            string[] channelNames = Program
+            string[] channelNames = GameServer
                 .Config["gameserver"]
                 .Configs["channel"]
                 .GetString("name")
                 .Split(',');
 
-            string[] channelPorts = Program
+            string[] channelPorts = GameServer
                 .Config["gameserver"]
                 .Configs["channel"]
                 .GetString("port")
                 .Split(',');
 
-            string[] channelTypes = Program
+            string[] channelTypes = GameServer
                 .Config["gameserver"]
                 .Configs["channel"]
                 .GetString("type")
                 .Split(',');
 
-            string[] channelMaxPlayers = Program
+            string[] channelMaxPlayers = GameServer
                 .Config["gameserver"]
                 .Configs["channel"]
                 .GetString("max_player")
@@ -117,7 +117,7 @@ namespace GameServer.Networks
                 ServerAddess,
                 channels);
 
-            Program
+            GameServer
                 .ApiService
                 .SendServerInfo(model);
         }

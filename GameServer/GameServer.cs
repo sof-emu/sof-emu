@@ -1,42 +1,45 @@
-﻿using LobbyServer.Database;
-using LobbyServer.Networks;
-using LobbyServer.Services;
+﻿using GameServer.Configs;
+using GameServer.Networks;
+using GameServer.Services;
 using System;
 using System.Diagnostics;
 using System.Threading;
 
-namespace LobbyServer
+namespace GameServer
 {
-    internal class Program
+    internal class GameServer
     {
-        public static DBOManager DBOManager;
+        public static Config Config;
+
+        public static Server Server;
 
         // Services
         public static ApiService ApiService;
         public static AuthService AuthService;
-        public static BroadcastService BroadcastService;
 
         static void Main(string[] args)
         {
-            Console.Title = "SOF-Emu LobbyServer";
+            Console.Title = "SOF-Emu GameServer";
 
             Stopwatch sw = Stopwatch.StartNew();
 
-            DBOManager = new DBOManager();
-
+            Config = new Config();
+            OpCodes.Init();
+            
             // Services
             ApiService = new ApiService();
             AuthService = new AuthService();
-            BroadcastService = new BroadcastService();
 
-            new Server()
-                .BeginListening();
+
+            Server = new Server();
 
             sw.Stop();
             Thread.Sleep(100);
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("           Server start in {0}", (sw.ElapsedMilliseconds / 1000.0).ToString("0.00s"));
             Console.WriteLine("-------------------------------------------");
+
+            Process.GetCurrentProcess().WaitForExit();
 
             Process.GetCurrentProcess().WaitForExit();
         }

@@ -24,7 +24,9 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            
+            GameServer
+                .PlayerService
+                .CreatePlayer(session, Name, playerClass, HairColor, Voice, Gender);
         }
     }
 }

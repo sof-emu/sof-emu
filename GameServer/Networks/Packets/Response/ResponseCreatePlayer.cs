@@ -4,14 +4,16 @@ namespace GameServer.Networks.Packets.Response
 {
     public class ResponseCreatePlayer : ASendPacket
     {
-        public ResponseCreatePlayer()
-        {
+        protected bool IsSuccess;
 
+        public ResponseCreatePlayer(bool success)
+        {
+            IsSuccess = success;
         }
 
         public override void Write(BinaryWriter writer)
         {
-            
+            WriteD(writer, (IsSuccess == true) ? 1 : 0);
         }
     }
 }

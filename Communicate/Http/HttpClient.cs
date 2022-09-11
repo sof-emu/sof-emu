@@ -37,7 +37,7 @@ namespace Communicate.Http
             var response = await Client
                 .PostAsync(request);
 
-            Log.Debug($"POST Response: {response.Content}");
+            //Log.Debug($"POST Response: {response.Content}");
         }
 
         public void Dispose()

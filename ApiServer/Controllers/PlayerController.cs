@@ -1,5 +1,8 @@
 ﻿using ApiServer.Models.Contracts.Databases;
+using Data.Models.Player;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Utility;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,6 +23,18 @@ namespace ApiServer.Controllers
             _playerRepository = playerRepository;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        [HttpGet("account_id/{accountId}")]
+        public List<Player> GetByAccountId(int accountId)
+        {
+            return _playerRepository
+                .GetPlayersByAccountId(accountId);
+        }
+
         // GET api/<PlayerController>/5
         [HttpGet("{name}/exist")]
         public bool Exists(string name)
@@ -29,8 +44,10 @@ namespace ApiServer.Controllers
 
         // POST api/<PlayerController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Player Post([FromBody] Player player)
         {
+            player = _playerRepository.SavePlayer(player);
+            return player;
         }
 
         // PUT api/<PlayerController>/5

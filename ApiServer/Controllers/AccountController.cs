@@ -1,5 +1,5 @@
 ﻿using ApiServer.Models.Contracts.Databases;
-using ApiServer.Models.Account;
+using Data.Models.Account;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -40,11 +40,11 @@ namespace ApiServer.Controllers
         /// <param name="username"></param>
         /// <returns></returns>
         [HttpGet("{username}")]
-        public async Task<AccountData> GetByUsername(string username)
+        public AccountData GetByUsername(string username)
         {
             try
             {
-                return await _accountRepository.GetAccount(username);
+                return _accountRepository.GetAccount(username);
             }
             catch
             {

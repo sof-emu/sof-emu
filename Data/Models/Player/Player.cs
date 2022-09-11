@@ -18,10 +18,14 @@ namespace Data.Models.Player
         public int JobLevel { get; set; }
         public Position Position { get; set; }
         public long Money { get; set; }
+        public int Force { get; set; }
+        public string HairColor { get; set; }
+        public int Face { get; set; }
+        public int Voice { get; set; }
+        public int Gender { get; set; }
         public int Title { get; set; }
 
         private AccountData Account;
-        private PlayerData playerData;
         private ISession Session;
 
         public Player()
@@ -45,24 +49,6 @@ namespace Data.Models.Player
         public AccountData GetAccount()
         {
             return Account;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        public void SetPlayerData(PlayerData data)
-        {
-            playerData = data;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public PlayerData GetPlayerData()
-        {
-            return playerData;
         }
 
         /// <summary>

@@ -10,7 +10,7 @@
         public override void Process()
         {
             GameServer
-                .FeedbackService
+                .PlayerService
                 .SendPlayerLists(session);
         }
     }

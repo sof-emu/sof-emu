@@ -1,4 +1,5 @@
 ﻿using Data.Interfaces;
+using Newtonsoft.Json;
 
 namespace Data.Models
 {
@@ -7,10 +8,12 @@ namespace Data.Models
         /// <summary>
         /// 
         /// </summary>
+        [JsonIgnore]
         public long ObjectId { get; set; }
         /// <summary>
         /// 
         /// </summary>
+        [JsonIgnore]
         public VisibleObject Parent;
         /// <summary>
         /// 

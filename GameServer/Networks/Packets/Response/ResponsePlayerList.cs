@@ -1,5 +1,6 @@
 ﻿using Data.Models.Player;
 using System.IO;
+using Utility;
 
 namespace GameServer.Networks.Packets.Response
 {
@@ -35,18 +36,17 @@ namespace GameServer.Networks.Packets.Response
                 WriteH(writer, 1);
                 WriteH(writer, Player.Level);
 
-                WriteC(writer, (byte)(Player.GetPlayerData().Force));
+                WriteC(writer, (byte)(Player.Force));
                 WriteC(writer, 0); // famous
                 WriteC(writer, (byte)(Player.Job));
 
                 // Appearance
-                WriteC(writer, (byte)(Player.GetPlayerData().HairStyle));
-                WriteC(writer, (byte)(Player.GetPlayerData().HairColor));
-                WriteC(writer, (byte)(Player.GetPlayerData().Face));
-                WriteC(writer, (byte)(Player.GetPlayerData().Voice));
+                WriteB(writer, Player.HairColor.ToBytes());
+                WriteC(writer, (byte)(Player.Face));
+                WriteC(writer, (byte)(Player.Voice));
                 WriteC(writer, 0);
                 WriteC(writer, (byte)(Player.Title));
-                WriteC(writer, (byte)(Player.GetPlayerData().Gender));
+                WriteC(writer, (byte)(Player.Gender));
 
                 WriteF(writer, Player.Position.X);
                 WriteF(writer, Player.Position.Z);

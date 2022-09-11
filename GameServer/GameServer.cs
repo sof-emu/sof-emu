@@ -17,6 +17,7 @@ namespace GameServer
         public static ApiService ApiService;
         public static AuthService AuthService;
         public static FeedbackService FeedbackService;
+        public static PlayerService PlayerService;
 
         static void Main(string[] args)
         {
@@ -31,8 +32,9 @@ namespace GameServer
             ApiService = new ApiService();
             AuthService = new AuthService();
             FeedbackService = new FeedbackService();
+            PlayerService = new PlayerService();
 
-
+            // Main
             Server = new Server();
 
             sw.Stop();

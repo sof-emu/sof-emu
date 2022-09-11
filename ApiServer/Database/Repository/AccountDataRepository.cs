@@ -1,6 +1,6 @@
-﻿using ApiServer.Models.Account;
-using ApiServer.Models.Contracts.Databases;
-using Dapper;
+﻿using ApiServer.Models.Contracts.Databases;
+using Data.Models.Account;
+using SqlKata.Execution;
 
 namespace ApiServer.Database.Repository
 {
@@ -21,13 +21,12 @@ namespace ApiServer.Database.Repository
         /// Get All AccountData in tables
         /// </summary>
         /// <returns>List of account data</returns>
-        public async Task<IEnumerable<AccountData>> GetAccounts()
+        public IEnumerable<AccountData> GetAccounts()
         {
-            var query = "SELECT * FROM account_data";
-            using (var connection = _context.CreateConnection("account"))
+            using (var db = _context.GetQueryFactory("account"))
             {
-                var accounts = await connection.QueryAsync<AccountData>(query);
-                return accounts.ToList();
+                var accounts = db.Query("account_data").Get<AccountData>();
+                return accounts;
             }
         }
 
@@ -36,12 +35,14 @@ namespace ApiServer.Database.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<AccountData> GetAccount(int id)
+        public AccountData GetAccount(int id)
         {
-            var query = "SELECT * FROM account_data WHERE id = @Id";
-            using (var connection = _context.CreateConnection("account"))
+            using (var db = _context.GetQueryFactory("account"))
             {
-                var result = await connection.QuerySingleOrDefaultAsync<AccountData>(query, new { id });
+                var result = db.Query("account_data")
+                    .Where("id", id)
+                    .FirstOrDefault<AccountData>();
+
                 return result;
             }
         }
@@ -51,12 +52,14 @@ namespace ApiServer.Database.Repository
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public async Task<AccountData> GetAccount(string username)
+        public AccountData GetAccount(string username)
         {
-            var query = "SELECT * FROM account_data WHERE username = @Username";
-            using (var connection = _context.CreateConnection("account"))
+            using (var db = _context.GetQueryFactory("account"))
             {
-                var result = await connection.QuerySingleOrDefaultAsync<AccountData>(query, new { username });
+                var result = db.Query("account_data")
+                    .Where("username", username)
+                    .FirstOrDefault<AccountData>();
+
                 return result;
             }
         }
@@ -67,10 +70,12 @@ namespace ApiServer.Database.Repository
         /// <returns></returns>
         public int GetCount()
         {
-            var query = "SELECT COUNT(*) FROM account_data";
-            using (var connection = _context.CreateConnection("account"))
+            using (var db = _context.GetQueryFactory("account"))
             {
-                var count = connection.ExecuteScalar<int>(query);
+                var count = db.Query("account_data")
+                    .Get()
+                    .Count();
+
                 return count;
             }
         }

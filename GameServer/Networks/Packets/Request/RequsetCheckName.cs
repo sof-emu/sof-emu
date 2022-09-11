@@ -12,7 +12,7 @@
         public override void Process()
         {
             GameServer
-                .FeedbackService
+                .PlayerService
                 .CheckNameExist(session, Name);
         }
     }

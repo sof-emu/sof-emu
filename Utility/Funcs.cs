@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Globalization;
 using System.Text;
+using System.Xml;
 
 namespace Utility
 {
@@ -11,10 +13,10 @@ namespace Utility
         private static readonly string[] Baths;
 
         private static byte[] PwdCryptKeys = new byte[12]
-                {
-                    170, 171, 172, 173, 174, 175, 186, 187, 188, 189,
-                    190, 191
-                };
+        {
+            170, 171, 172, 173, 174, 175, 186, 187, 188, 189,
+            190, 191
+        };
 
         private static readonly Random Randomizer = new Random((int)DateTime.Now.Ticks);
 
@@ -25,13 +27,20 @@ namespace Utility
                 Baths[i] = String.Format("{0:X2}", i);
         }
 
-        
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static Random Random()
         {
             return Randomizer;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="len"></param>
+        /// <returns></returns>
         public static byte[] NextBytes(int len)
         {
             byte[] rand = new byte[len];
@@ -39,16 +48,29 @@ namespace Utility
             return rand;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static long GetCurrentMilliseconds()
         {
             return (long)(DateTime.UtcNow - StaticDate).TotalMilliseconds;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static int GetRoundedLocal()
         {
             return (int)Math.Round((double)(GetCurrentMilliseconds() / 1000));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
         public static string ToHex(this byte[] array)
         {
             StringBuilder builder = new StringBuilder(array.Length * 2);
@@ -59,6 +81,11 @@ namespace Utility
             return builder.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string FormatHex(this byte[] data)
         {
             StringBuilder builder = new StringBuilder(data.Length * 4);
@@ -94,6 +121,11 @@ namespace Utility
             return builder.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hexString"></param>
+        /// <returns></returns>
         public static byte[] ToBytes(this String hexString)
         {
             try
@@ -115,6 +147,11 @@ namespace Utility
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="encpwd"></param>
+        /// <returns></returns>
         public static string DecryptPassword(this string encpwd)
         {
             int keyIndex = Convert.ToInt32(encpwd.Remove(2, encpwd.Length - 2), 16);
@@ -129,6 +166,18 @@ namespace Utility
                 .ToLower();
 
             return decPwd.Substring(2, decPwd.Length - 4);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jsonstr"></param>
+        /// <returns></returns>
+        public static string PrintJson(this string jsonstr)
+        {
+            return JValue
+                .Parse(jsonstr)
+                .ToString(Newtonsoft.Json.Formatting.Indented);
         }
     }
 }

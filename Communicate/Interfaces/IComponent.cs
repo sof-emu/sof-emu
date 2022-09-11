@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Interfaces
+namespace Communicate.Interfaces
 {
-    internal interface IModel
+    public interface IComponent
     {
+        void Action();
     }
 }

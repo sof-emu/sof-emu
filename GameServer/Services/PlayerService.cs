@@ -1,14 +1,15 @@
-﻿using Data.Enums;
+﻿using Communicate;
+using Communicate.Interfaces;
+using Data.Enums;
 using Data.Interfaces;
 using Data.Models.Player;
-using GameServer.Networks;
 using GameServer.Networks.Packets.Response;
 using Newtonsoft.Json;
 using Utility;
 
 namespace GameServer.Services
 {
-    public class PlayerService : IService
+    public class PlayerService : IPlayerService
     {
 
         public PlayerService()
@@ -20,7 +21,7 @@ namespace GameServer.Services
         /// 
         /// </summary>
         /// <param name="session"></param>
-        public void SendPlayerLists(Session session)
+        public void SendPlayerLists(ISession session)
         {
             if (session.GetPlayers().Count > 0)
             {
@@ -40,9 +41,9 @@ namespace GameServer.Services
         /// </summary>
         /// <param name="session"></param>
         /// <param name="name"></param>
-        public async void CheckNameExist(Session session, string name)
+        public async void CheckNameExist(ISession session, string name)
         {
-            bool isExists = await GameServer
+            bool isExists = await Global
                 .ApiService
                 .CheckNameExist(name);
 
@@ -59,7 +60,7 @@ namespace GameServer.Services
         /// <param name="hairColor"></param>
         /// <param name="voice"></param>
         /// <param name="gender"></param>
-        public async void CreatePlayer(Session session, string name, PlayerClass playerClass, string hairColor, int voice, int gender)
+        public async void CreatePlayer(ISession session, string name, PlayerClass playerClass, string hairColor, int voice, int gender)
         {
             Player player = new Player();
             player.Name = name;
@@ -84,13 +85,37 @@ namespace GameServer.Services
             var jsonStr = JsonConvert.SerializeObject(player);
             Log.Debug(jsonStr.PrintJson());
 
-            player = await GameServer
+            player = await Global
                 .ApiService
                 .SendCreatePlayer(player);
 
-            GameServer
+            Global
                 .FeedbackService
                 .OnCreatePlayerResult(session, player);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="setting"></param>
+        public void SetPlayerSetting(ISession session, PlayerSetting setting)
+        {
+            session
+                .GetSelectedPlayer()
+                .SetSetting(setting);
+
+            // todo
+            // send broadcast player data
+            // send broadcast equipment data & effect
+            // send broadcast skill and status
+            // send broadcast Update Qigong
+            // send update world time
+        }
+
+        public void Action()
+        {
+
         }
     }
 }

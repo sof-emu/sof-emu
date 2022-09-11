@@ -5,7 +5,7 @@ using Utility;
 
 namespace LobbyServer.Services
 {
-    public class AuthService : IService
+    public class AuthService
     {
         public AuthService()
         {

@@ -6,7 +6,7 @@ using Utility;
 
 namespace LobbyServer.Networks
 {
-    public abstract class ASendPacket : ISendPacket
+    public abstract class ASendPacket
     {
 
         protected byte[] Data;

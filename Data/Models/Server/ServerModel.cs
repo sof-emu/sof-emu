@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Data.Models.Server
 {
-    public class ServerModel : IModel
+    public class ServerModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

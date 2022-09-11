@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Communicate;
+using System;
 
 namespace GameServer.Networks.Packets.Request
 {
@@ -19,7 +20,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            GameServer
+            Global
                 .AuthService
                 .Authenticate(session, Username, IpAddress, MacAddress);
         }

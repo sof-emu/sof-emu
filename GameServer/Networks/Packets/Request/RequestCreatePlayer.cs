@@ -1,4 +1,5 @@
-﻿using Data.Enums;
+﻿using Communicate;
+using Data.Enums;
 using Utility;
 
 namespace GameServer.Networks.Packets.Request
@@ -24,7 +25,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            GameServer
+            Global
                 .PlayerService
                 .CreatePlayer(session, Name, playerClass, HairColor, Voice, Gender);
         }

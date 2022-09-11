@@ -1,17 +1,16 @@
-﻿using Data.Interfaces;
+﻿using Communicate.Interfaces;
 using Data.Models.Account;
 using Data.Models.Player;
 using Data.Models.Server;
 using Nini.Config;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GameServer.Services
 {
-    public class ApiService : IService
+    public class ApiService : IApiService
     {
         protected RestClient Client;
         protected IConfig ApiConfig;
@@ -94,6 +93,11 @@ namespace GameServer.Services
             var list = await Client.GetAsync<List<Player>>(request);
 
             return list;
+        }
+
+        public void Action()
+        {
+            
         }
     }
 }

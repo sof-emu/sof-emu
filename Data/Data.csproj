@@ -76,16 +76,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\PlayerClass.cs" />
-    <Compile Include="Interfaces\IHttpClient.cs" />
-    <Compile Include="Interfaces\IModel.cs" />
+    <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
     <Compile Include="Interfaces\ISendPacket.cs" />
-    <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IVisible.cs" />
     <Compile Include="Models\Account\AccountData.cs" />
     <Compile Include="Models\Creature\Creature.cs" />
     <Compile Include="Models\Player\Player.cs" />
+    <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
     <Compile Include="Models\VisibleObject.cs" />

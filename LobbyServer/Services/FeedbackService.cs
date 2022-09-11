@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace LobbyServer.Services
 {
-    public class FeedbackService : IService
+    public class FeedbackService
     {
         public FeedbackService()
         {

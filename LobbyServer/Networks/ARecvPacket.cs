@@ -6,7 +6,7 @@ using Utility;
 
 namespace LobbyServer.Networks
 {
-    public abstract class ARecvPacket : IRecvPacket
+    public abstract class ARecvPacket
     {
         public BinaryReader Reader;
         public Session session;

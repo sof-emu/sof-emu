@@ -4,7 +4,7 @@ using Data.Models.World;
 
 namespace Data.Models.Player
 {
-    public class Player : Creature.Creature
+    public class Player : Creature.Creature, IPlayer
     {
         public int Id { get; set; }
         public int AccountId { get; set; }
@@ -27,6 +27,7 @@ namespace Data.Models.Player
 
         private AccountData Account;
         private ISession Session;
+        private PlayerSetting Setting;
 
         public Player()
         {
@@ -67,6 +68,24 @@ namespace Data.Models.Player
         public ISession GetSession()
         {
             return Session;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="setting"></param>
+        public void SetSetting(PlayerSetting setting)
+        {
+            Setting = setting;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public PlayerSetting GetSetting()
+        {
+            return Setting;
         }
     }
 }

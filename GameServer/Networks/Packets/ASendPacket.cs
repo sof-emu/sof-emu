@@ -12,7 +12,7 @@ namespace GameServer.Networks.Packets
         protected byte[] Data;
         protected object WriteLock = new object();
 
-        public void Send(Session state)
+        public void Send(ISession state)
         {
             if (state == null)
                 return;

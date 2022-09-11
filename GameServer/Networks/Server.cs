@@ -1,4 +1,5 @@
-﻿using Data.Models.Server;
+﻿using Communicate;
+using Data.Models.Server;
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.Scs.Server;
 using System.Collections.Generic;
@@ -117,7 +118,7 @@ namespace GameServer.Networks
                 ServerAddess,
                 channels);
 
-            GameServer
+            Global
                 .ApiService
                 .SendServerInfo(model);
         }

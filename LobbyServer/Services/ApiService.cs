@@ -1,9 +1,8 @@
-﻿using Communicate.Http;
-using Data.Interfaces;
-using Data.Models.Account;
+﻿using Data.Models.Account;
 using Data.Models.Server;
+using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LobbyServer.Services
@@ -13,7 +12,7 @@ namespace LobbyServer.Services
         /// <summary>
         /// 
         /// </summary>
-        protected HttpClient Client;
+        protected RestClient Client;
 
         /// <summary>
         /// 
@@ -24,9 +23,12 @@ namespace LobbyServer.Services
             string port = Configs.Config.GetString("api", "port");
             string token = Configs.Config.GetString("api", "token");
 
-            string baseURL = $"{host}:{port}";
-
-            Client = new HttpClient(baseURL, token);
+            Client = new RestClient($"{host}:{port}");
+            Client.UseNewtonsoftJson();
+            Client.AddDefaultHeaders(new Dictionary<string, string>()
+            {
+                {"x-api-token", token}
+            });
         }
 
         /// <summary>
@@ -36,8 +38,9 @@ namespace LobbyServer.Services
         /// <returns></returns>
         public async Task<AccountData> RequestAccountData(string username)
         {
-            var account = await Client.Get<AccountData>($"/api/account/{username}");
-            return account;
+            var request = new RestRequest($"/api/account/{username}");
+            AccountData accountData = await Client.GetAsync<AccountData>(request);
+            return accountData;
         }
 
         /// <summary>
@@ -46,8 +49,10 @@ namespace LobbyServer.Services
         /// <returns></returns>
         public async Task<List<ServerModel>> RequestServerList()
         {
-            List<ServerModel> list = await  Client.Get<List<ServerModel>>("/api/server");
-            return list.ToList();
+            var request = new RestRequest("/api/server");
+            var list = await Client.GetAsync<List<ServerModel>>(request);
+
+            return list;
         }
 
         /// <summary>
@@ -57,8 +62,10 @@ namespace LobbyServer.Services
         /// <returns></returns>
         public async Task<ServerModel> RequestServer(int serverId)
         {
-            return await Client
-                .Get<ServerModel>($"/api/server/{serverId}");
+            var request = new RestRequest($"/api/server/{serverId}");
+            var server = await Client.GetAsync<ServerModel>(request);
+
+            return server;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Data.Interfaces;
+﻿using Communicate.Interfaces;
+using Data.Interfaces;
 using Data.Models.Player;
 using GameServer.Networks;
 using GameServer.Networks.Packets.Response;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameServer.Services
 {
-    public class FeedbackService : IService
+    public class FeedbackService : IFeedbackService
     {
-        public void OnAuthorized(Session session)
+        public void OnAuthorized(ISession session)
         {
             new ResponseAuth(session.GetAccount())
                 .Send(session);
@@ -19,7 +20,7 @@ namespace GameServer.Services
         /// </summary>
         /// <param name="session"></param>
         /// <param name="player"></param>
-        public void OnCreatePlayerResult(Session session, Player player)
+        public void OnCreatePlayerResult(ISession session, Player player)
         {
             if(player != null)
             {
@@ -38,6 +39,11 @@ namespace GameServer.Services
             else
                 new ResponseCreatePlayer(false)
                     .Send(session);
+        }
+
+        public void Action()
+        {
+            
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Data.Models.Account
 {
-    public class AccountData : IModel
+    public class AccountData
     {
         public int Id { get; set; }
         public string Username { get; set; }

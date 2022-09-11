@@ -93,7 +93,9 @@
     <Compile Include="Networks\Packets\ASendPacket.cs" />
     <Compile Include="Networks\Packets\Request\RequestAuth.cs" />
     <Compile Include="Networks\Packets\Request\RequestCreatePlayer.cs" />
+    <Compile Include="Networks\Packets\Request\RequestPing.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayerList.cs" />
+    <Compile Include="Networks\Packets\Request\RequestSettingOption.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Request\RequsetCheckName.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Networks\Packets\Response\ResponseCheckName.cs" />
     <Compile Include="Networks\Packets\Response\ResponseCreatePlayer.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerList.cs" />
+    <Compile Include="Networks\Packets\Response\ResponsePong.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyVersion.cs" />
     <Compile Include="Networks\Protocols\GameProtocol.cs" />

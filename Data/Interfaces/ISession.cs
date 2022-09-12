@@ -11,9 +11,11 @@ namespace Data.Interfaces
         AccountData GetAccount();
         void SetAccount(AccountData account);
         List<Player> GetPlayers();
-        Player GetPlayer(int id);
+        Player GetPlayer(int index);
         void AddPlayer(Player player);
         void SetSelectPlayer(Player player);
         Player GetSelectedPlayer();
+        void SetSetting(SettingOption setting);
+        SettingOption GetSetting();
     }
 }

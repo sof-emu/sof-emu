@@ -17,6 +17,7 @@ namespace Data.Models.Player
         public int Job { get; set; }
         public int JobLevel { get; set; }
         public Position Position { get; set; }
+        public Position LastPostion { get; set; }
         public long Money { get; set; }
         public int Force { get; set; }
         public string HairColor { get; set; }
@@ -31,7 +32,13 @@ namespace Data.Models.Player
 
         public Player()
         {
-
+            LastPostion = new Position()
+            {
+                X = 0,
+                Y = 0,
+                Z = 0,
+                MapId = 0
+            };
         }
 
         /// <summary>

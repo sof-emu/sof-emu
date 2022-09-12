@@ -1,9 +1,9 @@
 ﻿using Communicate;
+using Communicate.Logics;
 using GameServer.Configs;
 using GameServer.Networks;
 using GameServer.Services;
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using Utility;
@@ -16,6 +16,10 @@ namespace GameServer
 
         public static Server Server;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Console.Title = "SOF-Emu GameServer";
@@ -35,9 +39,12 @@ namespace GameServer
 
             StopServer();
 
-            Process.GetCurrentProcess().Kill();
+            Process.GetCurrentProcess().WaitForExit();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static void RunServer()
         {
             Stopwatch sw = Stopwatch.StartNew();
@@ -47,11 +54,15 @@ namespace GameServer
             OpCodes.Init();
 
             // Services
+            AccountService = new AccountService();
             ApiService = new ApiService();
             AuthService = new AuthService();
             FeedbackService = new FeedbackService();
+            MapService = new MapService();
             PlayerService = new PlayerService();
+            VisibleService = new VisibleService();
 
+            GlobalLogic.ServerStart();
 
             Server = new Server();
 
@@ -62,8 +73,12 @@ namespace GameServer
             Console.WriteLine("-------------------------------------------");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static void StopServer()
         {
+            // todo
         }
 
         /// <summary>

@@ -8,7 +8,8 @@ namespace Communicate.Interfaces
     {
         void CheckNameExist(ISession session, string name);
         void CreatePlayer(ISession session, string name, PlayerClass playerClass, string hairColor, int voice, int gender);
+        void EnterWorld(Player player);
+        void OnUpdateSetting(ISession session);
         void SendPlayerLists(ISession session);
-        void SetPlayerSetting(ISession session, PlayerSetting setting);
     }
 }

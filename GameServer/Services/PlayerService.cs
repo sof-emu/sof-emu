@@ -25,7 +25,6 @@ namespace GameServer.Services
         {
             if (session.GetPlayers().Count > 0)
             {
-                int seq = 0;
                 session.GetPlayers().ForEach(player =>
                 {
                     new ResponsePlayerList(player).Send(session);
@@ -98,19 +97,18 @@ namespace GameServer.Services
         /// 
         /// </summary>
         /// <param name="session"></param>
-        /// <param name="setting"></param>
-        public void SetPlayerSetting(ISession session, PlayerSetting setting)
+        public void OnUpdateSetting(ISession session)
         {
-            session
-                .GetSelectedPlayer()
-                .SetSetting(setting);
+            var player = session
+                    .GetSelectedPlayer();
+            Global
+                .VisibleService
+                .Send(player, new ResponsePlayerInfo(player));
+        }
 
+        public void EnterWorld(Player player)
+        {
             // todo
-            // send broadcast player data
-            // send broadcast equipment data & effect
-            // send broadcast skill and status
-            // send broadcast Update Qigong
-            // send update world time
         }
 
         public void Action()

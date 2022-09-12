@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Data.Models.World;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Data.Models.Creature
@@ -7,5 +8,17 @@ namespace Data.Models.Creature
     {
         [JsonIgnore]
         public List<Player.Player> VisiblePlayers = new List<Player.Player>();
+
+        private MapInstance Map;
+
+        public MapInstance GetMap()
+        {
+            return Map;
+        }
+
+        public void SetMap(MapInstance map)
+        {
+            Map = map;
+        }
     }
 }

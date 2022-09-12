@@ -20,6 +20,7 @@ namespace GameServer.Networks
             Recv.Add(unchecked((short)0x0001), typeof(RequestAuth));
             Recv.Add(unchecked((short)0x0010), typeof(RequestPlayerList));
             Recv.Add(unchecked((short)0x0014), typeof(RequestCreatePlayer));
+            Recv.Add(unchecked((short)0x0016), typeof(RequestSettingOption));
             Recv.Add(unchecked((short)0x00B0), typeof(RequestPing));
             Recv.Add(unchecked((short)0x0038), typeof(RequsetCheckName));
             Recv.Add(unchecked((short)0x0344), typeof(RequestVerifyLogin));

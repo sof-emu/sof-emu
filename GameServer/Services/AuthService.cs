@@ -10,8 +10,6 @@ namespace GameServer.Services
 {
     public class AuthService : IAuthService
     {
-        
-
         public async void Authenticate(ISession session, string username, string ip, string mac)
         {
             AccountData accountData = await Global
@@ -30,6 +28,7 @@ namespace GameServer.Services
 
             playerList.ForEach(player =>
             {
+                player.SetSession(session);
                 session.AddPlayer(player);
             });
 

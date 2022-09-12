@@ -82,12 +82,14 @@
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IVisible.cs" />
     <Compile Include="Models\Account\AccountData.cs" />
+    <Compile Include="Models\Account\SettingOption.cs" />
     <Compile Include="Models\Creature\Creature.cs" />
     <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
     <Compile Include="Models\VisibleObject.cs" />
+    <Compile Include="Models\World\MapInstance.cs" />
     <Compile Include="Models\World\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

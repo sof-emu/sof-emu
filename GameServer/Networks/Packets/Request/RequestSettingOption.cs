@@ -1,4 +1,6 @@
 ﻿using Communicate;
+using Communicate.Logics;
+using Data.Models.Account;
 using Data.Models.Player;
 using GameServer.Services;
 using Utility;
@@ -50,24 +52,23 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            PlayerSetting setting = new PlayerSetting()
+            SettingOption setting = new SettingOption()
             {
-                Partyable = Partyable,
-                Tradeable = Tradeable,
-                CanWhisper = CanWhisper,
-                CostumeType = CostumeType,
-                WeaponSwitch = WeaponSwitch,
-                HairSwitch = HairSwitch,
-                FameSwitch = FameSwitch,
-                SearchSwitch = SearchSwitch,
-                ConfestionSwitch = ConfestionSwitch,
-                VegetableWeaponSwitch = VegetableWeaponSwitch,
+                Party = Partyable,
+                Trade = Tradeable,
+                Whisper = CanWhisper,
+                Costume = CostumeType,
+                Weapon = WeaponSwitch,
+                Hair = HairSwitch,
+                Fame = FameSwitch,
+                Search = SearchSwitch,
+                Confestion = ConfestionSwitch,
+                FancyWeapon = VegetableWeaponSwitch,
                 PetExp = PetExp,
             };
 
-            Global
-                .PlayerService
-                .SetPlayerSetting(session, setting);
+            PlayerLogic
+                .OptionSetting(session, setting);
         }
     }
 }

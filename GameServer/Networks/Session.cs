@@ -27,6 +27,7 @@ namespace GameServer.Networks
         protected AccountData account;
         protected Dictionary<int, Player> players;
         protected Player selectedPlayer;
+        protected SettingOption setting;
 
         /// <summary>
         /// 
@@ -159,9 +160,9 @@ namespace GameServer.Networks
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Player</returns>
-        public Player GetPlayer(int id)
+        public Player GetPlayer(int index)
         {
-            return players[id];
+            return players[index];
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace GameServer.Networks
         /// <param name="player"></param>
         public void AddPlayer(Player player)
         {
-            players.Add(player.Id, player);
+            players.Add(player.Index, player);
         }
 
         /// <summary>
@@ -189,6 +190,24 @@ namespace GameServer.Networks
         public Player GetSelectedPlayer()
         {
             return selectedPlayer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="setting"></param>
+        public void SetSetting(SettingOption setting)
+        {
+            this.setting = setting;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public SettingOption GetSetting()
+        {
+            return setting;
         }
     }
 }

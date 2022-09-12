@@ -1,4 +1,6 @@
-﻿namespace GameServer.Networks.Packets.Request
+﻿using Communicate;
+
+namespace GameServer.Networks.Packets.Request
 {
     public class RequestPlayerList : ARecvPacket
     {
@@ -9,7 +11,7 @@
 
         public override void Process()
         {
-            GameServer
+            Global
                 .PlayerService
                 .SendPlayerLists(session);
         }

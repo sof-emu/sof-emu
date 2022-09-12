@@ -1,7 +1,6 @@
 ﻿using Communicate.Interfaces;
-using Data.Interfaces;
-using System.Threading;
 using System;
+using System.Threading;
 using Utility;
 
 namespace Communicate
@@ -9,15 +8,26 @@ namespace Communicate
     public class Global
     {
         // Services
+        public static IAccountService AccountService;
         public static IApiService ApiService;
         public static IAuthService AuthService;
         public static IFeedbackService FeedbackService;
+        public static IMapService MapService;
         public static IPlayerService PlayerService;
+        public static IVisibleService VisibleService;
 
         // Engines
 
 
+        //
         protected static bool ServerIsWork = true;
+        protected static Thread MapServiceLoopThread;
+
+        public static void InitMainLoop()
+        {
+            MapServiceLoopThread = new Thread(MapServiceLoop);
+            MapServiceLoopThread.Start();
+        }
 
         protected static void MainLoop()
         {
@@ -26,8 +36,10 @@ namespace Communicate
                 try
                 {
                     //Services:
-
+                    AccountService.Action();
+                    ApiService.Action();
                     FeedbackService.Action();
+                    MapService.Action();
                     PlayerService.Action();
 
                     //Engines:
@@ -41,6 +53,23 @@ namespace Communicate
                 }
 
                 Thread.Sleep(10);
+            }
+        }
+
+        protected static void MapServiceLoop()
+        {
+            while (true)
+            {
+                try
+                {
+                    MapService.Action();
+                }
+                catch (Exception ex)
+                {
+                    Log.ErrorException("MapServiceLoop:", ex);
+                }
+
+                Thread.Sleep(1);
             }
         }
     }

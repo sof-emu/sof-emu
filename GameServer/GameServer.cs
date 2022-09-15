@@ -63,6 +63,7 @@ namespace GameServer
             VisibleService = new VisibleService();
 
             GlobalLogic.ServerStart();
+            Console.WriteLine("\n-------------------------------------------\n");
 
             Server = new Server();
 

@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
+    <Compile Include="Models\Template\Item\ItemTemplate.cs" />
     <Compile Include="Models\VisibleObject.cs" />
     <Compile Include="Models\World\MapInstance.cs" />
     <Compile Include="Models\World\Position.cs" />
@@ -97,6 +99,11 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{13dfc375-6152-4263-8f7d-3b6b0b789976}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

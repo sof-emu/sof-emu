@@ -4,6 +4,8 @@
     {
         public static void ServerStart()
         {
+            Data.Data.LoadAll();
+
             MapService.Init();
 
             InitMainLoop();

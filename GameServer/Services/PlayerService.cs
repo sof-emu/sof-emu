@@ -101,6 +101,7 @@ namespace GameServer.Services
         {
             var player = session
                     .GetSelectedPlayer();
+
             Global
                 .VisibleService
                 .Send(player, new ResponsePlayerInfo(player));

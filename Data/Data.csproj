@@ -85,11 +85,13 @@
     <Compile Include="Models\Account\AccountData.cs" />
     <Compile Include="Models\Account\SettingOption.cs" />
     <Compile Include="Models\Creature\Creature.cs" />
+    <Compile Include="Models\Npc\Npc.cs" />
     <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
     <Compile Include="Models\Template\Item\ItemTemplate.cs" />
+    <Compile Include="Models\Template\World\MapTemplate.cs" />
     <Compile Include="Models\VisibleObject.cs" />
     <Compile Include="Models\World\MapInstance.cs" />
     <Compile Include="Models\World\Position.cs" />

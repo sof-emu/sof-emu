@@ -9,7 +9,7 @@ namespace Data.Models
         /// 
         /// </summary>
         [JsonIgnore]
-        public long ObjectId { get; set; }
+        public int ObjectId { get; set; }
         /// <summary>
         /// 
         /// </summary>

@@ -178,5 +178,22 @@ namespace Utility
                 .Parse(jsonstr)
                 .ToString(Newtonsoft.Json.Formatting.Indented);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="search"></param>
+        /// <param name="replace"></param>
+        /// <returns></returns>
+        public static string ReplaceFirst(this string text, string search, string replace)
+        {
+            int pos = text.IndexOf(search);
+            if (pos < 0)
+            {
+                return text;
+            }
+            return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
+        }
     }
 }

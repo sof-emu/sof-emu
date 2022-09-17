@@ -1,4 +1,5 @@
 ﻿using Data.Models.Template.Item;
+using Data.Models.Template.World;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Utility;
+using File = System.IO.File;
 
 namespace Data
 {
@@ -13,13 +15,13 @@ namespace Data
     {
         public static string DataPath = Path.GetFullPath("Data");
 
-        public static Dictionary<long, ItemTemplate> ItemTemplates = new Dictionary<long, ItemTemplate>();
+        public static Dictionary<long, MapTemplate> MapTemplates;
+        public static Dictionary<long, ItemTemplate> ItemTemplates;
 
         protected delegate int Loader();
-
         protected static List<Loader> Loaders = new List<Loader>
                                                     {
-                                                        //LoadMapTemplates,
+                                                        LoadMapTemplates,
                                                         //LoadPlayerExperience,
                                                         //LoadBaseStats,
                                                         LoadItemTemplates,
@@ -66,18 +68,37 @@ namespace Data
         /// 
         /// </summary>
         /// <returns></returns>
+        public static int LoadMapTemplates()
+        {
+            MapTemplates = new Dictionary<long, MapTemplate>();
+
+            string[] files = Directory.GetFiles(Path.Combine(DataPath, "Maps"));
+            foreach (string file in files)
+            {
+                string jsonStr = File.ReadAllText(file);
+                MapTemplate mapTemplate = JsonConvert.DeserializeObject<MapTemplate>(jsonStr);
+                MapTemplates.Add(mapTemplate.Id, mapTemplate);
+            }
+
+            return MapTemplates.Count;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static int LoadItemTemplates()
         {
             ItemTemplates = new Dictionary<long, ItemTemplate>();
 
             string[] files = Directory.GetFiles(Path.Combine(DataPath, "Items"));
+
             foreach (string file in files)
             {
-                string jsonStr = File.ReadAllText(Path.Combine(DataPath + "/Items/", file));
+                string jsonStr = File.ReadAllText(file);
                 ItemTemplate itemTemplate = JsonConvert.DeserializeObject<ItemTemplate>(jsonStr);
                 ItemTemplates.Add(itemTemplate.Id, itemTemplate);
             }
-
             return ItemTemplates.Count;
         }
     }

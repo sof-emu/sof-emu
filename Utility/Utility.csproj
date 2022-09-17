@@ -51,7 +51,9 @@
   <ItemGroup>
     <Compile Include="DelayedAction.cs" />
     <Compile Include="Funcs.cs" />
+    <Compile Include="IdFactory.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="ProgressBar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

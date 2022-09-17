@@ -18,7 +18,7 @@ namespace GameServer.Networks.Packets.Response
         {
             WriteD(writer, 1);
 
-            WriteD(writer, (int)Player.ObjectId);
+            WriteD(writer, (int)Player.GetSession().SessionId);
             WriteSN(writer, Player.Name);
             WriteC(writer, 0);
 

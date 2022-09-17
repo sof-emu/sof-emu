@@ -3,6 +3,7 @@ using Data.Models.Creature;
 using Data.Models.Player;
 using Data.Models.World;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameServer.Services
 {
@@ -21,6 +22,14 @@ namespace GameServer.Services
             // todo: Start Map Instance from map data templater
             // load map data from json
             // load spawn templater
+            var list = Data.Data.MapTemplates.Values.ToList();
+            list.ForEach(map =>
+            {
+                MapInstance mapInstance = new MapInstance();
+                mapInstance.Template = map;
+
+                Maps.Add(map.Id, mapInstance);
+            });
         }
 
         public void EnterWorld(Player player)
@@ -29,7 +38,6 @@ namespace GameServer.Services
                 lock (MapLock)
                     Maps.Add(player.Position.MapId, new MapInstance());
 
-            
             MapInstance map = Maps[player.Position.MapId];
             SpawnCreature(player, map);
 
@@ -43,7 +51,7 @@ namespace GameServer.Services
                 lock (map.CreaturesLock)
                 {
                     if (creature is Player)
-                        map.Players.Add((Player)creature);
+                        map.AddCreature((Player)creature);
                 }
 
                 creature.SetMap(map);

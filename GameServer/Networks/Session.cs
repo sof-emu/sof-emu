@@ -24,6 +24,8 @@ namespace GameServer.Networks
         protected int SendDataSize;
         protected object SendLock = new object();
 
+        protected int _sessionId;
+
         protected AccountData account;
         protected Dictionary<int, Player> players;
         protected Player selectedPlayer;
@@ -38,6 +40,11 @@ namespace GameServer.Networks
         {
             Client = client;
             Channel = channel;
+
+            _sessionId = GameServer
+                .Server
+                .GetIDFactory()
+                .GetNext();
 
             Client.WireProtocol = new GameProtocol();
             Client.Disconnected += OnDisconnected;
@@ -63,11 +70,15 @@ namespace GameServer.Networks
 
             if (OpCodes.Recv.ContainsKey(message.OpCode))
             {
+                string name = OpCodes.RecvNames[message.OpCode];
                 string opCodeLittleEndianHex = BitConverter.GetBytes(message.OpCode).ToHex();
-                Log.Debug("Received packet opcode: 0x{0}{1} [{2}]",
+                Log.Debug("Received packet opcode: {0}|0x{1}{2} [{3}]",
+                                 name,
                                  opCodeLittleEndianHex.Substring(2),
                                  opCodeLittleEndianHex.Substring(0, 2),
                                  Buffer.Length);
+
+                Log.Debug("Data:\n{0}", Buffer.FormatHex());
 
                 ((ARecvPacket)Activator.CreateInstance(OpCodes.Recv[message.OpCode])).Process(this);
             }
@@ -108,7 +119,7 @@ namespace GameServer.Networks
 
                 try
                 {
-                    Log.Debug($"Send Message: {message.Data.FormatHex()}");
+                    Log.Debug($"Send Message: {Environment.NewLine}{message.Data.FormatHex()}");
                     Client.SendMessage(message);
                 }
                 catch
@@ -123,7 +134,7 @@ namespace GameServer.Networks
         /// </summary>
         public short SessionId
         {
-            get { return (short)Client.ClientId; }
+            get { return (short)_sessionId; }
         }
 
         /// <summary>

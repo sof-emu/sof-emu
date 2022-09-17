@@ -19,6 +19,7 @@ namespace GameServer.Networks
         protected Dictionary<string, long> ConnectionTimes;
 
         protected Dictionary<int, IScsServer> ChannelServers;
+        protected IDFactory IDFactory;
 
         public Server()
         {
@@ -27,6 +28,8 @@ namespace GameServer.Networks
             Initilize();
 
             SendServerInfoToApi();
+
+            IDFactory = new IDFactory();
         }
 
         /// <summary>
@@ -169,7 +172,7 @@ namespace GameServer.Networks
                 ConnectionTimes.Add(ip, Funcs.GetCurrentMilliseconds());
 
             IScsServer channel = ChannelServers[((IScsServer)sender).GetHashCode()];
-            new Session(e.Client, channel);
+            _ = new Session(e.Client, channel);
         }
 
         /// <summary>
@@ -180,6 +183,11 @@ namespace GameServer.Networks
         private void ChannelClientDisconnected(object sender, ServerClientEventArgs e)
         {
             Log.Info("Client disconnected!");
+        }
+
+        public IDFactory GetIDFactory()
+        {
+            return IDFactory;
         }
     }
 }

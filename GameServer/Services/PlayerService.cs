@@ -2,6 +2,7 @@
 using Communicate.Interfaces;
 using Data.Enums;
 using Data.Interfaces;
+using Data.Models.Creature;
 using Data.Models.Player;
 using GameServer.Networks.Packets.Response;
 using Newtonsoft.Json;
@@ -109,12 +110,60 @@ namespace GameServer.Services
 
         public void EnterWorld(Player player)
         {
-            // todo
+            var session = player.GetSession();
+            
+            new ResponseServerTime(1000).Send(session);
+            new ResponsePlayerRunning(1).Send(session);
+            new ResponseSkillPassive().Send(session);
+            new ResponsePlayerInfo(player).Send(session);
+            new ResponseInventoryInfo().Send(session);
+
+            new ResponseWeightMoney(player).Send(session);
+            new ResponsePlayerHpMpSp(player).Send(session);
+
+            new ResponseQuestItem().Send(session);
+            new ResponsePlayerQuickInfo(player).Send(session);
+            new Response1059().Send(session);
+            new ResponseQuestList().Send(session);
+            new ResponseQuestCompleteList().Send(session);
+            new ResponseBindPoint().Send(session);
+            new ResponseNpcSpawn().Send(session);
+            new ResponseSkillCooldown().Send(session);
+            new ResponseNotifyPlayer(2, 0).Send(session);
+
+            new ResponsePlayerInfo(player).Send(session);
+            new ResponseEquipInfo(player).Send(session);
         }
+
+
 
         public void Action()
         {
 
+        }
+
+        public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
+        {
+            if(target != 65535)
+            {
+                Creature Target = player
+                    .GetMap()
+                    .GetNpc(target);
+
+                player.SetTarget(Target);
+            }
+                
+
+            player.Position.X = x1;
+            player.Position.Y = y1;
+
+            player.LastPostion.X = x2;
+            player.LastPostion.Y = y2;
+
+            if (player.GetMap() != null)
+                player
+                    .GetMap()
+                    .OnMove(player);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Communicate.Interfaces;
+﻿using Communicate;
+using Communicate.Interfaces;
 using Data.Interfaces;
 using Data.Models.Player;
 using GameServer.Networks;
@@ -39,6 +40,13 @@ namespace GameServer.Services
             else
                 new ResponseCreatePlayer(false)
                     .Send(session);
+        }
+
+        public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int tagert)
+        {
+            Global
+                .VisibleService
+                .Send(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, tagert));
         }
 
         public void Action()

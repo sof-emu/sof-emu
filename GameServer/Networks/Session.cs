@@ -78,8 +78,6 @@ namespace GameServer.Networks
                                  opCodeLittleEndianHex.Substring(0, 2),
                                  Buffer.Length);
 
-                Log.Debug("Data:\n{0}", Buffer.FormatHex());
-
                 ((ARecvPacket)Activator.CreateInstance(OpCodes.Recv[message.OpCode])).Process(this);
             }
             else

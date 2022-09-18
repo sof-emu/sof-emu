@@ -137,7 +137,7 @@ namespace GameServer.Networks.Packets
         protected void WriteSN(BinaryWriter writer, String text)
         {
             byte[] names = Encoding.Default.GetBytes(text);
-            byte[] val = new byte[16];
+            byte[] val = new byte[15];
             Buffer.BlockCopy(names, 0, val, 0, names.Length);
             writer.Write(val);
         }

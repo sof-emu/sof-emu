@@ -18,7 +18,7 @@ namespace GameServer.Networks.Packets.Response
         protected float Distance;
         protected int Target;
 
-        public ResponsePlayerMove(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int tagert)
+        public ResponsePlayerMove(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
             Player = player;
 
@@ -31,7 +31,7 @@ namespace GameServer.Networks.Packets.Response
             Z2 = z2;
 
             Distance = distance;
-            Target = tagert;
+            Target = target;
         }
 
         public override void Write(BinaryWriter writer)
@@ -50,9 +50,9 @@ namespace GameServer.Networks.Packets.Response
             WriteF(writer, Distance);
             WriteD(writer, Target);
 
-            writer.Seek(2, SeekOrigin.Begin);
-            WriteH(writer, (int)Player.GetSession().SessionId);
-            writer.Seek(0, SeekOrigin.End);
+            //writer.Seek(2, SeekOrigin.Begin);
+            //WriteH(writer, (int)Player.GetSession().SessionId);
+            //writer.Seek(0, SeekOrigin.End);
         }
     }
 }

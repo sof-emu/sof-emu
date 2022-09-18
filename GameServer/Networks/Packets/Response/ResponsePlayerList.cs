@@ -28,6 +28,7 @@ namespace GameServer.Networks.Packets.Response
             {
                 WriteC(writer, (byte)Player.Index);
                 WriteSN(writer, Player.Name);
+                WriteC(writer, 0);
                 WriteB(writer, new byte[22]);
                 //WriteSL(writer, "", 22); // Guild Name
 

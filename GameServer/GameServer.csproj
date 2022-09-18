@@ -98,6 +98,7 @@
     <Compile Include="Networks\Packets\Request\RequestPing.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayerList.cs" />
     <Compile Include="Networks\Packets\Request\RequestSettingOption.cs" />
+    <Compile Include="Networks\Packets\Request\RequestUnk003C.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Request\RequsetCheckName.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Networks\Packets\Response\ResponseServerTime.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillCooldown.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillPassive.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseUnk003D.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Response\ResponseWeightMoney.cs" />

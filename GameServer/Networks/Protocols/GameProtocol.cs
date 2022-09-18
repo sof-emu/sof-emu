@@ -23,9 +23,6 @@ namespace GameServer.Networks.Protocols
         /// <returns></returns>
         public IEnumerable<IScsMessage> CreateMessages(byte[] receivedBytes)
         {
-            Log.Debug("receivedBytes");
-            Log.Debug(Environment.NewLine + receivedBytes.FormatHex());
-
             byte[] unpackBytes = new byte[receivedBytes.Length - 4];
             Buffer.BlockCopy(receivedBytes, 2, unpackBytes, 0, unpackBytes.Length);
 

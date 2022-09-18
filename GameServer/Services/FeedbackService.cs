@@ -42,13 +42,28 @@ namespace GameServer.Services
                     .Send(session);
         }
 
-        public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int tagert)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="distance"></param>
+        /// <param name="tagert"></param>
+        public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
             Global
                 .VisibleService
-                .Send(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, tagert));
+                .Send(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, target));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Action()
         {
             

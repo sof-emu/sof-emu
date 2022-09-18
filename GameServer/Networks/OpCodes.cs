@@ -25,6 +25,7 @@ namespace GameServer.Networks
             Recv.Add(unchecked((short)0x0016), typeof(RequestSettingOption));
             Recv.Add(unchecked((short)0x00B0), typeof(RequestPing));
             Recv.Add(unchecked((short)0x0038), typeof(RequsetCheckName));
+            Recv.Add(unchecked((short)0x003C), typeof(RequestUnk003C));
             Recv.Add(unchecked((short)0x0344), typeof(RequestVerifyLogin));
             Recv.Add(unchecked((short)0x1606), typeof(RequestVerifyVersion));
 
@@ -33,6 +34,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponsePlayerList), unchecked((short)0x0011));
             Send.Add(typeof(ResponseCreatePlayer), unchecked((short)0x0015));
             Send.Add(typeof(ResponseCheckName), unchecked((short)0x0039));
+            Send.Add(typeof(ResponseUnk003D), unchecked((short)0x003D));
             Send.Add(typeof(ResponsePlayerInfo), unchecked((short)0x0064));
             Send.Add(typeof(ResponsePlayerMove), unchecked((short)0x0065));
             Send.Add(typeof(ResponseNpcSpawn), unchecked((short)0x0067));

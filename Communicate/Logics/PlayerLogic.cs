@@ -2,6 +2,7 @@
 using Data.Models.Account;
 using Data.Models.Player;
 using System;
+using Utility;
 
 namespace Communicate.Logics
 {
@@ -36,10 +37,11 @@ namespace Communicate.Logics
             // send update world time
         }
 
-        public static void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int tagert)
+        public static void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
-            PlayerService.PlayerMoved(player, x1, y1, z1, x2, y2, z2, distance, tagert);
-            FeedbackService.PlayerMoved(player, x1, y1, z1, x2, y2, z2, distance, tagert);
+            Log.Debug($"PlayerMoved: {x1}, {y1}, {z1},{x2}, {y2}, {z2}, {distance}, {target}");
+            PlayerService.PlayerMoved(player, x1, y1, z1, x2, y2, z2, distance, target);
+            FeedbackService.PlayerMoved(player, x1, y1, z1, x2, y2, z2, distance, target);
 
             //PartyService.SendMemberPositionToPartyMembers(player);
         }

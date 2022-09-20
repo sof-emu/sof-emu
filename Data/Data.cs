@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Utility;
 using File = System.IO.File;
@@ -72,13 +73,14 @@ namespace Data
         {
             MapTemplates = new Dictionary<long, MapTemplate>();
 
-            string[] files = Directory.GetFiles(Path.Combine(DataPath, "Maps"));
-            foreach (string file in files)
+            string jsonStr = File.ReadAllText(Path.Combine(DataPath, "maps.json"));
+            List<MapTemplate> list = JsonConvert.DeserializeObject<List<MapTemplate>>(jsonStr);
+
+            list.ForEach(item =>
             {
-                string jsonStr = File.ReadAllText(file);
-                MapTemplate mapTemplate = JsonConvert.DeserializeObject<MapTemplate>(jsonStr);
-                MapTemplates.Add(mapTemplate.Id, mapTemplate);
-            }
+                if (!MapTemplates.ContainsKey(item.Id))
+                    MapTemplates.Add(item.Id, item);
+            });
 
             return MapTemplates.Count;
         }
@@ -91,14 +93,15 @@ namespace Data
         {
             ItemTemplates = new Dictionary<long, ItemTemplate>();
 
-            string[] files = Directory.GetFiles(Path.Combine(DataPath, "Items"));
+            string jsonStr = File.ReadAllText(Path.Combine(DataPath, "items.json"));
+            List<ItemTemplate> list = JsonConvert.DeserializeObject<List<ItemTemplate>>(jsonStr);
 
-            foreach (string file in files)
+            list.ForEach(item =>
             {
-                string jsonStr = File.ReadAllText(file);
-                ItemTemplate itemTemplate = JsonConvert.DeserializeObject<ItemTemplate>(jsonStr);
-                ItemTemplates.Add(itemTemplate.Id, itemTemplate);
-            }
+                if(!ItemTemplates.ContainsKey(item.Id))
+                    ItemTemplates.Add(item.Id, item);
+            });
+
             return ItemTemplates.Count;
         }
     }

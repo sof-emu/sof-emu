@@ -16,9 +16,7 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            // 
             WriteD(writer, 1);
-
             WriteD(writer, (int)Player.GetSession().SessionId);
             WriteSN(writer, Player.Name);
 

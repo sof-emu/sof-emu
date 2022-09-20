@@ -1,18 +1,17 @@
-﻿using Communicate.Logics;
+﻿using GameServer.Networks.Packets.Response;
 
 namespace GameServer.Networks.Packets.Request
 {
-    public class RequestPing : ARecvPacket
+    public class RequestPlayable : ARecvPacket
     {
         public override void ExecuteRead()
         {
-            ReadD(); // unk
+            
         }
 
         public override void Process()
         {
-            GlobalLogic
-                .ClientPing(session);
+            new ResponsePlayable().Send(session);
         }
     }
 }

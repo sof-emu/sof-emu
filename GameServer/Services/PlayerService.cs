@@ -116,23 +116,29 @@ namespace GameServer.Services
             new ResponsePlayerRunning(1).Send(session);
             new ResponseSkillPassive().Send(session);
             new ResponsePlayerInfo(player).Send(session);
-            new ResponseInventoryInfo().Send(session);
-
-            new ResponseWeightMoney(player).Send(session);
-            new ResponsePlayerHpMpSp(player).Send(session);
-
+            new ResponseInventoryInfo(InventoryType.Equipment).Send(session);
+            new ResponseInventoryInfo(InventoryType.ConcentratingBead).Send(session);
             new ResponseQuestItem().Send(session);
             new ResponsePlayerQuickInfo(player).Send(session);
-            new Response1059().Send(session);
-            new ResponseQuestList().Send(session);
-            new ResponseQuestCompleteList().Send(session);
-            new ResponseBindPoint().Send(session);
-            new ResponseNpcSpawn().Send(session);
-            new ResponseSkillCooldown().Send(session);
-            new ResponseNotifyPlayer(2, 0).Send(session);
+            // todo Status Effect list
+            new ResponseWeightMoney(player).Send(session);
+            new ResponseSpiritBeast().Send(session);
 
-            new ResponsePlayerInfo(player).Send(session);
-            new ResponseEquipInfo(player).Send(session);
+            new ResponsePlayerHpMpSp(player).Send(session);
+
+            //session.SendPacket("AA550600B2012000000055AA".ToBytes());
+
+            
+            
+            //new ResponseQuestList().Send(session);
+            //new ResponseQuestCompleteList().Send(session);
+            //new ResponseBindPoint().Send(session);
+            //new ResponseNpcSpawn().Send(session);
+            //new ResponseSkillCooldown().Send(session);
+            //new ResponseNotifyPlayer(2, 0).Send(session);
+
+            //new ResponsePlayerInfo(player).Send(session);
+            //new ResponseEquipInfo(player).Send(session);
         }
 
 

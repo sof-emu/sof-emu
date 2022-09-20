@@ -50,9 +50,9 @@ namespace GameServer.Networks.Packets.Response
             WriteF(writer, Distance);
             WriteD(writer, Target);
 
-            //writer.Seek(2, SeekOrigin.Begin);
-            //WriteH(writer, (int)Player.GetSession().SessionId);
-            //writer.Seek(0, SeekOrigin.End);
+            writer.Seek(2, SeekOrigin.Begin);
+            WriteH(writer, (int)Player.GetSession().SessionId);
+            writer.Seek(0, SeekOrigin.End);
         }
     }
 }

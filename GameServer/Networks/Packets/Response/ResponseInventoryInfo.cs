@@ -1,25 +1,42 @@
-﻿using System.IO;
+﻿using Data.Enums;
+using System.IO;
 
 namespace GameServer.Networks.Packets.Response
 {
     public class ResponseInventoryInfo : ASendPacket
     {
-        public ResponseInventoryInfo()
-        {
+        protected InventoryType inventoryType;
 
+        public ResponseInventoryInfo(InventoryType type)
+        {
+            inventoryType = type;
         }
 
         public override void Write(BinaryWriter writer)
         {
-            WriteD(writer, 1);
-            WriteD(writer, 0);
-
-            for (int i = 0; i < 66; i++)
+            switch(inventoryType)
             {
-                //if (Storage.Items.ContainsKey(i))
-                //    WriteItemInfo(writer, Storage.GetItem(i));
-                //else
-                    WriteB(writer, new byte[88]);
+                case InventoryType.Equipment:
+                    {
+                        WriteC(writer, 1);
+                        WriteC(writer, 2);
+                        WriteC(writer, 0);
+                        WriteH(writer, 0);
+                        for (int i = 0; i < 96; i++)
+                        {
+                            WriteB(writer, new byte[96]);
+                        }
+                    }
+                    break;
+                case InventoryType.ConcentratingBead:
+                    {
+                        WriteC(writer, 171);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            WriteB(writer, new byte[96]);
+                        }
+                    }
+                    break;
             }
         }
     }

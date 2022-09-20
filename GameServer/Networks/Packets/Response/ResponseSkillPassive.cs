@@ -12,15 +12,14 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            WriteH(writer, 100);
-            WriteH(writer, 15213);
+            WriteH(writer, 43940);
+            WriteH(writer, 10);
             WriteD(writer, 0);
-            WriteH(writer, 60);
-            WriteH(writer, 3700);
+            WriteD(writer, 0);
             WriteH(writer, 0);
             for (int slot = 0; slot < 15; slot++)
             {
-                if (slot < 11)
+                if (slot < 12)
                 {
                     //KeyValuePair<int, int> ability;
                     //if (Player.Abilities.TryGetValue(slot, out ability))

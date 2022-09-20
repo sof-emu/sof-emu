@@ -10,15 +10,13 @@ namespace Data.Models.Template.World
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
 
-        public float UnkF1 { get; set; }
-        public float UnkF2 { get; set; }
-        public float UnkF3 { get; set; }
+        public float X1 { get; set; }
+        public float Z1 { get; set; }
+        public float Y1 { get; set; }
 
-        public float UnkA1 { get; set; }
-        public float UnkA2 { get; set; }
-        public float UnkA3 { get; set; }
+        public float X2 { get; set; }
+        public float Z2 { get; set; }
+        public float Y2 { get; set; }
     }
 }

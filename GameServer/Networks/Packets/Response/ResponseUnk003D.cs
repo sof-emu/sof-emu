@@ -20,16 +20,16 @@ namespace GameServer.Networks.Packets.Response
             // 0100
             // 0100
             // 000000000000000000000000000000000000000000000000
-            /*
+            
             WriteD(writer, Key);
             WriteH(writer, (byte)Value);
             WriteH(writer, 1);
             WriteH(writer, 1);
             WriteB(writer, new byte[18]);
             WriteD(writer, 1); // Current Active Skill Id
-            */
+            
 
-            WriteB(writer, "0200000001000100000000000000000000000000000000000000000000000000".ToBytes());
+            // WriteB(writer, "0200000001000100000000000000000000000000000000000000000000000000".ToBytes());
         }
     }
 }

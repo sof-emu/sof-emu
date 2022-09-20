@@ -2,11 +2,16 @@
 
 namespace GameServer.Networks.Packets.Response
 {
-    public class ResponsePong : ASendPacket
+    public class ResponseSpiritBeast : ASendPacket
     {
+        public ResponseSpiritBeast()
+        {
+
+        }
+
         public override void Write(BinaryWriter writer)
         {
-            
+            WriteQ(writer, 11);
         }
     }
 }

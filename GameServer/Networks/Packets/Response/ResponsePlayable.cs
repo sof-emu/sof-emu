@@ -2,16 +2,16 @@
 
 namespace GameServer.Networks.Packets.Response
 {
-    public class Response1059 : ASendPacket
+    public class ResponsePlayable : ASendPacket
     {
-        public Response1059()
+        public ResponsePlayable()
         {
 
         }
 
         public override void Write(BinaryWriter writer)
         {
-            WriteQ(writer, 0);
+            
         }
     }
 }

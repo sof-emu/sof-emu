@@ -1,5 +1,6 @@
 ﻿using Data.Models.Account;
 using Data.Models.Player;
+using System;
 using System.Collections.Generic;
 
 namespace Data.Interfaces
@@ -17,5 +18,7 @@ namespace Data.Interfaces
         Player GetSelectedPlayer();
         void SetSetting(SettingOption setting);
         SettingOption GetSetting();
+        void SetLastPing(DateTime last);
+        DateTime GetLastPing();
     }
 }

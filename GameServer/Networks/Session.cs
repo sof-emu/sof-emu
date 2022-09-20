@@ -25,7 +25,9 @@ namespace GameServer.Networks
         protected object SendLock = new object();
 
         protected int _sessionId;
+        protected DateTime _lastPing;
 
+        // Game Properties
         protected AccountData account;
         protected Dictionary<int, Player> players;
         protected Player selectedPlayer;
@@ -217,6 +219,25 @@ namespace GameServer.Networks
         public SettingOption GetSetting()
         {
             return setting;
+        }
+
+        /// <summary>
+        /// Set DateTime of lastping
+        /// </summary>
+        /// <param name="last"></param>
+        public void SetLastPing(DateTime last)
+        {
+            _lastPing = last;
+        }
+
+        /// <summary>
+        /// Get Last Ping DateTime
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public DateTime GetLastPing()
+        {
+            return _lastPing;
         }
     }
 }

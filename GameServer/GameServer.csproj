@@ -99,6 +99,7 @@
     <Compile Include="Networks\Packets\Request\RequestPlayerList.cs" />
     <Compile Include="Networks\Packets\Request\RequestSettingOption.cs" />
     <Compile Include="Networks\Packets\Request\RequestUnk003C.cs" />
+    <Compile Include="Networks\Packets\Request\RequestPlayable.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Request\RequsetCheckName.cs" />
@@ -108,7 +109,6 @@
     <Compile Include="Networks\Packets\Response\ResponseNpcSpawn.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerMove.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestCompleteList.cs" />
-    <Compile Include="Networks\Packets\Response\Response1059.cs" />
     <Compile Include="Networks\Packets\Response\ResponseAuth.cs" />
     <Compile Include="Networks\Packets\Response\ResponseCheckName.cs" />
     <Compile Include="Networks\Packets\Response\ResponseCreatePlayer.cs" />
@@ -119,12 +119,14 @@
     <Compile Include="Networks\Packets\Response\ResponsePlayerList.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerQuickInfo.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerRunning.cs" />
-    <Compile Include="Networks\Packets\Response\ResponsePong.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestItem.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestList.cs" />
     <Compile Include="Networks\Packets\Response\ResponseServerTime.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillCooldown.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillPassive.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseSpiritBeast.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseStatusEffect.cs" />
+    <Compile Include="Networks\Packets\Response\ResponsePlayable.cs" />
     <Compile Include="Networks\Packets\Response\ResponseUnk003D.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyVersion.cs" />

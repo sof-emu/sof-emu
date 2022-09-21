@@ -31,6 +31,13 @@ We choose to use the <a href="https://github.com/hikalkan/scs">Scs</a> to manage
   <a href="https://github.com/sof-emu/sof-emu/blob/master/LICENSE.txt">License</a>
 </p>
 
+--------
+<p align="center">
+	<a href="https://discord.gg/GPPdfx2M"><img src="https://discord.com/api/guilds/1017461361573363873/widget.png?style=banner3"></a>
+</p>
+
+--------
+
 ## Technical information
 
 - Language: `C#`

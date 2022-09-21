@@ -1,43 +1,73 @@
 <a name="readme-top"></a>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project sof-emu
-Experimental Game Server Development
+<h1 align="center">
+  SOF-EMU - Scion of Fate V20 Emulator
+  <br>
+</h1>
+
+<p align="center">
+  <a href="http://forthebadge.com"><img src="http://forthebadge.com/images/badges/made-with-c-sharp.svg" alt="Made With C#"></a>
+  <a href="http://forthebadge.com"><img src="http://forthebadge.com/images/badges/built-with-love.svg"></a><br>
+</p>
+
+<p>This project has been created for learning purposes about the network and game logic problematics on the server-side.<br>
+We choose to use the <a href="https://github.com/hikalkan/scs">Scs</a> to manage our server connecitions because it provides a clients management system and also a robust packet management system entirely customisable.</p>
+
+<p align="center">
+  <a href="https://github.com/sof-emu/sof-emu/graphs/contributors"><img src="https://img.shields.io/github/contributors/sof-emu/sof-emu.svg?style=for-the-badge"></a>
+  <a href="https://github.com/sof-emu/sof-emu/network/members"><img src="https://img.shields.io/github/forks/sof-emu/sof-emu.svg?style=for-the-badge"></a>
+  <a href="https://github.com/sof-emu/sof-emu/stargazers"><img src="https://img.shields.io/github/stars/sof-emu/sof-emu.svg?style=for-the-badge"></a>
+  <a href="https://github.com/sof-emu/sof-emu/issues"><img src="https://img.shields.io/github/issues/sof-emu/sof-emu.svg?style=for-the-badge"></a>
+</p>
+
+<p align="center">
+  <a href="#technical-information">Technical information</a> •
+  <a >Features</a> •
+  <a >How To's</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#contributors">Contributors</a> •
+  <a href="#supporters">Supporters</a> •
+  <a href="https://github.com/sof-emu/sof-emu/blob/master/LICENSE.txt">License</a>
+</p>
+
+--------
+<p align="center">
+	<a href="https://discord.gg/GPPdfx2M"><img src="https://discord.com/api/guilds/1017461361573363873/widget.png?style=banner3"></a>
+</p>
+
+--------
+
+## Technical information
+
+- Language: `C#`
+- Framework: `.NET Standard 4.8` & `.NET 6`
+- Application type: `Console`
+- Database type: `MySQL`
+- Configuration files type: `INI`
+- Environment: `Visual Studio 2022`
+- External libraries used:
+	- [Scs][Scslib]
+	- [RestSharp](https://restsharp.dev/)
+	- [Dapper - a simple object mapper for .Net](https://dapperlib.github.io/Dapper/)
+	- [SqlKata - A fluent SQL query builder for C#](https://sqlkata.com/)
+	- [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
+	- [NLog](https://github.com/NLog/NLog)
+	- [NIni](http://nini.sourceforge.net/)
 
 
-## Build Project
-Open project solution with Visual Studio 2022 (CE), and Restore NuGet Packages.
+## Contributors
+
+- Waiting for you!
 
 
+### License
+--------
+[![license-shield]](https://github.com/sof-emu/sof-emu/blob/master/LICENSE.txt)<br>
+This repository is under the [GPL-3.0](https://github.com/sof-emu/sof-emu/blob/master/LICENSE.txt) license. This essentially means that all changes that are made on top of this repository are required to be made public, regardless of where the code is being ran.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[license-shield]: https://img.shields.io/github/license/sof-emu/sof-emu.svg?style=for-the-badge
+[license-url]: https://github.com/sof-emu/sof-emu/blob/master/LICENSE.txt
+[Scslib]: https://github.com/hikalkan/scs

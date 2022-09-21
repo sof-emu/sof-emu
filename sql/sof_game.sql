@@ -45,12 +45,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   KEY `account_id` (`account_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='player data';
 
--- Dumping data for table sof_game.player: ~2 rows (approximately)
-/*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` (`id`, `account_id`, `account_name`, `name`, `index`, `level`, `exp`, `online`, `job`, `job_level`, `map_id`, `x`, `y`, `z`, `money`, `force`, `hair_color`, `face`, `voice`, `gender`, `title`) VALUES
-	(1, 2, 'test', 'test', 0, 1, 0, 0, 1, 1, 101, 422.523, 1547.03, 15, 0, 0, '0000', 0, 1, 1, 0),
-	(2, 2, 'test', 'adasd', 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, '0000', 0, 1, 1, 0);
-/*!40000 ALTER TABLE `player` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sof_game.player_setting
 CREATE TABLE IF NOT EXISTS `player_setting` (
@@ -68,9 +63,7 @@ CREATE TABLE IF NOT EXISTS `player_setting` (
   `honor_rank_effect` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='player setting data';
 
--- Dumping data for table sof_game.player_setting: ~0 rows (approximately)
-/*!40000 ALTER TABLE `player_setting` DISABLE KEYS */;
-/*!40000 ALTER TABLE `player_setting` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

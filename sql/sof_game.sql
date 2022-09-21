@@ -19,43 +19,58 @@ USE `sof_game`;
 
 -- Dumping structure for table sof_game.player
 CREATE TABLE IF NOT EXISTS `player` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) NOT NULL,
   `account_name` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `index` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
+  `level` int(11) NOT NULL DEFAULT 1,
   `exp` bigint(20) NOT NULL DEFAULT 0,
   `online` tinyint(1) NOT NULL DEFAULT 0,
   `job` int(11) DEFAULT NULL,
   `job_level` int(11) NOT NULL DEFAULT 0,
-  `x` float NOT NULL,
-  `y` float NOT NULL,
-  `z` float NOT NULL,
+  `map_id` int(11) NOT NULL DEFAULT 0,
+  `x` float NOT NULL DEFAULT 0,
+  `y` float NOT NULL DEFAULT 0,
+  `z` float NOT NULL DEFAULT 0,
   `money` bigint(20) NOT NULL DEFAULT 0,
+  `force` int(11) DEFAULT NULL,
+  `hair_color` varchar(6) DEFAULT NULL,
+  `face` int(11) DEFAULT NULL,
+  `voice` int(11) DEFAULT NULL,
+  `gender` int(11) DEFAULT NULL,
+  `title` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name_unique` (`name`) USING BTREE,
   KEY `account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='player data';
 
--- Dumping data for table sof_game.player: ~0 rows (approximately)
+-- Dumping data for table sof_game.player: ~2 rows (approximately)
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
+INSERT INTO `player` (`id`, `account_id`, `account_name`, `name`, `index`, `level`, `exp`, `online`, `job`, `job_level`, `map_id`, `x`, `y`, `z`, `money`, `force`, `hair_color`, `face`, `voice`, `gender`, `title`) VALUES
+	(1, 2, 'test', 'test', 0, 1, 0, 0, 1, 1, 101, 422.523, 1547.03, 15, 0, 0, '0000', 0, 1, 1, 0),
+	(2, 2, 'test', 'adasd', 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, '0000', 0, 1, 1, 0);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 
--- Dumping structure for table sof_game.player_data
-CREATE TABLE IF NOT EXISTS `player_data` (
+-- Dumping structure for table sof_game.player_setting
+CREATE TABLE IF NOT EXISTS `player_setting` (
   `player_id` int(11) NOT NULL,
-  `force` int(1) NOT NULL,
-  `hair_style` int(1) NOT NULL,
-  `hair_color` int(1) NOT NULL,
-  `face` int(1) NOT NULL,
-  `voice` int(1) NOT NULL,
-  `gender` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `partyable` int(1) NOT NULL,
+  `tradeable` int(1) NOT NULL,
+  `costume_type` int(1) NOT NULL,
+  `weapon_switch` int(1) NOT NULL,
+  `pet_exp` int(1) NOT NULL,
+  `fame_switch` int(1) NOT NULL,
+  `hair_switch` int(1) NOT NULL,
+  `confestion_switch` int(1) NOT NULL,
+  `search_switch` int(1) NOT NULL,
+  `vegetable_weapon_switch` int(1) NOT NULL,
+  `honor_rank_effect` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='player setting data';
 
--- Dumping data for table sof_game.player_data: ~0 rows (approximately)
-/*!40000 ALTER TABLE `player_data` DISABLE KEYS */;
-/*!40000 ALTER TABLE `player_data` ENABLE KEYS */;
+-- Dumping data for table sof_game.player_setting: ~0 rows (approximately)
+/*!40000 ALTER TABLE `player_setting` DISABLE KEYS */;
+/*!40000 ALTER TABLE `player_setting` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

@@ -1,5 +1,6 @@
 ﻿using Communicate.Interfaces;
 using Data.Models.Account;
+using Data.Models.Creature;
 using Data.Models.Player;
 using Data.Models.Server;
 using Nini.Config;
@@ -93,6 +94,19 @@ namespace GameServer.Services
             var list = await Client.GetAsync<List<Player>>(request);
 
             return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        public async Task<BaseStats> GetPlayerStats(int playerId)
+        {
+            var request = new RestRequest($"/api/player/{playerId}/stats");
+            var stats = await Client.GetAsync<BaseStats>(request);
+
+            return stats;
         }
 
         public void Action()

@@ -13,11 +13,14 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            // todo คำนวนหาน้ำหนักไอเทม
+            // todo calculate Total Weight
+            // todo calculate Max Weight that player can carry
+            // Total weight + Passive Skill + Player_Level * 6 * 96 + 4455000
 
             WriteQ(writer, 999); // Money
+            WriteC(writer, 0);
             WriteD(writer, 0); // Current Weight
-            WriteD(writer, 100); // Max Weight 
+            WriteD(writer, 100); // Max Weight
         }
     }
 }

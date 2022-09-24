@@ -1,4 +1,5 @@
 ﻿using ApiServer.Models.Contracts.Databases;
+using Data.Models.Creature;
 using Data.Models.Player;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -24,25 +25,41 @@ namespace ApiServer.Controllers
         }
 
         /// <summary>
-        /// 
+        /// GET api/player/account_id/{accountId}
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
         [HttpGet("account_id/{accountId}")]
         public List<Player> GetByAccountId(int accountId)
         {
-            return _playerRepository
+            var result = _playerRepository
                 .GetPlayersByAccountId(accountId);
+            return result;
         }
 
-        // GET api/<PlayerController>/5
+        /// <summary>
+        /// GET api/player/5
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpGet("{name}/exist")]
         public bool Exists(string name)
         {
             return _playerRepository.Exist(name);
         }
 
-        // POST api/<PlayerController>
+        /// <summary>
+        /// GET api/player/{playerId}/stats
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        [HttpGet("{playerId}/stats")]
+        public BaseStats GetStatsById(int playerId)
+        {
+            return _playerRepository.GetPlayerStats(playerId);
+        }
+
+        // POST api/player
         [HttpPost]
         public Player Post([FromBody] Player player)
         {

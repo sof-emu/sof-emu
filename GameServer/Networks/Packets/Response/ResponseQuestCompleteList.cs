@@ -4,6 +4,8 @@ namespace GameServer.Networks.Packets.Response
 {
     public class ResponseQuestCompleteList : ASendPacket
     {
+        // protected List<Quest> QuestCompleteList;
+
         public ResponseQuestCompleteList()
         {
 
@@ -11,7 +13,10 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            WriteH(writer, 0);
+            /*foreach(var quest in QuestCompleteList)
+            {
+                WriteH(writer, 0);
+            }*/
         }
     }
 }

@@ -17,6 +17,17 @@
 CREATE DATABASE IF NOT EXISTS `sof_game` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
 USE `sof_game`;
 
+-- Dumping structure for table sof_game.inventory
+CREATE TABLE IF NOT EXISTS `inventory` (
+  `id` int(11) NOT NULL DEFAULT 0,
+  `player_id` int(11) NOT NULL DEFAULT 0,
+  `inventory_type` enum('Item','Orb','Pet') DEFAULT NULL,
+  `item_id` bigint(20) NOT NULL DEFAULT 0,
+  `quanty` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- Data exporting was unselected.
+
 -- Dumping structure for table sof_game.player
 CREATE TABLE IF NOT EXISTS `player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -62,6 +73,30 @@ CREATE TABLE IF NOT EXISTS `player_setting` (
   `vegetable_weapon_switch` int(1) NOT NULL,
   `honor_rank_effect` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='player setting data';
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table sof_game.player_stats
+CREATE TABLE IF NOT EXISTS `player_stats` (
+  `player_id` int(11) NOT NULL DEFAULT 0,
+  `accuracy` int(11) NOT NULL DEFAULT 0,
+  `attack` int(11) NOT NULL DEFAULT 0,
+  `defense` int(11) NOT NULL DEFAULT 0,
+  `dodge` int(11) NOT NULL DEFAULT 0,
+  `hp` int(11) NOT NULL DEFAULT 0,
+  `hp_base` int(11) NOT NULL DEFAULT 0,
+  `mp` int(11) NOT NULL DEFAULT 0,
+  `mp_base` int(11) NOT NULL DEFAULT 0,
+  `sp` int(11) NOT NULL DEFAULT 0,
+  `sp_base` int(11) NOT NULL DEFAULT 0,
+  `natural_mp_regen` int(11) NOT NULL DEFAULT 0,
+  `skill_attack` int(11) NOT NULL DEFAULT 0,
+  `skill_defense` int(11) NOT NULL DEFAULT 0,
+  `dexterity` int(11) NOT NULL DEFAULT 0,
+  `spirit` int(11) NOT NULL DEFAULT 0,
+  `stamina` int(11) NOT NULL DEFAULT 0,
+  `strength` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- Data exporting was unselected.
 

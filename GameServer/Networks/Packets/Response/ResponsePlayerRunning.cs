@@ -14,6 +14,7 @@ namespace GameServer.Networks.Packets.Response
         public override void Write(BinaryWriter writer)
         {
             WriteD(writer, Running);
+            WriteB(writer, new byte[9]);
         }
     }
 }

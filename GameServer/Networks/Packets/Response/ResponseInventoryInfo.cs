@@ -16,7 +16,7 @@ namespace GameServer.Networks.Packets.Response
         {
             switch(inventoryType)
             {
-                case InventoryType.Equipment:
+                case InventoryType.Item:
                     {
                         WriteC(writer, 1);
                         WriteC(writer, 2);
@@ -28,10 +28,20 @@ namespace GameServer.Networks.Packets.Response
                         }
                     }
                     break;
-                case InventoryType.ConcentratingBead:
+                case InventoryType.Orb:
                     {
                         WriteC(writer, 171);
                         for (int i = 0; i < 6; i++)
+                        {
+                            WriteB(writer, new byte[96]);
+                        }
+                    }
+                    break;
+                case InventoryType.Pet: // When summon pet
+                    {
+                        WriteD(writer, 60);
+                        WriteD(writer, 0);
+                        for (int i = 0; i < 16; i++)
                         {
                             WriteB(writer, new byte[96]);
                         }

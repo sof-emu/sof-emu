@@ -85,6 +85,7 @@
     <Compile Include="Interfaces\IVisible.cs" />
     <Compile Include="Models\Account\AccountData.cs" />
     <Compile Include="Models\Account\SettingOption.cs" />
+    <Compile Include="Models\Creature\BaseStats.cs" />
     <Compile Include="Models\Creature\Creature.cs" />
     <Compile Include="Models\Npc\Npc.cs" />
     <Compile Include="Models\Player\Player.cs" />
@@ -100,7 +101,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="items.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="maps.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+    <None Include="stats.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utility\Utility.csproj">

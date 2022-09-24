@@ -29,8 +29,8 @@ namespace Communicate.Logics
 
             // todo
             // send broadcast player data
-            //PlayerService
-            //    .OnUpdateSetting(session);
+            PlayerService
+                .OnUpdateSetting(session);
             // send broadcast equipment data & effect
             // send broadcast skill and status
             // send broadcast Update Qigong

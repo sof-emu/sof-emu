@@ -64,6 +64,15 @@ namespace GameServer.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="player"></param>
+        public void SendViewProfile(Player player)
+        {
+            new ResponseViewProfile().Send(player.GetSession());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Action()
         {
             

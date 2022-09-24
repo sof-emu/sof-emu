@@ -1,4 +1,5 @@
 ﻿using Data.Interfaces;
+using Data.Models.Player;
 using System;
 using System.Collections.Generic;
 
@@ -8,6 +9,9 @@ namespace Communicate.Logics
     {
         protected static Dictionary<int, int> hackSpeedDetect = new Dictionary<int, int>();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void ServerStart()
         {
             Data.Data.LoadAll();
@@ -17,6 +21,10 @@ namespace Communicate.Logics
             InitMainLoop();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
         public static void ClientPing(ISession session)
         {
             if ((int)DateTime.Now.Subtract(session.GetLastPing()).TotalMilliseconds < 10000)
@@ -32,6 +40,16 @@ namespace Communicate.Logics
                 }
             }
             session.SetLastPing(DateTime.Now);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public static void ViewProfile(Player player)
+        {
+            FeedbackService
+                .SendViewProfile(player);
         }
     }
 }

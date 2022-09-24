@@ -2,7 +2,8 @@
 {
     public enum InventoryType
     {
-        Equipment,
-        ConcentratingBead
+        Item,
+        Orb,
+        Pet
     }
 }

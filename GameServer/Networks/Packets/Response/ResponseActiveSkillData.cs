@@ -1,14 +1,13 @@
 ﻿using System.IO;
-using Utility;
 
 namespace GameServer.Networks.Packets.Response
 {
-    public class ResponseUnk003D : ASendPacket
+    public class ResponseActiveSkillData : ASendPacket
     {
         protected int Key;
         protected int Value;
 
-        public ResponseUnk003D(int key, int val)
+        public ResponseActiveSkillData(int key, int val)
         {
             Key = key;
             Value = val;
@@ -21,13 +20,16 @@ namespace GameServer.Networks.Packets.Response
             // 0100
             // 000000000000000000000000000000000000000000000000
             
+            WriteD(writer, Key); // skill id
+            WriteC(writer, (byte)Value);
+            WriteC(writer, 0);
+            WriteH(writer, 0);
+            WriteH(writer, 0);
+            WriteB(writer, new byte[14]);
             WriteD(writer, Key);
-            WriteH(writer, (byte)Value);
-            WriteH(writer, 1);
-            WriteH(writer, 1);
-            WriteB(writer, new byte[18]);
-            WriteD(writer, 1); // Current Active Skill Id
-            
+            WriteD(writer, Value); // Current Active Skill Id
+            WriteD(writer, 0);
+            WriteD(writer, 0);
 
             // WriteB(writer, "0200000001000100000000000000000000000000000000000000000000000000".ToBytes());
         }

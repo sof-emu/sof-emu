@@ -12,6 +12,8 @@ namespace Data.Models.Creature
         private MapInstance Map;
         private Creature _target;
 
+        private BaseStats _stats;
+
         /// <summary>
         /// 
         /// </summary>
@@ -46,6 +48,31 @@ namespace Data.Models.Creature
         public void SetTarget(Creature creature)
         {
             _target = creature;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public BaseStats GetStats()
+        {
+            return _stats;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stats"></param>
+        public void SetStats(BaseStats stats)
+        {
+            if (stats.Hp == 0)
+                stats.Hp = stats.HpBase;
+            if (stats.Mp == 0)
+                stats.Mp = stats.MpBase;
+            if (stats.Sp == 0)
+                stats.Sp = stats.SpBase;
+
+            _stats = stats;
         }
     }
 }

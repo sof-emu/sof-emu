@@ -2,9 +2,7 @@
 using Communicate.Interfaces;
 using Data.Interfaces;
 using Data.Models.Account;
-using GameServer.Networks;
-using Newtonsoft.Json;
-using Utility;
+using Data.Models.Creature;
 
 namespace GameServer.Services
 {
@@ -26,8 +24,13 @@ namespace GameServer.Services
                 .ApiService
                 .GetPlayerFromAccountId(accountData.Id);
 
-            playerList.ForEach(player =>
+            playerList.ForEach(async player =>
             {
+                BaseStats stats = await Global
+                    .ApiService
+                    .GetPlayerStats(player.Id);
+
+                player.SetStats(stats);
                 player.SetSession(session);
                 session.AddPlayer(player);
             });

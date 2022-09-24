@@ -61,9 +61,10 @@ namespace GameServer.Networks.Packets.Response
 
 
             WriteC(writer, 0); // equipment slot 3 reinforcements
-            WriteQ(writer, 16900672); // equipmeny slot 11 item id
+            WriteQ(writer, 0); // equipmeny slot 11 item id // 16900672
 
             int setting = SettingOption.GetSettings(Player.GetSession().GetSetting());
+            Log.Debug($"Account Setting = {setting}");
             /*
             if (Player.AppendStatusList != null && Player.AppendStatusList.ContainsKey(700014))
 			{
@@ -78,7 +79,7 @@ namespace GameServer.Networks.Packets.Response
 				发包类.Write(setting);
 			}
              */
-            WriteC(writer, (byte)setting); // todo
+            WriteC(writer, (byte)(setting + 9)); // todo
             WriteC(writer, 0); // todo with class passive skill
             WriteH(writer, 0); // Status of the luthier
 

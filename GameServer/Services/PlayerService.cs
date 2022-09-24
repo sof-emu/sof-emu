@@ -1,5 +1,6 @@
 ﻿using Communicate;
 using Communicate.Interfaces;
+using Communicate.Logics;
 using Data.Enums;
 using Data.Interfaces;
 using Data.Models.Creature;
@@ -32,7 +33,7 @@ namespace GameServer.Services
                 });
             }
             else
-            new ResponsePlayerList().Send(session);
+                new ResponsePlayerList().Send(session);
         }
 
         /// <summary>
@@ -81,6 +82,12 @@ namespace GameServer.Services
             player.Position.X = 0;
             player.Position.Y = 0;
             player.Position.Z = 0;
+            
+            BaseStats stats = new BaseStats();
+            Data.Data.StatsTemplates
+                .TryGetValue((int)playerClass, out stats);
+
+            player.SetStats(stats);
 
             var jsonStr = JsonConvert.SerializeObject(player);
             Log.Debug(jsonStr.PrintJson());
@@ -108,49 +115,56 @@ namespace GameServer.Services
                 .Send(player, new ResponsePlayerInfo(player));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
         public void EnterWorld(Player player)
         {
             var session = player.GetSession();
-            
+
             new ResponseServerTime(1000).Send(session);
             new ResponsePlayerRunning(1).Send(session);
             new ResponseSkillPassive().Send(session);
             new ResponsePlayerInfo(player).Send(session);
-            new ResponseInventoryInfo(InventoryType.Equipment).Send(session);
-            new ResponseInventoryInfo(InventoryType.ConcentratingBead).Send(session);
+            new ResponseInventoryInfo(InventoryType.Item).Send(session);
+            new ResponseInventoryInfo(InventoryType.Orb).Send(session);
             new ResponseQuestItem().Send(session);
-            new ResponsePlayerQuickInfo(player).Send(session);
+            new ResponsePlayerQuickInfo(player).Send(session); // broadcast
             // todo Status Effect list
             new ResponseWeightMoney(player).Send(session);
-            new ResponseSpiritBeast().Send(session);
+            new ResponsePetInfo().Send(session);
 
             new ResponsePlayerHpMpSp(player).Send(session);
 
-            //session.SendPacket("AA550600B2012000000055AA".ToBytes());
-
-            
-            
-            //new ResponseQuestList().Send(session);
-            //new ResponseQuestCompleteList().Send(session);
+            new ResponseQuestList().Send(session);
+            new ResponseQuestCompleteList().Send(session);
             //new ResponseBindPoint().Send(session);
             //new ResponseNpcSpawn().Send(session);
             //new ResponseSkillCooldown().Send(session);
-            //new ResponseNotifyPlayer(2, 0).Send(session);
+            //new ResponseViewProfile(player).Send(session);
+            GlobalLogic
+                .ViewProfile(player);
 
             //new ResponsePlayerInfo(player).Send(session);
             //new ResponseEquipInfo(player).Send(session);
         }
 
-
-
-        public void Action()
-        {
-
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="distance"></param>
+        /// <param name="target"></param>
         public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
-            if(target != 65535)
+            if (target != 65535)
             {
                 Creature Target = player
                     .GetMap()
@@ -158,7 +172,7 @@ namespace GameServer.Services
 
                 player.SetTarget(Target);
             }
-                
+
 
             player.Position.X = x1;
             player.Position.Y = y1;
@@ -170,6 +184,11 @@ namespace GameServer.Services
                 player
                     .GetMap()
                     .OnMove(player);
+        }
+
+        public void Action()
+        {
+
         }
     }
 }

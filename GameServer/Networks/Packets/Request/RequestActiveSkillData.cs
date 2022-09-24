@@ -3,7 +3,7 @@ using Utility;
 
 namespace GameServer.Networks.Packets.Request
 {
-    public class RequestUnk003C : ARecvPacket
+    public class RequestActiveSkillData : ARecvPacket
     {
         protected int Key;
         protected float X;
@@ -23,7 +23,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            new ResponseUnk003D(Key, 11).Send(session);
+            new ResponseActiveSkillData(Key, 11).Send(session);
             //session.SendPacket("AA55260065003D002000020000000100010000000000000000000000000000000000000000000000000055AA".ToBytes());
         }
     }

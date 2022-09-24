@@ -1,4 +1,5 @@
-﻿using Data.Models.Template.Item;
+﻿using Data.Models.Creature;
+using Data.Models.Template.Item;
 using Data.Models.Template.World;
 using Newtonsoft.Json;
 using System;
@@ -17,13 +18,14 @@ namespace Data
 
         public static Dictionary<long, MapTemplate> MapTemplates;
         public static Dictionary<long, ItemTemplate> ItemTemplates;
+        public static Dictionary<int, BaseStats> StatsTemplates;
 
         protected delegate int Loader();
         protected static List<Loader> Loaders = new List<Loader>
                                                     {
                                                         LoadMapTemplates,
                                                         //LoadPlayerExperience,
-                                                        //LoadBaseStats,
+                                                        LoadBaseStats,
                                                         LoadItemTemplates,
                                                         //LoadSpawns,
                                                         //LoadBindPoints,
@@ -82,6 +84,26 @@ namespace Data
             });
 
             return MapTemplates.Count;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadBaseStats()
+        {
+            StatsTemplates = new Dictionary<int, BaseStats>();
+
+            string jsonStr = File.ReadAllText(Path.Combine(DataPath, "stats.json"));
+            List<BaseStats> list = JsonConvert.DeserializeObject<List<BaseStats>>(jsonStr);
+
+            list.ForEach(item =>
+            {
+                if (!StatsTemplates.ContainsKey(item.Job))
+                    StatsTemplates.Add(item.Job, item);
+            });
+
+            return StatsTemplates.Count;
         }
 
         /// <summary>

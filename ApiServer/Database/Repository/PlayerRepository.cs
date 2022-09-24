@@ -1,4 +1,5 @@
 ﻿using ApiServer.Models.Contracts.Databases;
+using Data.Models.Creature;
 using Data.Models.Player;
 using Data.Models.World;
 using SqlKata.Execution;
@@ -88,6 +89,40 @@ namespace ApiServer.Database.Repository
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        public BaseStats GetPlayerStats(int playerId)
+        {
+            using (var db = _context.GetQueryFactory("game"))
+            {
+                var stats = db.Query("player_stats")
+                    .Where("player_id", playerId)
+                    .Get()
+                    .FirstOrDefault();
+
+                BaseStats baseStats = new BaseStats();
+                baseStats.Accuracy = stats.accuracy;
+                baseStats.Attack = stats.attack;
+                baseStats.Defense = stats.defense;
+                baseStats.Dodge = stats.dodge;
+                baseStats.HpBase = stats.hp_base;
+                baseStats.MpBase = stats.mp_base;
+                baseStats.SpBase = stats.sp_base;
+                baseStats.NaturalMpRegen = stats.natural_mp_regen;
+                baseStats.SkillAttack = stats.skill_attack;
+                baseStats.SkillDefense = stats.skill_defense;
+                baseStats.Dexterity = stats.dexterity;
+                baseStats.Spirit = stats.spirit;
+                baseStats.Stamina = stats.stamina;
+                baseStats.Strength = stats.strength;
+
+                return baseStats;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
         public Player SavePlayer(Player p)
@@ -107,7 +142,7 @@ namespace ApiServer.Database.Repository
                         name = p.Name,
                         index = index,
                         level = p.Level,
-                        exp = p.Exp,
+                        exp = p.GetStats().Exp,
                         online = 0,
                         job = p.Job,
                         job_level = p.JobLevel,
@@ -121,6 +156,26 @@ namespace ApiServer.Database.Repository
                         voice = p.Voice,
                         gender = p.Gender,
                         title = p.Title
+                    });
+
+                db.Query("player_stats")
+                    .Insert(new
+                    {
+                        player_id = id,
+                        accuracy = p.GetStats().Accuracy,
+                        attack = p.GetStats().Attack,
+                        defense = p.GetStats().Defense,
+                        dodge = p.GetStats().Dodge,
+                        hp_base = p.GetStats().HpBase,
+                        mp_base = p.GetStats().MpBase,
+                        sp_base = p.GetStats().SpBase,
+                        natural_mp_regen = p.GetStats().NaturalMpRegen,
+                        skill_attack = p.GetStats().SkillAttack,
+                        skill_defense = p.GetStats().SkillDefense,
+                        dexterity = p.GetStats().Dexterity,
+                        spirit = p.GetStats().Spirit,
+                        stamina = p.GetStats().Stamina,
+                        strength = p.GetStats().Strength
                     });
 
                 p.Id = id;

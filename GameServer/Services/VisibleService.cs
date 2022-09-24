@@ -16,7 +16,9 @@ namespace GameServer.Services
                     packet.Send(player.GetSession());
             }
 
-            creature.VisiblePlayers.ForEach(p => packet.Send(p.GetSession()));
+            //creature
+            //    .VisiblePlayers
+            //    .ForEach(p => packet.Send(p.GetSession()));
         }
 
         public void Action()

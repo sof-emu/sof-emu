@@ -16,7 +16,6 @@ namespace GameServer.Networks
 
         public static void Init()
         {
-            // 0x0344
             Recv.Add(unchecked((short)0x0001), typeof(RequestAuth));
             Recv.Add(unchecked((short)0x0005), typeof(RequestEnterWorld));
             Recv.Add(unchecked((short)0x0007), typeof(RequestPlayerMove));
@@ -25,8 +24,9 @@ namespace GameServer.Networks
             Recv.Add(unchecked((short)0x0016), typeof(RequestSettingOption));
             Recv.Add(unchecked((short)0x00B0), typeof(RequestPing));
             Recv.Add(unchecked((short)0x0038), typeof(RequsetCheckName));
-            Recv.Add(unchecked((short)0x003C), typeof(RequestUnk003C));
+            Recv.Add(unchecked((short)0x003C), typeof(RequestActiveSkillData));
             Recv.Add(unchecked((short)0x008F), typeof(RequestPlayable));
+            Recv.Add(unchecked((short)0x00B5), typeof(RequestViewProfile));
             Recv.Add(unchecked((short)0x0344), typeof(RequestVerifyLogin));
             Recv.Add(unchecked((short)0x1606), typeof(RequestVerifyVersion));
 
@@ -36,7 +36,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseCreatePlayer), unchecked((short)0x0015));
             Send.Add(typeof(ResponsePlayable), unchecked((short)0x0020));
             Send.Add(typeof(ResponseCheckName), unchecked((short)0x0039));
-            Send.Add(typeof(ResponseUnk003D), unchecked((short)0x003D));
+            Send.Add(typeof(ResponseActiveSkillData), unchecked((short)0x003D));
             Send.Add(typeof(ResponsePlayerInfo), unchecked((short)0x0064));
             Send.Add(typeof(ResponsePlayerMove), unchecked((short)0x0065));
             Send.Add(typeof(ResponseNpcSpawn), unchecked((short)0x0067));
@@ -51,11 +51,11 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseStatusEffect), unchecked((short)0x0087));
             Send.Add(typeof(ResponseQuestCompleteList), unchecked((short)0x008B));
             Send.Add(typeof(ResponsePlayerQuickInfo), unchecked((short)0x00A0));
-            Send.Add(typeof(ResponseNotifyPlayer), unchecked((short)0x00B2));
+            Send.Add(typeof(ResponseViewProfile), unchecked((short)0x00B2));
             Send.Add(typeof(ResponseSkillCooldown), unchecked((short)0x0212));
             Send.Add(typeof(ResponseVerifyLogin), unchecked((short)0x0345));
             Send.Add(typeof(ResponseBindPoint), unchecked((short)0x100B));
-            Send.Add(typeof(ResponseSpiritBeast), unchecked((short)0x1059));
+            Send.Add(typeof(ResponsePetInfo), unchecked((short)0x1059));
             Send.Add(typeof(ResponseVerifyVersion), unchecked((short)0x2015));
 
             RecvNames = Recv.ToDictionary(p => p.Key, p => p.Value.Name);

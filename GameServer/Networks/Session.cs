@@ -29,7 +29,7 @@ namespace GameServer.Networks
 
         // Game Properties
         protected AccountData account;
-        protected Dictionary<int, Player> players;
+        protected Dictionary<int, Player> players = new Dictionary<int, Player>();
         protected Player selectedPlayer;
         protected SettingOption setting;
 
@@ -43,9 +43,10 @@ namespace GameServer.Networks
             Client = client;
             Channel = channel;
 
+            //players = new Dictionary<int, Player>();
+
             _sessionId = GameServer
-                .Server
-                .GetIDFactory()
+                .IDFactory
                 .GetNext();
 
             Client.WireProtocol = new GameProtocol();
@@ -53,8 +54,6 @@ namespace GameServer.Networks
             Client.MessageReceived += OnMessageReceived;
 
             Sessions.Add(this);
-
-            players = new Dictionary<int, Player>();
         }
 
         /// <summary>
@@ -174,6 +173,16 @@ namespace GameServer.Networks
         public Player GetPlayer(int index)
         {
             return players[index];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="players"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void SetPlayer(List<Player> players)
+        {
+            this.players = players.Distinct().ToDictionary(i => i.Index, i => i); ;
         }
 
         /// <summary>

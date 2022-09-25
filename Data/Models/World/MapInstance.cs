@@ -1,5 +1,6 @@
 ﻿using Data.Models.Template.World;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Models.World
 {
@@ -50,6 +51,17 @@ namespace Data.Models.World
         public Npc.Npc GetNpc(int id)
         {
             return Npcs[id];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<Npc.Npc> GetNpcs()
+        {
+            return Npcs
+                .Values
+                .ToList();
         }
 
         /// <summary>

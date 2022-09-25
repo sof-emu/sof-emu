@@ -21,13 +21,12 @@ namespace GameServer.Networks.Packets.Response
             // 000000000000000000000000000000000000000000000000
             
             WriteD(writer, Key); // skill id
-            WriteC(writer, (byte)Value);
-            WriteC(writer, 0);
-            WriteH(writer, 0);
+            WriteH(writer, 1);
+            WriteH(writer, Value);
             WriteH(writer, 0);
             WriteB(writer, new byte[14]);
-            WriteD(writer, Key);
-            WriteD(writer, Value); // Current Active Skill Id
+            WriteD(writer, 0);
+            WriteD(writer, 0); // Current Active Skill Id
             WriteD(writer, 0);
             WriteD(writer, 0);
 

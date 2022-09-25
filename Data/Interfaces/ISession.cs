@@ -20,5 +20,6 @@ namespace Data.Interfaces
         SettingOption GetSetting();
         void SetLastPing(DateTime last);
         DateTime GetLastPing();
+        void SetPlayer(List<Player> players);
     }
 }

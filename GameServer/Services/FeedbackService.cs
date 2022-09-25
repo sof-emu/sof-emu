@@ -5,6 +5,7 @@ using Data.Models.Player;
 using GameServer.Networks;
 using GameServer.Networks.Packets.Response;
 using System.Threading.Tasks;
+using Utility;
 
 namespace GameServer.Services
 {
@@ -73,9 +74,22 @@ namespace GameServer.Services
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="session"></param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void SendServerTime(ISession session)
+        {
+            Log.Debug($"SendServerTime: {(int)Global.ServerTime}");
+            new ResponseServerTime((int)Global.ServerTime).Send(session);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Action()
         {
             
         }
+
+        
     }
 }

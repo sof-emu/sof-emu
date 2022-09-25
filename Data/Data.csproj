@@ -87,13 +87,16 @@
     <Compile Include="Models\Account\SettingOption.cs" />
     <Compile Include="Models\Creature\BaseStats.cs" />
     <Compile Include="Models\Creature\Creature.cs" />
+    <Compile Include="Models\Creature\LifeStats.cs" />
     <Compile Include="Models\Npc\Npc.cs" />
     <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
+    <Compile Include="Models\Template\Creatures\NpcTemplate.cs" />
     <Compile Include="Models\Template\Item\ItemTemplate.cs" />
     <Compile Include="Models\Template\World\MapTemplate.cs" />
+    <Compile Include="Models\Template\World\SpawnTemplate.cs" />
     <Compile Include="Models\VisibleObject.cs" />
     <Compile Include="Models\World\MapInstance.cs" />
     <Compile Include="Models\World\Position.cs" />
@@ -101,16 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="items.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="maps.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
-    <None Include="stats.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utility\Utility.csproj">

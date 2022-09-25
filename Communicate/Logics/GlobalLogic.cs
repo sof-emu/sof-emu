@@ -1,7 +1,9 @@
 ﻿using Data.Interfaces;
 using Data.Models.Player;
+using Data.Models.World;
 using System;
 using System.Collections.Generic;
+using Utility;
 
 namespace Communicate.Logics
 {
@@ -40,6 +42,10 @@ namespace Communicate.Logics
                 }
             }
             session.SetLastPing(DateTime.Now);
+
+            // todo
+            FeedbackService
+                .SendServerTime(session);
         }
 
         /// <summary>
@@ -50,6 +56,16 @@ namespace Communicate.Logics
         {
             FeedbackService
                 .SendViewProfile(player);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public static void SendMapNpcList(Player player)
+        {
+            MapInstance map = player.GetMap();
+            NpcService.SendNpcList(player, map);
         }
     }
 }

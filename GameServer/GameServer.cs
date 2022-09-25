@@ -16,6 +16,8 @@ namespace GameServer
 
         public static Server Server;
 
+        public static IDFactory IDFactory;
+
         /// <summary>
         /// 
         /// </summary>
@@ -52,6 +54,7 @@ namespace GameServer
 
             Config = new Config();
             OpCodes.Init();
+            IDFactory = new IDFactory();
 
             // Services
             AccountService = new AccountService();
@@ -59,6 +62,7 @@ namespace GameServer
             AuthService = new AuthService();
             FeedbackService = new FeedbackService();
             MapService = new MapService();
+            NpcService = new NpcService();
             PlayerService = new PlayerService();
             VisibleService = new VisibleService();
 

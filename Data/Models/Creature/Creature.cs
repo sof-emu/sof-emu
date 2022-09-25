@@ -13,6 +13,7 @@ namespace Data.Models.Creature
         private Creature _target;
 
         private BaseStats _stats;
+        private LifeStats _lifeStats;
 
         /// <summary>
         /// 
@@ -73,6 +74,24 @@ namespace Data.Models.Creature
                 stats.Sp = stats.SpBase;
 
             _stats = stats;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public LifeStats GetLifeStats()
+        {
+            return _lifeStats;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lifeStats"></param>
+        public void SetLifeStats(LifeStats lifeStats)
+        {
+            this._lifeStats = lifeStats;
         }
     }
 }

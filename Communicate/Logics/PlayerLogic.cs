@@ -15,10 +15,10 @@ namespace Communicate.Logics
 
             session.SetSelectPlayer(player);
 
-            PlayerService
+            MapService
                 .EnterWorld(player);
 
-            MapService
+            PlayerService
                 .EnterWorld(player);
         }
 

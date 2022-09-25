@@ -1,6 +1,8 @@
 ﻿using Communicate.Interfaces;
 using Data.Models.Creature;
+using Data.Models.Npc;
 using Data.Models.Player;
+using Data.Models.Template.Creatures;
 using Data.Models.World;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,9 @@ namespace GameServer.Services
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Init()
         {
             // todo: Start Map Instance from map data templater
@@ -28,10 +33,28 @@ namespace GameServer.Services
                 MapInstance mapInstance = new MapInstance();
                 mapInstance.Template = map;
 
+                if (Data.Data.SpawnTemplates.ContainsKey(map.Id))
+                {
+                    Data.Data.SpawnTemplates[map.Id].ForEach(spawn =>
+                    {
+                        int objId = GameServer
+                            .IDFactory
+                            .GetNextStatic();
+
+                        NpcTemplate template = Data.Data.NpcTemplates[spawn.NpcId];
+                        Npc npc = new Npc(objId, template, spawn);
+                        SpawnCreature(npc, mapInstance);
+                    });
+                }
+
                 Maps.Add(map.Id, mapInstance);
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
         public void EnterWorld(Player player)
         {
             if (!Maps.ContainsKey(player.Position.MapId))
@@ -40,10 +63,13 @@ namespace GameServer.Services
 
             MapInstance map = Maps[player.Position.MapId];
             SpawnCreature(player, map);
-
-            // todo
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
+        /// <param name="map"></param>
         private void SpawnCreature(Creature creature, MapInstance map)
         {
             if (creature != null)
@@ -52,6 +78,8 @@ namespace GameServer.Services
                 {
                     if (creature is Player)
                         map.AddCreature((Player)creature);
+                    if (creature is Npc)
+                        map.AddCreature((Npc)creature);
                 }
 
                 creature.SetMap(map);

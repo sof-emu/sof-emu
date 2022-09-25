@@ -23,7 +23,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            new ResponseActiveSkillData(Key, 11).Send(session);
+            new ResponseActiveSkillData(Key, 1).Send(session);
             //session.SendPacket("AA55260065003D002000020000000100010000000000000000000000000000000000000000000000000055AA".ToBytes());
         }
     }

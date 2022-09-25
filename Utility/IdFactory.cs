@@ -9,16 +9,14 @@ namespace Utility
         private List<int> Ids = new List<int>();
         private List<int> StaticIds = new List<int>();
 
-        private int lastId = 100;
+        private int lastId = 99;
 
-        private int StaticLastId = 10000;
+        private int StaticLastId = 9999;
 
         public IDFactory()
         {
             Ids.Add(lastId);
             StaticIds.Add(StaticLastId);
-
-            Log.Debug("Initialized IDFactory");
         }
 
         public int GetNext()

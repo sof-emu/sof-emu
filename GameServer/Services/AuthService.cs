@@ -3,6 +3,10 @@ using Communicate.Interfaces;
 using Data.Interfaces;
 using Data.Models.Account;
 using Data.Models.Creature;
+using Data.Models.Player;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GameServer.Services
 {
@@ -24,6 +28,8 @@ namespace GameServer.Services
                 .ApiService
                 .GetPlayerFromAccountId(accountData.Id);
 
+            List<Player> _Players = new List<Player>();
+
             playerList.ForEach(async player =>
             {
                 BaseStats stats = await Global
@@ -32,8 +38,12 @@ namespace GameServer.Services
 
                 player.SetStats(stats);
                 player.SetSession(session);
-                session.AddPlayer(player);
+                _Players.Add(player);
             });
+
+            await Task.Delay(1000);
+
+            session.SetPlayer(_Players);
 
             Global
                 .FeedbackService

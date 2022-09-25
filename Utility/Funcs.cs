@@ -195,5 +195,19 @@ namespace Utility
             }
             return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static double GetServerTime(double serverTime)
+        {
+            if (serverTime >= 19000)
+                serverTime = 0;
+
+            serverTime += 0.1;
+
+            return serverTime;
+        }
     }
 }

@@ -142,6 +142,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\MapService.cs" />
+    <Compile Include="Services\NpcService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\VisibleService.cs" />
   </ItemGroup>

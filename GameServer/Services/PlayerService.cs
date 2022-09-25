@@ -123,7 +123,7 @@ namespace GameServer.Services
         {
             var session = player.GetSession();
 
-            new ResponseServerTime(1000).Send(session);
+            new ResponseServerTime((int)Global.ServerTime).Send(session);
             new ResponsePlayerRunning(1).Send(session);
             new ResponseSkillPassive().Send(session);
             new ResponsePlayerInfo(player).Send(session);
@@ -148,6 +148,9 @@ namespace GameServer.Services
 
             //new ResponsePlayerInfo(player).Send(session);
             //new ResponseEquipInfo(player).Send(session);
+
+            GlobalLogic
+                .SendMapNpcList(player);
         }
 
         /// <summary>

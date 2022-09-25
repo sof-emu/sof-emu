@@ -1,4 +1,5 @@
 ﻿using Data.Models.Creature;
+using Data.Models.Template.Creatures;
 using Data.Models.Template.Item;
 using Data.Models.Template.World;
 using Newtonsoft.Json;
@@ -8,7 +9,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Utility;
-using File = System.IO.File;
 
 namespace Data
 {
@@ -19,6 +19,8 @@ namespace Data
         public static Dictionary<long, MapTemplate> MapTemplates;
         public static Dictionary<long, ItemTemplate> ItemTemplates;
         public static Dictionary<int, BaseStats> StatsTemplates;
+        public static Dictionary<int, NpcTemplate> NpcTemplates;
+        public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
 
         protected delegate int Loader();
         protected static List<Loader> Loaders = new List<Loader>
@@ -27,9 +29,9 @@ namespace Data
                                                         //LoadPlayerExperience,
                                                         LoadBaseStats,
                                                         LoadItemTemplates,
-                                                        //LoadSpawns,
                                                         //LoadBindPoints,
-                                                        //LoadNpcTemplates,
+                                                        LoadNpcTemplates,
+                                                        LoadSpawnTemplates,
                                                         //LoadQuests,
                                                         //LoadSkills,
                                                         //LoadAbilities,
@@ -124,6 +126,59 @@ namespace Data
             });
 
             return ItemTemplates.Count;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadNpcTemplates()
+        {
+            NpcTemplates = new Dictionary<int, NpcTemplate>();
+
+            string jsonStr = File.ReadAllText(Path.Combine(DataPath, "npcs.json"));
+            List<NpcTemplate> list = JsonConvert.DeserializeObject<List<NpcTemplate>>(jsonStr);
+
+            list.ForEach(npc =>
+            {
+                if (!NpcTemplates.ContainsKey(npc.Id))
+                    NpcTemplates.Add(npc.Id, npc);
+            });
+
+            return NpcTemplates.Count;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadSpawnTemplates()
+        {
+            SpawnTemplates = new Dictionary<int, List<SpawnTemplate>>();
+            string spawnDataPath = Path.Combine(DataPath, "spawns");
+
+            string[] files = Directory.GetFiles(spawnDataPath);
+            int length = 0;
+
+            foreach(string file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+                int mapId = int.Parse(fileInfo.Name.Replace(".json", ""));
+                string jsonStr = File.ReadAllText(file);
+                List<SpawnTemplate> list = JsonConvert.DeserializeObject<List<SpawnTemplate>>(jsonStr);
+
+                List<SpawnTemplate> spawns = new List<SpawnTemplate>();
+                list.ForEach(spawn =>
+                {
+                    spawns.Add(spawn);
+                    length++;
+                });
+
+                if (!SpawnTemplates.ContainsKey(mapId))
+                    SpawnTemplates.Add(mapId, spawns);
+            }
+
+            return length;
         }
     }
 }

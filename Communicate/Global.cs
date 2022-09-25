@@ -7,12 +7,15 @@ namespace Communicate
 {
     public class Global
     {
+        public static double ServerTime = 10000;
+
         // Services
         public static IAccountService AccountService;
         public static IApiService ApiService;
         public static IAuthService AuthService;
         public static IFeedbackService FeedbackService;
         public static IMapService MapService;
+        public static INpcService NpcService;
         public static IPlayerService PlayerService;
         public static IVisibleService VisibleService;
 
@@ -31,15 +34,19 @@ namespace Communicate
 
         protected static void MainLoop()
         {
+            
             while (ServerIsWork)
             {
                 try
                 {
+                    ServerTime = Funcs.GetServerTime(ServerTime);
+
                     //Services:
                     AccountService.Action();
                     ApiService.Action();
                     FeedbackService.Action();
                     MapService.Action();
+                    NpcService.Action();
                     PlayerService.Action();
 
                     //Engines:

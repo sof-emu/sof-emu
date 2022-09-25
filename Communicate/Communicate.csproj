@@ -79,6 +79,7 @@
     <Compile Include="Interfaces\IComponent.cs" />
     <Compile Include="Interfaces\IFeedbackService.cs" />
     <Compile Include="Interfaces\IMapService.cs" />
+    <Compile Include="Interfaces\INpcService.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
     <Compile Include="Interfaces\IVisibleService.cs" />
     <Compile Include="Logics\GlobalLogic.cs" />

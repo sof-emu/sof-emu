@@ -56,7 +56,7 @@ namespace GameServer.Networks.Packets.Response
             WriteQ(writer, /*(equips[4] != null) ? equips[4].ItemId : */ 0); // Equip slot 4
             WriteQ(writer, /*(equips[3] != null) ? equips[3].ItemId : */ 0); // Equip slot 3
             WriteQ(writer, /*(equips[5] != null) ? equips[5].ItemId : */ 0); // Equip slot 5
-            WriteD(writer, /*(equips[3] != null) ? equips[3].Upgrade : */ 0); // Equip slot 9
+            WriteQ(writer, /*(equips[3] != null) ? equips[3].Upgrade : */ 0); // Equip slot 9
             WriteQ(writer, /*(equips[11] != null) ? equips[11].ItemId : */ 0); // Equip slot 10
 
 
@@ -79,7 +79,7 @@ namespace GameServer.Networks.Packets.Response
 				发包类.Write(setting);
 			}
              */
-            WriteC(writer, (byte)(setting + 9)); // todo
+            WriteC(writer, 0); // todo
             WriteC(writer, 0); // todo with class passive skill
             WriteH(writer, 0); // Status of the luthier
 

@@ -14,6 +14,7 @@ namespace Communicate.Interfaces
         Task<BaseStats> GetPlayerStats(int playerId);
         Task<AccountData> RequestAccountData(string username);
         Task<Player> SendCreatePlayer(Player player);
+        Task<bool> SendDeletePlayer(int index, string password);
         void SendServerInfo(ServerModel model);
     }
 }

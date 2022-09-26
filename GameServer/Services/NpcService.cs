@@ -4,22 +4,29 @@ using Data.Models.Player;
 using Data.Models.World;
 using GameServer.Networks.Packets.Response;
 using System.Collections.Generic;
-using Utility;
 
 namespace GameServer.Services
 {
     public class NpcService : INpcService
     {
-        public void Action()
-        {
-            
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="map"></param>
         public void SendNpcList(Player player, MapInstance map)
         {
-            Log.Debug($"player: {player.Id}, MapId: {map.Template.Id}, Npcs: {map.GetNpcs().Count}");
+            //Log.Debug($"player: {player.Id}, MapId: {map.Template.Id}, Npcs: {map.GetNpcs().Count}");
             List<Npc> npcs =  map.GetNpcs();
             new ResponseNpcSpawn(npcs).Send(player.GetSession());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Action()
+        {
+
         }
     }
 }

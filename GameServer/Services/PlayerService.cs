@@ -112,7 +112,7 @@ namespace GameServer.Services
 
             Global
                 .VisibleService
-                .Send(player, new ResponsePlayerInfo(player));
+                .Broadcast(player, new ResponsePlayerInfo(player));
         }
 
         /// <summary>

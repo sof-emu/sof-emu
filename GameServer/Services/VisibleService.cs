@@ -7,18 +7,17 @@ namespace GameServer.Services
 {
     public class VisibleService : IVisibleService
     {
-        public void Send(Creature creature, ISendPacket packet)
+        public void Broadcast(Creature creature, ISendPacket packet)
         {
             Player player = creature as Player;
             if (player != null)
-            {
                 if (player.GetSession() != null)
                     packet.Send(player.GetSession());
-            }
 
-            //creature
-            //    .VisiblePlayers
-            //    .ForEach(p => packet.Send(p.GetSession()));
+            if(creature.VisiblePlayers.Count > 0)
+                creature
+                    .VisiblePlayers
+                    .ForEach(p => packet.Send(p.GetSession()));
         }
 
         public void Action()

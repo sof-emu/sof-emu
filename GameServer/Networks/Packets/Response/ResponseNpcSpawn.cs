@@ -46,7 +46,7 @@ namespace GameServer.Networks.Packets.Response
                 WriteD(writer, 0);
                 WriteD(writer, 10);
                 WriteD(writer, 0);
-                WriteD(writer, 2359296);
+                WriteD(writer, 0x240000);
                 WriteD(writer, int.MaxValue);
             }
             

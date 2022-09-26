@@ -93,6 +93,7 @@
     <Compile Include="Networks\Packets\ASendPacket.cs" />
     <Compile Include="Networks\Packets\Request\RequestAuth.cs" />
     <Compile Include="Networks\Packets\Request\RequestCreatePlayer.cs" />
+    <Compile Include="Networks\Packets\Request\RequestDeletePlayer.cs" />
     <Compile Include="Networks\Packets\Request\RequestEnterWorld.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayerMove.cs" />
     <Compile Include="Networks\Packets\Request\RequestPing.cs" />

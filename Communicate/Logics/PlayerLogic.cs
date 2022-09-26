@@ -1,13 +1,20 @@
 ﻿using Data.Interfaces;
 using Data.Models.Account;
 using Data.Models.Player;
-using System;
 using Utility;
 
 namespace Communicate.Logics
 {
     public class PlayerLogic : Global
     {
+        public static async void DeletePlayer(ISession session, int index, string password)
+        {
+            var result = await ApiService
+                .SendDeletePlayer(index, password);
+
+            // todo send packet delete response
+        }
+
         public static void EnterWorld(ISession session, int playerIndex)
         {
             Player player = session

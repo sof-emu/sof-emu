@@ -32,6 +32,11 @@ namespace GameServer.Services
             });
         }
 
+        public void Action()
+        {
+
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -109,9 +114,18 @@ namespace GameServer.Services
             return stats;
         }
 
-        public void Action()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<bool> SendDeletePlayer(int index, string password)
         {
-            
+            var request = new RestRequest($"/api/player/{index}/{password}");
+            var result = await Client.DeleteAsync<bool>(request);
+
+            return result;
         }
     }
 }

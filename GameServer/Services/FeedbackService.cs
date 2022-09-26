@@ -59,7 +59,7 @@ namespace GameServer.Services
         {
             Global
                 .VisibleService
-                .Send(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, target));
+                .Broadcast(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, target));
         }
 
         /// <summary>

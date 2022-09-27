@@ -27,15 +27,12 @@ CREATE TABLE IF NOT EXISTS `account_data` (
   `last_ip` varchar(20) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `balance` float DEFAULT NULL,
+  `delete_player_key` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table sof_account.account_data: ~0 rows (approximately)
-/*!40000 ALTER TABLE `account_data` DISABLE KEYS */;
-INSERT INTO `account_data` (`id`, `username`, `password`, `activated`, `access_level`, `last_ip`, `email`, `balance`) VALUES
-	(2, 'test', '098f6bcd4621d373cade4e832627b4f6', 1, 99, '127.0.0.1', 'test@test.ts', 99999);
-/*!40000 ALTER TABLE `account_data` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sof_account.account_playtime
 CREATE TABLE IF NOT EXISTS `account_playtime` (
@@ -45,9 +42,7 @@ CREATE TABLE IF NOT EXISTS `account_playtime` (
   PRIMARY KEY (`account_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table sof_account.account_playtime: ~0 rows (approximately)
-/*!40000 ALTER TABLE `account_playtime` DISABLE KEYS */;
-/*!40000 ALTER TABLE `account_playtime` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sof_account.banned
 CREATE TABLE IF NOT EXISTS `banned` (
@@ -59,9 +54,7 @@ CREATE TABLE IF NOT EXISTS `banned` (
   UNIQUE KEY `mask` (`mask`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table sof_account.banned: ~0 rows (approximately)
-/*!40000 ALTER TABLE `banned` DISABLE KEYS */;
-/*!40000 ALTER TABLE `banned` ENABLE KEYS */;
+-- Data exporting was unselected.
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

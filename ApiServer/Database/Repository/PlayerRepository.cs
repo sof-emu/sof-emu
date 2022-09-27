@@ -3,6 +3,7 @@ using Data.Models.Creature;
 using Data.Models.Player;
 using Data.Models.World;
 using SqlKata.Execution;
+using System.Xml.Linq;
 
 namespace ApiServer.Database.Repository
 {
@@ -17,6 +18,38 @@ namespace ApiServer.Database.Repository
         public PlayerRepository(DapperContext context)
         {
             _context = context;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool DeletePlayer(int id, string password)
+        {
+            var acdb = _context.GetQueryFactory("account");
+            
+
+
+            using (var db = _context.GetQueryFactory("game"))
+            {
+                var p = db.Query("player")
+                    .Where("id", id)
+                    .Get()
+                    .FirstOrDefault();
+
+                if (acdb.Query("account_data").Where("id", p.account_id).Where("delete_player_key", password).Exists())
+                {
+                    // todo delete
+                    return true;
+                }
+                else
+                {
+                    // wrong delete_player_key
+                    return false;
+                }
+            }
         }
 
         /// <summary>
@@ -47,6 +80,7 @@ namespace ApiServer.Database.Repository
             {
                 var list = db.Query("player")
                     .Where("account_id", accountId)
+                    .Where("is_delete", false)
                     .Get()
                     .ToList();
 

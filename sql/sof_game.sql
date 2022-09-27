@@ -51,10 +51,11 @@ CREATE TABLE IF NOT EXISTS `player` (
   `voice` int(11) DEFAULT NULL,
   `gender` int(11) DEFAULT NULL,
   `title` int(11) DEFAULT NULL,
+  `is_delete` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name_unique` (`name`) USING BTREE,
   KEY `account_id` (`account_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='player data';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='player data';
 
 -- Data exporting was unselected.
 

@@ -82,5 +82,17 @@ namespace ApiServer.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        [HttpDelete("{playerId}/{delete_key}")]
+        public bool DeletePlayer(int id, string password)
+        {
+            _playerRepository.DeletePlayer(id, password);
+        }
     }
 }

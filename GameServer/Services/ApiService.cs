@@ -126,9 +126,9 @@ namespace GameServer.Services
         /// <param name="index"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<bool> SendDeletePlayer(int index, string password)
+        public async Task<bool> SendDeletePlayer(int id, string password)
         {
-            var request = new RestRequest($"/api/player/{index}/{password}");
+            var request = new RestRequest($"/api/player/{id}/{password}");
             var result = await Client.DeleteAsync<bool>(request);
 
             return result;

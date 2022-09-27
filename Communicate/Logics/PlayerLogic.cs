@@ -10,8 +10,10 @@ namespace Communicate.Logics
     {
         public static async void DeletePlayer(ISession session, int index, string password)
         {
+            Player p = session.GetPlayer(index);
+
             var result = await ApiService
-                .SendDeletePlayer(index, password);
+                .SendDeletePlayer(p.Id, password);
 
             // todo send packet delete response
         }

@@ -61,6 +61,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseBindPoint), unchecked((short)0x100B));
             Send.Add(typeof(ResponsePetInfo), unchecked((short)0x1059));
             Send.Add(typeof(ResponseSelectNpc), unchecked((short)0x1089));
+            Send.Add(typeof(ResponseDeletePlayer), unchecked((short)0x1F00));
             Send.Add(typeof(ResponseVerifyVersion), unchecked((short)0x2015));
 
             RecvNames = Recv.ToDictionary(p => p.Key, p => p.Value.Name);

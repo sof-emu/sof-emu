@@ -3,7 +3,6 @@ using Data.Models.Creature;
 using Data.Models.Player;
 using Data.Models.World;
 using SqlKata.Execution;
-using System.Xml.Linq;
 
 namespace ApiServer.Database.Repository
 {
@@ -28,9 +27,8 @@ namespace ApiServer.Database.Repository
         /// <returns></returns>
         public bool DeletePlayer(int id, string password)
         {
-            var acdb = _context.GetQueryFactory("account");
-            
-
+            var acdb = _context
+                .GetQueryFactory("account");
 
             using (var db = _context.GetQueryFactory("game"))
             {

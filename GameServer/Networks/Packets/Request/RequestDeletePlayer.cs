@@ -1,5 +1,4 @@
-﻿using Communicate;
-using Communicate.Logics;
+﻿using Communicate.Logics;
 using Utility;
 
 namespace GameServer.Networks.Packets.Request

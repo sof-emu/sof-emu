@@ -2,8 +2,6 @@
 using Data.Models.Creature;
 using Data.Models.Player;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Utility;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -92,7 +90,7 @@ namespace ApiServer.Controllers
         [HttpDelete("{playerId}/{delete_key}")]
         public bool DeletePlayer(int id, string password)
         {
-            _playerRepository.DeletePlayer(id, password);
+            return _playerRepository.DeletePlayer(id, password);
         }
     }
 }

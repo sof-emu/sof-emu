@@ -7,7 +7,8 @@ namespace ApiServer.Models.Contracts.Databases
     {
         public bool Exist(string name);
         List<Player> GetPlayersByAccountId(int accountId);
-        BaseStats GetPlayerStats(int playerId);
+        GameStats GetPlayerStats(int playerId);
         public Player SavePlayer(Player player);
+        void SavePlayerStats(int playerId, GameStats stats);
     }
 }

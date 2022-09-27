@@ -27,8 +27,10 @@ namespace GameServer.Networks
             Recv.Add(unchecked((short)0x0038), typeof(RequsetCheckName));
             Recv.Add(unchecked((short)0x003C), typeof(RequestActiveSkillData));
             Recv.Add(unchecked((short)0x008F), typeof(RequestPlayable));
+            Recv.Add(unchecked((short)0x0090), typeof(RequestNpcInteraction));
             Recv.Add(unchecked((short)0x00B5), typeof(RequestViewProfile));
             Recv.Add(unchecked((short)0x0344), typeof(RequestVerifyLogin));
+            Recv.Add(unchecked((short)0x1088), typeof(RequestSelectNpc));
             Recv.Add(unchecked((short)0x1606), typeof(RequestVerifyVersion));
 
             Send.Add(typeof(ResponseAuth), unchecked((short)0x0002));
@@ -51,12 +53,14 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseQuestList), unchecked((short)0x0085));
             Send.Add(typeof(ResponseStatusEffect), unchecked((short)0x0087));
             Send.Add(typeof(ResponseQuestCompleteList), unchecked((short)0x008B));
+            Send.Add(typeof(ResponseNpcInteraction), unchecked((short)0x0091));
             Send.Add(typeof(ResponsePlayerQuickInfo), unchecked((short)0x00A0));
             Send.Add(typeof(ResponseViewProfile), unchecked((short)0x00B2));
             Send.Add(typeof(ResponseSkillCooldown), unchecked((short)0x0212));
             Send.Add(typeof(ResponseVerifyLogin), unchecked((short)0x0345));
             Send.Add(typeof(ResponseBindPoint), unchecked((short)0x100B));
             Send.Add(typeof(ResponsePetInfo), unchecked((short)0x1059));
+            Send.Add(typeof(ResponseSelectNpc), unchecked((short)0x1089));
             Send.Add(typeof(ResponseVerifyVersion), unchecked((short)0x2015));
 
             RecvNames = Recv.ToDictionary(p => p.Key, p => p.Value.Name);

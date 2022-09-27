@@ -91,7 +91,7 @@ namespace ApiServer.Database.Repository
         /// </summary>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        public BaseStats GetPlayerStats(int playerId)
+        public GameStats GetPlayerStats(int playerId)
         {
             using (var db = _context.GetQueryFactory("game"))
             {
@@ -100,7 +100,7 @@ namespace ApiServer.Database.Repository
                     .Get()
                     .FirstOrDefault();
 
-                BaseStats baseStats = new BaseStats();
+                GameStats baseStats = new GameStats();
                 baseStats.Accuracy = stats.accuracy;
                 baseStats.Attack = stats.attack;
                 baseStats.Defense = stats.defense;
@@ -142,7 +142,7 @@ namespace ApiServer.Database.Repository
                         name = p.Name,
                         index = index,
                         level = p.Level,
-                        exp = p.GetStats().Exp,
+                        exp = 0,
                         online = 0,
                         job = p.Job,
                         job_level = p.JobLevel,
@@ -158,29 +158,40 @@ namespace ApiServer.Database.Repository
                         title = p.Title
                     });
 
-                db.Query("player_stats")
-                    .Insert(new
-                    {
-                        player_id = id,
-                        accuracy = p.GetStats().Accuracy,
-                        attack = p.GetStats().Attack,
-                        defense = p.GetStats().Defense,
-                        dodge = p.GetStats().Dodge,
-                        hp_base = p.GetStats().HpBase,
-                        mp_base = p.GetStats().MpBase,
-                        sp_base = p.GetStats().SpBase,
-                        natural_mp_regen = p.GetStats().NaturalMpRegen,
-                        skill_attack = p.GetStats().SkillAttack,
-                        skill_defense = p.GetStats().SkillDefense,
-                        dexterity = p.GetStats().Dexterity,
-                        spirit = p.GetStats().Spirit,
-                        stamina = p.GetStats().Stamina,
-                        strength = p.GetStats().Strength
-                    });
-
                 p.Id = id;
 
                 return p;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <param name="stats"></param>
+        public void SavePlayerStats(int playerId, GameStats stats)
+        {
+            using (var db = _context.GetQueryFactory("game"))
+            {
+                db.Query("player_stats")
+                    .Insert(new
+                    {
+                        player_id = playerId,
+                        accuracy = stats.Accuracy,
+                        attack = stats.Attack,
+                        defense = stats.Defense,
+                        dodge = stats.Dodge,
+                        hp_base = stats.HpBase,
+                        mp_base = stats.MpBase,
+                        sp_base = stats.SpBase,
+                        natural_mp_regen = stats.NaturalMpRegen,
+                        skill_attack = stats.SkillAttack,
+                        skill_defense = stats.SkillDefense,
+                        dexterity = stats.Dexterity,
+                        spirit = stats.Spirit,
+                        stamina = stats.Stamina,
+                        strength = stats.Strength
+                    });
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Data.Models.Creature
         private MapInstance Map;
         private Creature _target;
 
-        private BaseStats _stats;
+        private GameStats _gameStats;
         private LifeStats _lifeStats;
 
         /// <summary>
@@ -55,25 +55,18 @@ namespace Data.Models.Creature
         /// 
         /// </summary>
         /// <returns></returns>
-        public BaseStats GetStats()
+        public GameStats GetGameStats()
         {
-            return _stats;
+            return _gameStats;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="stats"></param>
-        public void SetStats(BaseStats stats)
+        public void SetGameStats(GameStats stats)
         {
-            if (stats.Hp == 0)
-                stats.Hp = stats.HpBase;
-            if (stats.Mp == 0)
-                stats.Mp = stats.MpBase;
-            if (stats.Sp == 0)
-                stats.Sp = stats.SpBase;
-
-            _stats = stats;
+            _gameStats = stats;
         }
 
         /// <summary>

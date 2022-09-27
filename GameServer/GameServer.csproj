@@ -87,6 +87,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\Config.cs" />
+    <Compile Include="Engines\NpcActions\EndTalk.cs" />
+    <Compile Include="Engines\NpcActions\EnhanceItem.cs" />
+    <Compile Include="Engines\NpcActions\ForgeItem.cs" />
+    <Compile Include="Engines\NpcActions\MoveToMarketplace.cs" />
+    <Compile Include="Engines\NpcActions\OpenShop.cs" />
+    <Compile Include="Engines\NpcActions\OpenWarehouse.cs" />
+    <Compile Include="Engines\NpcActions\QuestDialog.cs" />
+    <Compile Include="Engines\NpcActions\TalkToNpc.cs" />
     <Compile Include="Networks\Messages\GameMessage.cs" />
     <Compile Include="Networks\OpCodes.cs" />
     <Compile Include="Networks\Packets\ARecvPacket.cs" />
@@ -95,9 +103,11 @@
     <Compile Include="Networks\Packets\Request\RequestCreatePlayer.cs" />
     <Compile Include="Networks\Packets\Request\RequestDeletePlayer.cs" />
     <Compile Include="Networks\Packets\Request\RequestEnterWorld.cs" />
+    <Compile Include="Networks\Packets\Request\RequestNpcInteraction.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayerMove.cs" />
     <Compile Include="Networks\Packets\Request\RequestPing.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayerList.cs" />
+    <Compile Include="Networks\Packets\Request\RequestSelectNpc.cs" />
     <Compile Include="Networks\Packets\Request\RequestSettingOption.cs" />
     <Compile Include="Networks\Packets\Request\RequestActiveSkillData.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayable.cs" />
@@ -108,6 +118,7 @@
     <Compile Include="Networks\Packets\Response\ResponseBindPoint.cs" />
     <Compile Include="Networks\Packets\Response\ResponseEquipInfo.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcSpawn.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseNpcInteraction.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerMove.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestCompleteList.cs" />
     <Compile Include="Networks\Packets\Response\ResponseAuth.cs" />
@@ -122,6 +133,7 @@
     <Compile Include="Networks\Packets\Response\ResponsePlayerRunning.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestItem.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestList.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseSelectNpc.cs" />
     <Compile Include="Networks\Packets\Response\ResponseServerTime.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillCooldown.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillPassive.cs" />
@@ -174,9 +186,7 @@
       <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Engines\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Changes.txt" />
   </ItemGroup>

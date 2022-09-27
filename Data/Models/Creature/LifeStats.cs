@@ -6,8 +6,8 @@
 
         public LifeStats(Creature creature)
         {
-            _hp = creature.GetStats().HpBase;
-            _mp = creature.GetStats().MpBase;
+            _hp = creature.GetGameStats().HpBase;
+            _mp = creature.GetGameStats().MpBase;
             _sp = 0;
 
             Creature = creature;
@@ -39,12 +39,12 @@
 
         public int MaxHp
         {
-            get { return Creature.GetStats().HpBase; }
+            get { return Creature.GetGameStats().HpBase; }
         }
 
         public int MaxMp
         {
-            get { return Creature.GetStats().MpBase; }
+            get { return Creature.GetGameStats().MpBase; }
         }
 
         public bool IsDead()

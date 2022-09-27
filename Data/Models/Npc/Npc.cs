@@ -15,7 +15,7 @@ namespace Data.Models.Npc
             npcTemplate = template;
             spawnTemplate = spawn;
 
-            SetStats(new BaseStats()
+            SetGameStats(new GameStats()
             {
                 HpBase = npcTemplate.Hp,
                 MpBase = 0,

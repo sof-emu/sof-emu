@@ -54,7 +54,7 @@ namespace ApiServer.Controllers
         /// <param name="playerId"></param>
         /// <returns></returns>
         [HttpGet("{playerId}/stats")]
-        public BaseStats GetStatsById(int playerId)
+        public GameStats GetStatsById(int playerId)
         {
             return _playerRepository.GetPlayerStats(playerId);
         }
@@ -65,6 +65,16 @@ namespace ApiServer.Controllers
         {
             player = _playerRepository.SavePlayer(player);
             return player;
+        }
+
+        /// <summary>
+        /// POST api/player/{playerId}/stats
+        /// </summary>
+        /// <param name="stats"></param>
+        [HttpPost("{playerId}/stats")]
+        public void PostStats([FromBody] GameStats stats, int playerId)
+        {
+            _playerRepository.SavePlayerStats(playerId, stats);
         }
 
         // PUT api/<PlayerController>/5

@@ -78,6 +78,7 @@
     <Compile Include="Data.cs" />
     <Compile Include="Enums\InventoryType.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
+    <Compile Include="Interfaces\INpcAction.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
     <Compile Include="Interfaces\ISendPacket.cs" />
@@ -85,10 +86,11 @@
     <Compile Include="Interfaces\IVisible.cs" />
     <Compile Include="Models\Account\AccountData.cs" />
     <Compile Include="Models\Account\SettingOption.cs" />
-    <Compile Include="Models\Creature\BaseStats.cs" />
     <Compile Include="Models\Creature\Creature.cs" />
+    <Compile Include="Models\Creature\GameStats.cs" />
     <Compile Include="Models\Creature\LifeStats.cs" />
     <Compile Include="Models\Npc\Npc.cs" />
+    <Compile Include="Models\Npc\NpcAction.cs" />
     <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />

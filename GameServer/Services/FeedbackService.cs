@@ -1,6 +1,7 @@
 ﻿using Communicate;
 using Communicate.Interfaces;
 using Data.Interfaces;
+using Data.Models.Npc;
 using Data.Models.Player;
 using GameServer.Networks;
 using GameServer.Networks.Packets.Response;
@@ -11,6 +12,18 @@ namespace GameServer.Services
 {
     public class FeedbackService : IFeedbackService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Action()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
         public void OnAuthorized(ISession session)
         {
             new ResponseAuth(session.GetAccount())
@@ -85,11 +98,12 @@ namespace GameServer.Services
         /// <summary>
         /// 
         /// </summary>
-        public void Action()
+        /// <param name="session"></param>
+        /// <param name="npc"></param>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public void SelectNpc(ISession session, Npc npc)
         {
-            
+            new ResponseSelectNpc(npc).Send(session);
         }
-
-        
     }
 }

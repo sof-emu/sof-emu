@@ -11,9 +11,9 @@ namespace Communicate.Interfaces
     {
         Task<bool> CheckNameExist(string name);
         Task<List<Player>> GetPlayerFromAccountId(int id);
-        Task<BaseStats> GetPlayerStats(int playerId);
+        Task<GameStats> GetPlayerStats(int playerId);
         Task<AccountData> RequestAccountData(string username);
-        Task<Player> SendCreatePlayer(Player player);
+        Task<Player> SendCreatePlayer(Player player, GameStats stats);
         Task<bool> SendDeletePlayer(int index, string password);
         void SendServerInfo(ServerModel model);
     }

@@ -1,8 +1,6 @@
-﻿using System.Runtime.InteropServices;
-
-namespace Data.Models.Creature
+﻿namespace Data.Models.Creature
 {
-    public class BaseStats
+    public class GameStats
     {
         private int _accuracy;
         private int _attack;

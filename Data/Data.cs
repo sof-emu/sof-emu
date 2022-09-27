@@ -18,7 +18,7 @@ namespace Data
 
         public static Dictionary<long, MapTemplate> MapTemplates;
         public static Dictionary<long, ItemTemplate> ItemTemplates;
-        public static Dictionary<int, BaseStats> StatsTemplates;
+        public static Dictionary<int, GameStats> StatsTemplates;
         public static Dictionary<int, NpcTemplate> NpcTemplates;
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
 
@@ -94,10 +94,10 @@ namespace Data
         /// <returns></returns>
         public static int LoadBaseStats()
         {
-            StatsTemplates = new Dictionary<int, BaseStats>();
+            StatsTemplates = new Dictionary<int, GameStats>();
 
             string jsonStr = File.ReadAllText(Path.Combine(DataPath, "stats.json"));
-            List<BaseStats> list = JsonConvert.DeserializeObject<List<BaseStats>>(jsonStr);
+            List<GameStats> list = JsonConvert.DeserializeObject<List<GameStats>>(jsonStr);
 
             list.ForEach(item =>
             {

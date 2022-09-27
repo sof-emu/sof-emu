@@ -83,18 +83,18 @@ namespace GameServer.Services
             player.Position.Y = 0;
             player.Position.Z = 0;
             
-            BaseStats stats = new BaseStats();
+            GameStats stats = new GameStats();
             Data.Data.StatsTemplates
                 .TryGetValue((int)playerClass, out stats);
 
-            player.SetStats(stats);
+            player.SetGameStats(stats);
 
             var jsonStr = JsonConvert.SerializeObject(player);
             Log.Debug(jsonStr.PrintJson());
 
             player = await Global
                 .ApiService
-                .SendCreatePlayer(player);
+                .SendCreatePlayer(player, stats);
 
             Global
                 .FeedbackService
@@ -110,9 +110,10 @@ namespace GameServer.Services
             var player = session
                     .GetSelectedPlayer();
 
-            Global
-                .VisibleService
-                .Broadcast(player, new ResponsePlayerInfo(player));
+            if (player != null)
+                Global
+                    .VisibleService
+                    .Broadcast(player, new ResponsePlayerInfo(player));
         }
 
         /// <summary>

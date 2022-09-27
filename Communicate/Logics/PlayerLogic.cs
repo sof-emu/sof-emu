@@ -1,5 +1,6 @@
 ﻿using Data.Interfaces;
 using Data.Models.Account;
+using Data.Models.Npc;
 using Data.Models.Player;
 using Utility;
 
@@ -51,6 +52,17 @@ namespace Communicate.Logics
             FeedbackService.PlayerMoved(player, x1, y1, z1, x2, y2, z2, distance, target);
 
             //PartyService.SendMemberPositionToPartyMembers(player);
+        }
+
+        public static void SelectNpc(ISession session, int statisticId)
+        {
+            Npc npc = session
+                .GetSelectedPlayer()
+                .GetMap()
+                .GetNpc(statisticId);
+
+            FeedbackService
+                .SelectNpc(session, npc);
         }
     }
 }

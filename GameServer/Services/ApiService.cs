@@ -76,21 +76,6 @@ namespace GameServer.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public async Task<Player> SendCreatePlayer(Player p)
-        {
-            var request = new RestRequest("/api/player")
-                .AddJsonBody(p);
-
-            Player player = await Client.PostAsync<Player>(request);
-
-            return player;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<List<Player>> GetPlayerFromAccountId(int id)
@@ -106,12 +91,33 @@ namespace GameServer.Services
         /// </summary>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        public async Task<BaseStats> GetPlayerStats(int playerId)
+        public async Task<GameStats> GetPlayerStats(int playerId)
         {
             var request = new RestRequest($"/api/player/{playerId}/stats");
-            var stats = await Client.GetAsync<BaseStats>(request);
+            var stats = await Client.GetAsync<GameStats>(request);
 
             return stats;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="stats"></param>
+        /// <returns></returns>
+        public async Task<Player> SendCreatePlayer(Player player, GameStats stats)
+        {
+            var request = new RestRequest("/api/player")
+                .AddJsonBody(player);
+
+            player = await Client.PostAsync<Player>(request);
+
+            request = new RestRequest($"/api/player/{player.Id}/stats")
+                .AddJsonBody(stats);
+
+            await Client.PostAsync(request);
+
+            return player;
         }
 
         /// <summary>

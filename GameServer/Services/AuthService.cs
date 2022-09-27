@@ -32,11 +32,11 @@ namespace GameServer.Services
 
             playerList.ForEach(async player =>
             {
-                BaseStats stats = await Global
+                GameStats stats = await Global
                     .ApiService
                     .GetPlayerStats(player.Id);
 
-                player.SetStats(stats);
+                player.SetGameStats(stats);
                 player.SetSession(session);
                 _Players.Add(player);
             });

@@ -21,6 +21,7 @@ namespace Data
         public static Dictionary<int, GameStats> StatsTemplates;
         public static Dictionary<int, NpcTemplate> NpcTemplates;
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
+        public static Dictionary<int, List<ShopItemTemplate>> ShopItemsTemplates;
 
         protected delegate int Loader();
         protected static List<Loader> Loaders = new List<Loader>
@@ -32,6 +33,7 @@ namespace Data
                                                         //LoadBindPoints,
                                                         LoadNpcTemplates,
                                                         LoadSpawnTemplates,
+                                                        LoadShopItemTemplates,
                                                         //LoadQuests,
                                                         //LoadSkills,
                                                         //LoadAbilities,
@@ -176,6 +178,39 @@ namespace Data
 
                 if (!SpawnTemplates.ContainsKey(mapId))
                     SpawnTemplates.Add(mapId, spawns);
+            }
+
+            return length;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadShopItemTemplates()
+        {
+            ShopItemsTemplates = new Dictionary<int, List<ShopItemTemplate>>();
+            string shopDataPath = Path.Combine(DataPath, "shops");
+
+            string[] files = Directory.GetFiles(shopDataPath);
+            int length = 0;
+
+            foreach (string file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+                int shopId = int.Parse(fileInfo.Name.Replace("SHOP_", "").Replace(".json", ""));
+                string jsonStr = File.ReadAllText(file);
+                List<ShopItemTemplate> list = JsonConvert.DeserializeObject<List<ShopItemTemplate>>(jsonStr);
+
+                List<ShopItemTemplate> items = new List<ShopItemTemplate>();
+                list.ForEach(item =>
+                {
+                    items.Add(item);
+                    length++;
+                });
+
+                if (!ShopItemsTemplates.ContainsKey(shopId))
+                    ShopItemsTemplates.Add(shopId, items);
             }
 
             return length;

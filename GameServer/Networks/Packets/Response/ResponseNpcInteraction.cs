@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Data.Models.Template.Item;
+using System.Collections.Generic;
 using System.IO;
+using Utility;
 
 namespace GameServer.Networks.Packets.Response
 {
@@ -11,7 +13,7 @@ namespace GameServer.Networks.Packets.Response
         protected int ShopId;
         protected int ActionId;
         protected int TabIndex;
-        private List<object> Items;
+        private List<ShopItemTemplate> Items;
 
         public ResponseNpcInteraction(int shopId, int actionId)
         {
@@ -21,19 +23,16 @@ namespace GameServer.Networks.Packets.Response
 
         public ResponseNpcInteraction(int shopId, int actionId, int tabIndex) : this(shopId, actionId)
         {
+            TabIndex = tabIndex;
         }
 
-        public ResponseNpcInteraction(int shopId, int actionId, int tab, List<object> items) : this(shopId, actionId)
+        public ResponseNpcInteraction(int shopId, int actionId, int tab, List<ShopItemTemplate> items) : this(shopId, actionId, tab)
         {
-            ShopId = shopId;
-            ActionId = actionId;
-            TabIndex = tab;
             Items = items;
         }
 
         public override void Write(BinaryWriter writer)
         {
-            // 01000000 01000000 01000000 00000000 00000000 00000000
             WriteD(writer, ActionId); // Action Id
             WriteD(writer, ActionId); // Action Id
             WriteD(writer, ShopId); // Shop Id
@@ -53,10 +52,26 @@ namespace GameServer.Networks.Packets.Response
                 else
                     WriteQ(writer, TabIndex);
 
-                foreach (object item in Items)
+                foreach (ShopItemTemplate item in Items)
                 {
-                    WriteQ(writer, 0 /*item.Id*/);
-                    WriteQ(writer, 0);
+                    Log.Debug($"SkillCount: {item.SkillCount}");
+                    WriteQ(writer, item.ItemId);
+
+                    if (item.SkillCount > 0)
+                    {
+                        WriteQ(writer, item.SkillCount);
+                        if (item.Skill_1 > 0)
+                            WriteQ(writer, item.Skill_1);
+                        if (item.Skill_2 > 0)
+                            WriteQ(writer, item.Skill_2);
+                        if (item.Skill_3 > 0)
+                            WriteQ(writer, item.Skill_3);
+                        if (item.Skill_4 > 0)
+                            WriteQ(writer, item.Skill_4);
+                    }
+                    else
+                        WriteQ(writer, 0);
+                    
                     WriteQ(writer, -1);
                 }
             }

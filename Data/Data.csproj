@@ -97,6 +97,7 @@
     <Compile Include="Models\Server\ServerModel.cs" />
     <Compile Include="Models\Template\Creatures\NpcTemplate.cs" />
     <Compile Include="Models\Template\Item\ItemTemplate.cs" />
+    <Compile Include="Models\Template\Item\ShopItemTemplate.cs" />
     <Compile Include="Models\Template\World\MapTemplate.cs" />
     <Compile Include="Models\Template\World\SpawnTemplate.cs" />
     <Compile Include="Models\VisibleObject.cs" />

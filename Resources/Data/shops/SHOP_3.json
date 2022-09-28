@@ -1,0 +1,22 @@
+[
+  {
+    "ItemId": 1000000101,
+    "Cost": 80,
+    "Skill_1": 0,
+    "Skill_2": 0,
+    "Skill_3": 0,
+    "Skill_4": 0,
+    "Skill_5": 0,
+    "RequireSkill": 0
+  },
+  {
+    "ItemId": 1000000102,
+    "Cost": 200,
+    "Skill_1": 0,
+    "Skill_2": 0,
+    "Skill_3": 0,
+    "Skill_4": 0,
+    "Skill_5": 0,
+    "RequireSkill": 0
+  }
+]

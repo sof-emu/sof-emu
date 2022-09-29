@@ -91,6 +91,8 @@
     <Compile Include="Models\Creature\LifeStats.cs" />
     <Compile Include="Models\Npc\Npc.cs" />
     <Compile Include="Models\Npc\NpcAction.cs" />
+    <Compile Include="Models\Player\Inventory.cs" />
+    <Compile Include="Models\Player\InventoryItem.cs" />
     <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\Player\PlayerSetting.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />

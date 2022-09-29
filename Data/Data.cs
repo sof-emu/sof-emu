@@ -16,8 +16,8 @@ namespace Data
     {
         public static string DataPath = Path.GetFullPath("Data");
 
-        public static Dictionary<long, MapTemplate> MapTemplates;
-        public static Dictionary<long, ItemTemplate> ItemTemplates;
+        public static Dictionary<int, MapTemplate> MapTemplates;
+        public static Dictionary<int, ItemTemplate> ItemTemplates;
         public static Dictionary<int, GameStats> StatsTemplates;
         public static Dictionary<int, NpcTemplate> NpcTemplates;
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
@@ -76,7 +76,7 @@ namespace Data
         /// <returns></returns>
         public static int LoadMapTemplates()
         {
-            MapTemplates = new Dictionary<long, MapTemplate>();
+            MapTemplates = new Dictionary<int, MapTemplate>();
 
             string jsonStr = File.ReadAllText(Path.Combine(DataPath, "maps.json"));
             List<MapTemplate> list = JsonConvert.DeserializeObject<List<MapTemplate>>(jsonStr);
@@ -116,7 +116,7 @@ namespace Data
         /// <returns></returns>
         public static int LoadItemTemplates()
         {
-            ItemTemplates = new Dictionary<long, ItemTemplate>();
+            ItemTemplates = new Dictionary<int, ItemTemplate>();
 
             string jsonStr = File.ReadAllText(Path.Combine(DataPath, "items.json"));
             List<ItemTemplate> list = JsonConvert.DeserializeObject<List<ItemTemplate>>(jsonStr);

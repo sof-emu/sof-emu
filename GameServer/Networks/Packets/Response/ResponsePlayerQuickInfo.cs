@@ -91,9 +91,9 @@ namespace GameServer.Networks.Packets.Response
 
             WriteB(writer, new byte[9]);
 
-            writer.Seek(2, SeekOrigin.Begin);
-            WriteH(writer, (int)Player.GetSession().SessionId);
-            writer.Seek(0, SeekOrigin.End);
+            //writer.Seek(2, SeekOrigin.Begin);
+            //WriteH(writer, (int)Player.GetSession().SessionId);
+            //writer.Seek(0, SeekOrigin.End);
         }
     }
 }

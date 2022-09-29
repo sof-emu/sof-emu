@@ -6,8 +6,6 @@ using Data.Interfaces;
 using Data.Models.Creature;
 using Data.Models.Player;
 using GameServer.Networks.Packets.Response;
-using Newtonsoft.Json;
-using Utility;
 
 namespace GameServer.Services
 {
@@ -130,7 +128,11 @@ namespace GameServer.Services
             new ResponseInventoryInfo(InventoryType.Item).Send(session);
             new ResponseInventoryInfo(InventoryType.Orb).Send(session);
             new ResponseQuestItem().Send(session);
-            new ResponsePlayerQuickInfo(player).Send(session); // broadcast
+
+            Global
+                .VisibleService
+                .Broadcast(player, new ResponsePlayerQuickInfo(player));
+
             // todo Status Effect list
             new ResponseWeightMoney(player).Send(session);
             new ResponsePetInfo().Send(session);

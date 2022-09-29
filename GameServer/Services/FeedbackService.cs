@@ -3,7 +3,6 @@ using Communicate.Interfaces;
 using Data.Interfaces;
 using Data.Models.Npc;
 using Data.Models.Player;
-using GameServer.Networks;
 using GameServer.Networks.Packets.Response;
 using System.Threading.Tasks;
 using Utility;
@@ -47,7 +46,7 @@ namespace GameServer.Services
 
                 Task.Delay(1000);
 
-                GameServer
+                Global
                     .PlayerService
                     .SendPlayerLists(session);
             }
@@ -70,6 +69,9 @@ namespace GameServer.Services
         /// <param name="tagert"></param>
         public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
+            player
+                .Moved(x1, y1, z1, x2, y2, z2);
+
             Global
                 .VisibleService
                 .Broadcast(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, target));
@@ -81,7 +83,8 @@ namespace GameServer.Services
         /// <param name="player"></param>
         public void SendViewProfile(Player player)
         {
-            new ResponseViewProfile().Send(player.GetSession());
+            new ResponseViewProfile()
+                .Send(player.GetSession());
         }
 
         /// <summary>
@@ -91,8 +94,9 @@ namespace GameServer.Services
         /// <exception cref="System.NotImplementedException"></exception>
         public void SendServerTime(ISession session)
         {
-            Log.Debug($"SendServerTime: {(int)Global.ServerTime}");
-            new ResponseServerTime((int)Global.ServerTime).Send(session);
+            if(session.GetSelectedPlayer() != null)
+                new ResponseServerTime((int)Global.ServerTime)
+                    .Send(session);
         }
 
         /// <summary>
@@ -103,7 +107,8 @@ namespace GameServer.Services
         /// <exception cref="System.NotImplementedException"></exception>
         public void SelectNpc(ISession session, Npc npc)
         {
-            new ResponseSelectNpc(npc).Send(session);
+            new ResponseSelectNpc(npc)
+                .Send(session);
         }
 
         public void SendDeletePlayer(ISession session, int index, bool result)

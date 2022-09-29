@@ -17,10 +17,10 @@ namespace GameServer.Networks.Packets.Response
             // todo calculate Max Weight that player can carry
             // Total weight + Passive Skill + Player_Level * 6 * 96 + 4455000
 
-            WriteQ(writer, 999); // Money
+            WriteQ(writer, Player.GetInventory().Money); // Money
             WriteC(writer, 0);
-            WriteD(writer, 0); // Current Weight
-            WriteD(writer, 100); // Max Weight
+            WriteD(writer, Player.GetInventory().TotalWeight); // Current Weight
+            WriteD(writer, Player.GetInventory().MaxWeight); // Max Weight
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Communicate.Interfaces;
+﻿using Communicate;
+using Communicate.Interfaces;
 using Data.Models.Creature;
 using Data.Models.Npc;
 using Data.Models.Player;
 using Data.Models.Template.Creatures;
 using Data.Models.World;
+using GameServer.Networks.Packets.Response;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,6 +65,9 @@ namespace GameServer.Services
 
             MapInstance map = Maps[player.Position.MapId];
             SpawnCreature(player, map);
+
+            map.GetPlayers()
+                .ForEach(people => Global.VisibleService.Broadcast(player, new ResponsePlayerInfo(people)));
         }
 
         /// <summary>

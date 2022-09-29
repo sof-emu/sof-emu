@@ -2,7 +2,7 @@
 {
     public class ItemTemplate
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Side1 { get; set; }
         public int Side2 { get; set; }

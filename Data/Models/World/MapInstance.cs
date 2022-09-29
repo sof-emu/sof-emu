@@ -1,6 +1,7 @@
 ﻿using Data.Models.Template.World;
 using System.Collections.Generic;
 using System.Linq;
+using Utility;
 
 namespace Data.Models.World
 {
@@ -27,6 +28,7 @@ namespace Data.Models.World
         /// <param name="creature"></param>
         public void AddCreature(Creature.Creature creature)
         {
+            Log.Debug($"AddCreature object id = {creature.ObjectId}");
             if(creature is Player.Player)
                 Players.Add(creature.ObjectId, (Player.Player)creature);
             else if(creature is Npc.Npc)
@@ -41,6 +43,17 @@ namespace Data.Models.World
         public Player.Player GetPlayer(int id)
         {
             return Players[id];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<Player.Player> GetPlayers()
+        {
+            return Players
+                .Values
+                .ToList();
         }
 
         /// <summary>

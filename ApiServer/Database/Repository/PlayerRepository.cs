@@ -37,18 +37,19 @@ namespace ApiServer.Database.Repository
                     .Get()
                     .FirstOrDefault();
 
-                if (acdb.Query("account_data").Where(new { id = playerId, delete_player_key = delete_key }).Exists())
+                if (acdb.Query("account_data").Where(new { id = p.account_id, delete_player_key = delete_key }).Exists())
                 {
-                    // todo delete
-                    Console.WriteLine($"delete true");
-                    return true;
+                    int affected = db.Query("player")
+                        .Where("id", playerId)
+                        .Delete();
+
+                    // todo
+                    // delete inventory, quest, stats, setting
+
+                    return affected > 0;
                 }
                 else
-                {
-                    // wrong delete_player_key
-                    Console.WriteLine($"delete false");
                     return false;
-                }
             }
         }
 
@@ -80,7 +81,6 @@ namespace ApiServer.Database.Repository
             {
                 var list = db.Query("player")
                     .Where("account_id", accountId)
-                    .Where("is_delete", false)
                     .OrderBy("index")
                     .Get()
                     .ToList();

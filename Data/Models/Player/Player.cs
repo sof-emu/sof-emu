@@ -29,6 +29,7 @@ namespace Data.Models.Player
         private AccountData Account;
         private ISession Session;
         private PlayerSetting Setting;
+        private Inventory Inventory;
 
         public Player()
         {
@@ -93,6 +94,44 @@ namespace Data.Models.Player
         public PlayerSetting GetSetting()
         {
             return Setting;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inven"></param>
+        public void SetInventory(Inventory inven)
+        {
+            Inventory = inven;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Inventory GetInventory()
+        {
+            return Inventory;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        public void Moved(float x1, float y1, float z1, float x2, float y2, float z2)
+        {
+            Position.X = x1;
+            Position.Y = y1;
+            Position.Z = z1;
+
+            LastPostion.X = x2;
+            LastPostion.Y = y2;
+            LastPostion.Z = z2;
         }
     }
 }

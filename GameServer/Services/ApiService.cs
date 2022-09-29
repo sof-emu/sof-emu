@@ -8,6 +8,7 @@ using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Utility;
 
 namespace GameServer.Services
 {
@@ -129,9 +130,9 @@ namespace GameServer.Services
         public async Task<bool> SendDeletePlayer(int id, string password)
         {
             var request = new RestRequest($"/api/player/{id}/{password}");
-            var result = await Client.DeleteAsync<bool>(request);
+            var response = await Client.DeleteAsync(request);
 
-            return result;
+            return bool.Parse(response.Content);
         }
     }
 }

@@ -89,12 +89,11 @@ namespace GameServer.Services
 
             player.SetGameStats(stats);
 
-            var jsonStr = JsonConvert.SerializeObject(player);
-            Log.Debug(jsonStr.PrintJson());
-
-            player = await Global
+            var _player = await Global
                 .ApiService
                 .SendCreatePlayer(player, stats);
+
+            player.Index = _player.Index;
 
             Global
                 .FeedbackService

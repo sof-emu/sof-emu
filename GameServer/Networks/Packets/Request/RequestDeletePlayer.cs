@@ -19,8 +19,6 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            Log.Debug($"SessionId: {SessionId}, Index: {Index}, Password: {Password}");
-            // todo delete player
             PlayerLogic
                 .DeletePlayer(session, Index, Password);
         }

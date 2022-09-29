@@ -37,6 +37,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponsePlayerRunning), unchecked((short)0x0006));
             Send.Add(typeof(ResponsePlayerList), unchecked((short)0x0011));
             Send.Add(typeof(ResponseCreatePlayer), unchecked((short)0x0015));
+            Send.Add(typeof(ResponseDeletePlayer), unchecked((short)0x001F));
             Send.Add(typeof(ResponsePlayable), unchecked((short)0x0020));
             Send.Add(typeof(ResponseCheckName), unchecked((short)0x0039));
             Send.Add(typeof(ResponseActiveSkillData), unchecked((short)0x003D));
@@ -61,7 +62,6 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseBindPoint), unchecked((short)0x100B));
             Send.Add(typeof(ResponsePetInfo), unchecked((short)0x1059));
             Send.Add(typeof(ResponseSelectNpc), unchecked((short)0x1089));
-            Send.Add(typeof(ResponseDeletePlayer), unchecked((short)0x1F00));
             Send.Add(typeof(ResponseVerifyVersion), unchecked((short)0x2015));
 
             RecvNames = Recv.ToDictionary(p => p.Key, p => p.Value.Name);

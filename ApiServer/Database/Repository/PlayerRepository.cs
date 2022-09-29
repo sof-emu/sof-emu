@@ -22,10 +22,10 @@ namespace ApiServer.Database.Repository
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="password"></param>
+        /// <param name="playerId"></param>
+        /// <param name="delete_key"></param>
         /// <returns></returns>
-        public bool DeletePlayer(int id, string password)
+        public bool DeletePlayer(int playerId, string delete_key)
         {
             var acdb = _context
                 .GetQueryFactory("account");
@@ -33,18 +33,20 @@ namespace ApiServer.Database.Repository
             using (var db = _context.GetQueryFactory("game"))
             {
                 var p = db.Query("player")
-                    .Where("id", id)
+                    .Where("id", playerId)
                     .Get()
                     .FirstOrDefault();
 
-                if (acdb.Query("account_data").Where("id", p.account_id).Where("delete_player_key", password).Exists())
+                if (acdb.Query("account_data").Where(new { id = playerId, delete_player_key = delete_key }).Exists())
                 {
                     // todo delete
+                    Console.WriteLine($"delete true");
                     return true;
                 }
                 else
                 {
                     // wrong delete_player_key
+                    Console.WriteLine($"delete false");
                     return false;
                 }
             }
@@ -79,6 +81,7 @@ namespace ApiServer.Database.Repository
                 var list = db.Query("player")
                     .Where("account_id", accountId)
                     .Where("is_delete", false)
+                    .OrderBy("index")
                     .Get()
                     .ToList();
 
@@ -191,6 +194,7 @@ namespace ApiServer.Database.Repository
                     });
 
                 p.Id = id;
+                p.Index = index;
 
                 return p;
             }

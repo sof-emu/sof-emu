@@ -88,9 +88,9 @@ namespace ApiServer.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpDelete("{playerId}/{delete_key}")]
-        public bool DeletePlayer(int id, string password)
+        public bool DeletePlayer(int playerId, string delete_key)
         {
-            return _playerRepository.DeletePlayer(id, password);
+            return _playerRepository.DeletePlayer(playerId, delete_key);
         }
     }
 }

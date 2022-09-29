@@ -105,5 +105,11 @@ namespace GameServer.Services
         {
             new ResponseSelectNpc(npc).Send(session);
         }
+
+        public void SendDeletePlayer(ISession session, int index, bool result)
+        {
+            new ResponseDeletePlayer(index, result)
+                .Send(session);
+        }
     }
 }

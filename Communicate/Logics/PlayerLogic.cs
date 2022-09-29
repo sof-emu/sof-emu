@@ -16,6 +16,8 @@ namespace Communicate.Logics
                 .SendDeletePlayer(p.Id, password);
 
             // todo send packet delete response
+            FeedbackService
+                .SendDeletePlayer(session, index, result);
         }
 
         public static void EnterWorld(ISession session, int playerIndex)

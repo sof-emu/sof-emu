@@ -47,7 +47,8 @@ namespace GameServer.Networks.Protocols
             byte[] headerBytes = new byte[8];
             Stream.Read(headerBytes, 0, 8);
 
-            ushort opcode = BitConverter.ToUInt16(headerBytes, 4);
+            int objectId = BitConverter.ToUInt16(headerBytes, 2);
+            short opcode = (short)BitConverter.ToUInt16(headerBytes, 4);
             int length = BitConverter.ToUInt16(headerBytes, 6);
 
             if (Stream.Length < length)
@@ -58,7 +59,8 @@ namespace GameServer.Networks.Protocols
 
             GameMessage message = new GameMessage
             {
-                OpCode = (short)opcode,
+                ObjectId = objectId,
+                Opcode = opcode,
                 Data = new byte[length]
             };
 

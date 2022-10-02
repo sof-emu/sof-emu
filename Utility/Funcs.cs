@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Globalization;
 using System.Text;
@@ -179,6 +180,14 @@ namespace Utility
                 .ToString(Newtonsoft.Json.Formatting.Indented);
         }
 
+        public static string TojsonString(this object obj)
+        {
+            string jsonstr = JsonConvert.SerializeObject(obj);
+            return JValue
+                .Parse(jsonstr)
+                .ToString(Newtonsoft.Json.Formatting.Indented);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -208,6 +217,24 @@ namespace Utility
             serverTime += 0.1;
 
             return serverTime;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chance"></param>
+        /// <returns></returns>
+        public static bool IsLuck(int chance)
+        {
+            if (chance >= 100)
+                return true;
+
+            if (chance <= 0)
+                return false;
+
+            int rnd = new Random().Next(0, 100);
+
+            return rnd <= chance;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Data.Interfaces;
 using Data.Models.Creature;
-using Data.Models.Player;
 
 namespace Communicate.Interfaces
 {

@@ -6,23 +6,29 @@ namespace Data.Models.Npc
 {
     public class Npc : Creature.Creature
     {
-        private NpcTemplate npcTemplate;
+        private NpcTemplate template;
         private SpawnTemplate spawnTemplate;
 
         public Npc(int objId, NpcTemplate template, SpawnTemplate spawn)
         {
             ObjectId = objId;
-            npcTemplate = template;
+            this.template = template;
             spawnTemplate = spawn;
 
             SetGameStats(new GameStats()
             {
-                HpBase = npcTemplate.Hp,
+                HpBase = this.template.Hp,
                 MpBase = 0,
-                Attack = npcTemplate.Attack,
-                Defense = npcTemplate.Defense
+                Attack = this.template.Attack,
+                Defense = this.template.Defense
             });
             SetLifeStats(new LifeStats(this));
+            SetPosition(new World.Position()
+            {
+                X = spawnTemplate.X,
+                Y = spawnTemplate.Y,
+                Z = spawnTemplate.Z
+            });
         }
 
         /// <summary>
@@ -31,7 +37,7 @@ namespace Data.Models.Npc
         /// <returns></returns>
         public NpcTemplate GetNpcTemplate()
         {
-            return npcTemplate;
+            return template;
         }
 
         /// <summary>
@@ -41,6 +47,15 @@ namespace Data.Models.Npc
         public SpawnTemplate GetSpawnTemplate()
         {
             return spawnTemplate;
+        }
+
+        /// <summary>
+        /// Object is Npc or not
+        /// </summary>
+        /// <returns></returns>
+        public bool IsNpc()
+        {
+            return template.Npc > 0;
         }
     }
 }

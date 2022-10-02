@@ -1,6 +1,7 @@
 ﻿using Communicate;
 using Communicate.Logics;
 using GameServer.Configs;
+using GameServer.Engines;
 using GameServer.Networks;
 using GameServer.Services;
 using System;
@@ -65,6 +66,10 @@ namespace GameServer
             NpcService = new NpcService();
             PlayerService = new PlayerService();
             VisibleService = new VisibleService();
+
+            // Engines
+            AttackEngine = new AttackEngine();
+            SkillEngine = new SkillEngine();
 
             GlobalLogic.ServerStart();
             Console.WriteLine("\n-------------------------------------------\n");

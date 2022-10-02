@@ -20,7 +20,8 @@ namespace Communicate
         public static IVisibleService VisibleService;
 
         // Engines
-
+        public static IAttackEngine AttackEngine;
+        public static ISkillEngine SkillEngine;
 
         //
         protected static bool ServerIsWork = true;
@@ -50,6 +51,8 @@ namespace Communicate
                     PlayerService.Action();
 
                     //Engines:
+                    AttackEngine.Action();
+                    SkillEngine.Action();
 
                     //Others:
                     DelayedAction.CheckActions();

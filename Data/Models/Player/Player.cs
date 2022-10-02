@@ -1,4 +1,5 @@
-﻿using Data.Interfaces;
+﻿using Data.Enums;
+using Data.Interfaces;
 using Data.Models.Account;
 using Data.Models.World;
 
@@ -30,6 +31,7 @@ namespace Data.Models.Player
         private ISession Session;
         private PlayerSetting Setting;
         private Inventory Inventory;
+        private PlayerState State;
 
         public Player()
         {
@@ -40,6 +42,8 @@ namespace Data.Models.Player
                 Z = 0,
                 MapId = 0
             };
+
+            State = PlayerState.Idle;
         }
 
         /// <summary>
@@ -117,6 +121,24 @@ namespace Data.Models.Player
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="state"></param>
+        public void SetState(PlayerState state)
+        {
+            State = state;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public PlayerState GetState()
+        {
+            return State;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="z1"></param>
@@ -132,6 +154,43 @@ namespace Data.Models.Player
             LastPostion.X = x2;
             LastPostion.Y = y2;
             LastPostion.Z = z2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override Position GetPosition()
+        {
+            return Position;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        public override void SetPosition(Position pos)
+        {
+            base.SetPosition(pos);
+            Position = pos;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Position GetLastPosition()
+        {
+            return LastPostion;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        public void SetLastPostion(Position pos)
+        {
+            LastPostion = pos;
         }
     }
 }

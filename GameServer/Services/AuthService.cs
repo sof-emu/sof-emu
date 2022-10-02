@@ -37,12 +37,15 @@ namespace GameServer.Services
                 GameStats stats = await Global
                     .ApiService
                     .GetPlayerStats(player.Id);
+                player.SetGameStats(stats);
+
+                LifeStats lifeStats = new LifeStats(player);
+                player.SetLifeStats(lifeStats);
 
                 // todo load inventory from database
                 Inventory inven = new Inventory(player);
-
-                player.SetGameStats(stats);
                 player.SetInventory(inven);
+
                 player.SetSession(session);
                 _Players.Add(player);
             });

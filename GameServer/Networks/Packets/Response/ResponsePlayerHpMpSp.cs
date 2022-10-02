@@ -16,13 +16,13 @@ namespace GameServer.Networks.Packets.Response
         {
             WriteD(writer, 0);
 
-            WriteD(writer, Player.GetGameStats().Hp);
-            WriteD(writer, Player.GetGameStats().Mp);
-            WriteD(writer, Player.GetGameStats().Sp);
+            WriteD(writer, Player.GetLifeStats().Hp);
+            WriteD(writer, Player.GetLifeStats().Mp);
+            WriteD(writer, Player.GetLifeStats().Sp);
 
-            WriteD(writer, Player.GetGameStats().HpBase);
-            WriteD(writer, Player.GetGameStats().MpBase);
-            WriteD(writer, Player.GetGameStats().SpBase);
+            WriteD(writer, Player.GetLifeStats().MaxHp);
+            WriteD(writer, Player.GetLifeStats().MaxMp);
+            WriteD(writer, Player.GetLifeStats().MaxSp);
 
             WriteD(writer, 0);
         }

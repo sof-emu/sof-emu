@@ -20,9 +20,9 @@
         private int _stamina;
         private int _strength;
 
-        private int _hp;
-        private int _mp;
-        private int _sp;
+        // Additional stats
+        private int _criticalAttackRate = 0;
+        private int _comboAttackRate = 0;
 
         public int Accuracy
         {
@@ -110,20 +110,16 @@
             set { _strength = value; }
         }
 
-        public int Hp
+        public int CriticalAttackRate
         {
-            get { return _hp; }
-            set { _hp = value; }
+            get { return _criticalAttackRate; }
+            set { _criticalAttackRate = value; }
         }
-        public int Mp
+
+        public int ComboAttackRate
         {
-            get { return _mp; }
-            set { _mp = value; }
-        }
-        public int Sp
-        {
-            get { return _sp; }
-            set { _sp = value; }
+            get { return _comboAttackRate; }
+            set { _comboAttackRate = value; }
         }
     }
 }

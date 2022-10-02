@@ -19,6 +19,7 @@ namespace GameServer.Networks
             Recv.Add(unchecked((short)0x0001), typeof(RequestAuth));
             Recv.Add(unchecked((short)0x0005), typeof(RequestEnterWorld));
             Recv.Add(unchecked((short)0x0007), typeof(RequestPlayerMove));
+            Recv.Add(unchecked((short)0x0009), typeof(RequestAttack));
             Recv.Add(unchecked((short)0x0010), typeof(RequestPlayerList));
             Recv.Add(unchecked((short)0x0014), typeof(RequestCreatePlayer));
             Recv.Add(unchecked((short)0x0016), typeof(RequestSettingOption));
@@ -35,6 +36,7 @@ namespace GameServer.Networks
 
             Send.Add(typeof(ResponseAuth), unchecked((short)0x0002));
             Send.Add(typeof(ResponsePlayerRunning), unchecked((short)0x0006));
+            Send.Add(typeof(ResponseAttack), unchecked((short)0x000A));
             Send.Add(typeof(ResponsePlayerList), unchecked((short)0x0011));
             Send.Add(typeof(ResponseCreatePlayer), unchecked((short)0x0015));
             Send.Add(typeof(ResponseDeletePlayer), unchecked((short)0x001F));
@@ -53,6 +55,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseQuestItem), unchecked((short)0x0081));
             Send.Add(typeof(ResponseQuestList), unchecked((short)0x0085));
             Send.Add(typeof(ResponseStatusEffect), unchecked((short)0x0087));
+            Send.Add(typeof(ResponseSkillEffect), unchecked((short)0x0089));
             Send.Add(typeof(ResponseQuestCompleteList), unchecked((short)0x008B));
             Send.Add(typeof(ResponseNpcInteraction), unchecked((short)0x0091));
             Send.Add(typeof(ResponsePlayerQuickInfo), unchecked((short)0x00A0));
@@ -62,6 +65,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseBindPoint), unchecked((short)0x100B));
             Send.Add(typeof(ResponsePetInfo), unchecked((short)0x1059));
             Send.Add(typeof(ResponseSelectNpc), unchecked((short)0x1089));
+            Send.Add(typeof(ResponseStealth), unchecked((short)0x2005));
             Send.Add(typeof(ResponseVerifyVersion), unchecked((short)0x2015));
 
             RecvNames = Recv.ToDictionary(p => p.Key, p => p.Value.Name);

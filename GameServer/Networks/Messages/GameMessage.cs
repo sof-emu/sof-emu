@@ -4,7 +4,8 @@ namespace GameServer.Networks.Messages
 {
     public class GameMessage : ScsMessage
     {
-        public short OpCode;
+        public int ObjectId;
+        public short Opcode;
         public byte[] Data;
     }
 }

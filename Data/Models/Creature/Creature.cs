@@ -1,4 +1,5 @@
-﻿using Data.Models.World;
+﻿using Data.Models.SkillEngine;
+using Data.Models.World;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -14,6 +15,10 @@ namespace Data.Models.Creature
 
         private GameStats _gameStats;
         private LifeStats _lifeStats;
+        private Position _position;
+
+        public Attack Attack;
+        public long LastAttackUtc;
 
         /// <summary>
         /// 
@@ -85,6 +90,24 @@ namespace Data.Models.Creature
         public void SetLifeStats(LifeStats lifeStats)
         {
             this._lifeStats = lifeStats;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual Position GetPosition()
+        {
+            return _position;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        public virtual void SetPosition(Position pos)
+        {
+            _position = pos;
         }
     }
 }

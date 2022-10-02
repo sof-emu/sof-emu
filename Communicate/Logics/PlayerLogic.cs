@@ -65,6 +65,9 @@ namespace Communicate.Logics
                 .GetMap()
                 .GetNpc(statisticId);
 
+            session.GetSelectedPlayer()
+                .SetTarget(npc);
+
             FeedbackService
                 .SelectNpc(session, npc);
         }

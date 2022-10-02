@@ -20,6 +20,7 @@ namespace GameServer.Networks
         private IScsServer Channel;
 
         public byte[] Buffer;
+        public GameMessage Message;
         protected List<byte[]> SendData = new List<byte[]>();
         protected int SendDataSize;
         protected object SendLock = new object();
@@ -63,27 +64,27 @@ namespace GameServer.Networks
         /// <param name="e"></param>
         private void OnMessageReceived(object sender, Hik.Communication.Scs.Communication.Messages.MessageEventArgs e)
         {
-            GameMessage message = (GameMessage)e.Message;
-            Buffer = message.Data;
+            Message = (GameMessage)e.Message;
+            Buffer = Message.Data;
 
             //if(hash == 0)
             //    hash = message.Hash;
 
-            if (OpCodes.Recv.ContainsKey(message.OpCode))
+            if (OpCodes.Recv.ContainsKey(Message.Opcode))
             {
-                string name = OpCodes.RecvNames[message.OpCode];
-                string opCodeLittleEndianHex = BitConverter.GetBytes(message.OpCode).ToHex();
+                string name = OpCodes.RecvNames[Message.Opcode];
+                string opCodeLittleEndianHex = BitConverter.GetBytes(Message.Opcode).ToHex();
                 Log.Debug("Received packet opcode: {0}|0x{1}{2} [{3}]",
                                  name,
                                  opCodeLittleEndianHex.Substring(2),
                                  opCodeLittleEndianHex.Substring(0, 2),
                                  Buffer.Length);
 
-                ((ARecvPacket)Activator.CreateInstance(OpCodes.Recv[message.OpCode])).Process(this);
+                ((ARecvPacket)Activator.CreateInstance(OpCodes.Recv[Message.Opcode])).Process(this);
             }
             else
             {
-                string opCodeLittleEndianHex = BitConverter.GetBytes(message.OpCode).ToHex();
+                string opCodeLittleEndianHex = BitConverter.GetBytes(Message.Opcode).ToHex();
                 Log.Debug("Unknown GsPacket opCode: 0x{0}{1} [{2}]",
                                  opCodeLittleEndianHex.Substring(2),
                                  opCodeLittleEndianHex.Substring(0, 2),

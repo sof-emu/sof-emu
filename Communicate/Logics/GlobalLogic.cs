@@ -1,9 +1,9 @@
 ﻿using Data.Interfaces;
+using Data.Models.Creature;
 using Data.Models.Player;
 using Data.Models.World;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Utility;
 
 namespace Communicate.Logics
@@ -67,6 +67,54 @@ namespace Communicate.Logics
         {
             MapInstance map = player.GetMap();
             NpcService.SendNpcList(player, map);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="targetId"></param>
+        /// <param name="skillId"></param>
+        /// <param name="pos"></param>
+        /// <param name="unk1"></param>
+        public static void AttackTarget(Player player, int targetId, int skillId, Position pos, int unk1)
+        {
+            Creature target = player
+                .GetMap()
+                .GetNpc(targetId);
+
+            UseSkillArgs args = new UseSkillArgs()
+            {
+                SkillId = skillId,
+                TargetPosition = pos
+            };
+
+            if (skillId == 0)
+                AttackEngine.Attack(player, target, args);
+            else
+                SkillEngine.UseSkill(player, target, args);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
+        public static void AttackStageEnd(Creature creature)
+        {
+            Player player = creature as Player;
+            Log.Debug($"player.Attack.Args {player.Attack.Args.TargetPosition.X}");
+            if (player != null)
+                if (player.Attack.Args.SkillId == 0)
+                    AttackEngine.Attack(player, player.GetTarget(), player.Attack.Args);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
+        public static void AttackFinished(Creature creature)
+        {
+            
         }
     }
 }

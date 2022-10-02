@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -55,7 +58,11 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -66,6 +73,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -87,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\Config.cs" />
+    <Compile Include="Engines\AttackEngine.cs" />
     <Compile Include="Engines\NpcActions\EndTalk.cs" />
     <Compile Include="Engines\NpcActions\EnhanceItem.cs" />
     <Compile Include="Engines\NpcActions\ForgeItem.cs" />
@@ -95,10 +104,13 @@
     <Compile Include="Engines\NpcActions\OpenWarehouse.cs" />
     <Compile Include="Engines\NpcActions\QuestDialog.cs" />
     <Compile Include="Engines\NpcActions\TalkToNpc.cs" />
+    <Compile Include="Engines\SkillEngine.cs" />
+    <Compile Include="Engines\Utils\SkillEngineUtil.cs" />
     <Compile Include="Networks\Messages\GameMessage.cs" />
     <Compile Include="Networks\OpCodes.cs" />
     <Compile Include="Networks\Packets\ARecvPacket.cs" />
     <Compile Include="Networks\Packets\ASendPacket.cs" />
+    <Compile Include="Networks\Packets\Request\RequestAttack.cs" />
     <Compile Include="Networks\Packets\Request\RequestAuth.cs" />
     <Compile Include="Networks\Packets\Request\RequestCreatePlayer.cs" />
     <Compile Include="Networks\Packets\Request\RequestDeletePlayer.cs" />
@@ -115,6 +127,7 @@
     <Compile Include="Networks\Packets\Request\RequestVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Request\RequestViewProfile.cs" />
     <Compile Include="Networks\Packets\Request\RequsetCheckName.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseAttack.cs" />
     <Compile Include="Networks\Packets\Response\ResponseBindPoint.cs" />
     <Compile Include="Networks\Packets\Response\ResponseDeletePlayer.cs" />
     <Compile Include="Networks\Packets\Response\ResponseEquipInfo.cs" />
@@ -137,11 +150,13 @@
     <Compile Include="Networks\Packets\Response\ResponseSelectNpc.cs" />
     <Compile Include="Networks\Packets\Response\ResponseServerTime.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillCooldown.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseSkillEffect.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillPassive.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePetInfo.cs" />
     <Compile Include="Networks\Packets\Response\ResponseStatusEffect.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayable.cs" />
     <Compile Include="Networks\Packets\Response\ResponseActiveSkillData.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseStealth.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Response\ResponseViewProfile.cs" />

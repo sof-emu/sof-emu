@@ -1,4 +1,5 @@
 ﻿using Data.Interfaces;
+using GameServer.Networks.Messages;
 using System;
 using System.IO;
 using System.Text;
@@ -10,10 +11,12 @@ namespace GameServer.Networks.Packets
     {
         public BinaryReader Reader;
         public Session session;
+        public GameMessage Message;
 
         public void Process(Session sess)
         {
             session = sess;
+            Message = sess.Message;
 
             using (Reader = new BinaryReader(new MemoryStream(sess.Buffer)))
             {

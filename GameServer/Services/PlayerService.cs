@@ -76,16 +76,19 @@ namespace GameServer.Services
 
             player.Position = new Data.Models.World.Position();
             // todo Start Position in game
-            // todo load from data start template
-            player.Position.X = 0;
-            player.Position.Y = 0;
-            player.Position.Z = 0;
+            player.Position.MapId = 101;
+            player.Position.X = 575f;
+            player.Position.Y = 1565f;
+            player.Position.Z = 15f;
             
             GameStats stats = new GameStats();
             Data.Data.StatsTemplates
                 .TryGetValue((int)playerClass, out stats);
 
+            LifeStats lifeStats = new LifeStats(player);
+
             player.SetGameStats(stats);
+            player.SetLifeStats(lifeStats);
 
             var _player = await Global
                 .ApiService
@@ -128,10 +131,11 @@ namespace GameServer.Services
             new ResponseInventoryInfo(InventoryType.Item).Send(session);
             new ResponseInventoryInfo(InventoryType.Orb).Send(session);
             new ResponseQuestItem().Send(session);
+            new ResponsePlayerQuickInfo(player).Send(session);
 
-            Global
-                .VisibleService
-                .Broadcast(player, new ResponsePlayerQuickInfo(player));
+            //Global
+            //    .VisibleService
+            //    .Broadcast(player, new ResponsePlayerQuickInfo(player));
 
             // todo Status Effect list
             new ResponseWeightMoney(player).Send(session);

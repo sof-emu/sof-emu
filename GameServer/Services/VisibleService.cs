@@ -2,8 +2,7 @@
 using Data.Interfaces;
 using Data.Models.Creature;
 using Data.Models.Player;
-using GameServer.Networks.Packets.Response;
-using Utility;
+using System.Linq;
 
 namespace GameServer.Services
 {
@@ -25,6 +24,8 @@ namespace GameServer.Services
             player
                 .GetMap()
                 .GetPlayers()
+                .Where(p => p.ObjectId != creature.ObjectId)
+                .ToList()
                 .ForEach(p => packet.Send(p.GetSession()));
         }
     }

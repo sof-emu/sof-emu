@@ -76,8 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
+    <Compile Include="Enums\AttackStatus.cs" />
     <Compile Include="Enums\InventoryType.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
+    <Compile Include="Enums\PlayerState.cs" />
     <Compile Include="Interfaces\INpcAction.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
@@ -95,8 +97,11 @@
     <Compile Include="Models\Player\InventoryItem.cs" />
     <Compile Include="Models\Player\Player.cs" />
     <Compile Include="Models\Player\PlayerSetting.cs" />
+    <Compile Include="Models\Player\UseSkillArgs.cs" />
     <Compile Include="Models\Server\ChannelModel.cs" />
     <Compile Include="Models\Server\ServerModel.cs" />
+    <Compile Include="Models\SkillEngine\Attack.cs" />
+    <Compile Include="Models\SkillEngine\Skill.cs" />
     <Compile Include="Models\Template\Creatures\NpcTemplate.cs" />
     <Compile Include="Models\Template\Item\ItemTemplate.cs" />
     <Compile Include="Models\Template\Item\ShopItemTemplate.cs" />

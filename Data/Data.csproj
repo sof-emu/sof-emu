@@ -77,35 +77,44 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Enums\InventoryType.cs" />
+    <Compile Include="Enums\ObjectFamily.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
+    <Compile Include="Interfaces\IAi.cs" />
+    <Compile Include="Interfaces\IController.cs" />
+    <Compile Include="Interfaces\IEffect.cs" />
     <Compile Include="Interfaces\INpcAction.cs" />
-    <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IRecvPacket.cs" />
     <Compile Include="Interfaces\ISendPacket.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\IVisible.cs" />
-    <Compile Include="Models\Account\AccountData.cs" />
-    <Compile Include="Models\Account\SettingOption.cs" />
-    <Compile Include="Models\Creature\Creature.cs" />
-    <Compile Include="Models\Creature\GameStats.cs" />
-    <Compile Include="Models\Creature\LifeStats.cs" />
-    <Compile Include="Models\Npc\Npc.cs" />
-    <Compile Include="Models\Npc\NpcAction.cs" />
-    <Compile Include="Models\Player\Inventory.cs" />
-    <Compile Include="Models\Player\InventoryItem.cs" />
-    <Compile Include="Models\Player\Player.cs" />
-    <Compile Include="Models\Player\PlayerSetting.cs" />
-    <Compile Include="Models\Server\ChannelModel.cs" />
-    <Compile Include="Models\Server\ServerModel.cs" />
-    <Compile Include="Models\Template\Creatures\NpcTemplate.cs" />
-    <Compile Include="Models\Template\Item\ItemTemplate.cs" />
-    <Compile Include="Models\Template\Item\ShopItemTemplate.cs" />
-    <Compile Include="Models\Template\World\MapTemplate.cs" />
-    <Compile Include="Models\Template\World\SpawnTemplate.cs" />
-    <Compile Include="Models\VisibleObject.cs" />
-    <Compile Include="Models\World\MapInstance.cs" />
-    <Compile Include="Models\World\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structures\Account\Account.cs" />
+    <Compile Include="Structures\Account\SettingOption.cs" />
+    <Compile Include="Structures\Creature\Creature.cs" />
+    <Compile Include="Structures\Creature\CreatureBaseStats.cs" />
+    <Compile Include="Structures\Creature\CreatureLifeStats.cs" />
+    <Compile Include="Structures\Geometry\Point3D.cs" />
+    <Compile Include="Structures\Npc\Npc.cs" />
+    <Compile Include="Structures\Player\Player.cs" />
+    <Compile Include="Structures\Player\Storage.cs" />
+    <Compile Include="Structures\Player\StorageItem.cs" />
+    <Compile Include="Structures\RxjhObject.cs" />
+    <Compile Include="Structures\SkillEngine\Attack.cs" />
+    <Compile Include="Structures\SkillEngine\Skill.cs" />
+    <Compile Include="Structures\Statistical.cs" />
+    <Compile Include="Structures\Template\Creature\NpcTemplate.cs" />
+    <Compile Include="Structures\Template\Item\ItemTemplate.cs" />
+    <Compile Include="Structures\Template\Item\Passivity.cs" />
+    <Compile Include="Structures\Template\Item\ShopItemTemplate.cs" />
+    <Compile Include="Structures\Template\Server\ChannelModel.cs" />
+    <Compile Include="Structures\Template\Server\ServerModel.cs" />
+    <Compile Include="Structures\Template\World\MapTemplate.cs" />
+    <Compile Include="Structures\Template\World\SpawnTemplate.cs" />
+    <Compile Include="Structures\Uid.cs" />
+    <Compile Include="Structures\UidFactory.cs" />
+    <Compile Include="Structures\World\Item.cs" />
+    <Compile Include="Structures\World\MapInstance.cs" />
+    <Compile Include="Structures\World\WorldPosition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -117,5 +126,6 @@
       <Name>Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

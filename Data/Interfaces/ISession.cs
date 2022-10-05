@@ -1,5 +1,5 @@
-﻿using Data.Models.Account;
-using Data.Models.Player;
+﻿using Data.Structures.Account;
+using Data.Structures.Player;
 using System;
 using System.Collections.Generic;
 
@@ -9,8 +9,8 @@ namespace Data.Interfaces
     {
         void SendPacket(byte[] data);
         short SessionId { get; }
-        AccountData GetAccount();
-        void SetAccount(AccountData account);
+        Account GetAccount();
+        void SetAccount(Account account);
         List<Player> GetPlayers();
         Player GetPlayer(int index);
         void AddPlayer(Player player);

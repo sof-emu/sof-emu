@@ -1,8 +1,13 @@
-﻿namespace Data.Interfaces
+﻿using Data.Structures.Player;
+
+namespace Data.Interfaces
 {
     public interface IVisible
     {
-        bool IsVisible();
-        void setVisible(bool visible);
+        Player Player { get; set; }
+        void Start();
+        void Update();
+        void Stop();
+        void Release();
     }
 }

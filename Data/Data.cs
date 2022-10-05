@@ -1,7 +1,8 @@
-﻿using Data.Models.Creature;
-using Data.Models.Template.Creatures;
-using Data.Models.Template.Item;
-using Data.Models.Template.World;
+﻿using Data.Enums;
+using Data.Structures.Creature;
+using Data.Structures.Template.Creature;
+using Data.Structures.Template.Item;
+using Data.Structures.Template.World;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Data
 
         public static Dictionary<int, MapTemplate> MapTemplates;
         public static Dictionary<int, ItemTemplate> ItemTemplates;
-        public static Dictionary<int, GameStats> StatsTemplates;
+        public static Dictionary<PlayerClass, CreatureBaseStats> StatsTemplates;
         public static Dictionary<int, NpcTemplate> NpcTemplates;
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
         public static Dictionary<int, List<ShopItemTemplate>> ShopItemsTemplates;
@@ -96,15 +97,15 @@ namespace Data
         /// <returns></returns>
         public static int LoadBaseStats()
         {
-            StatsTemplates = new Dictionary<int, GameStats>();
+            StatsTemplates = new Dictionary<PlayerClass, CreatureBaseStats>();
 
             string jsonStr = File.ReadAllText(Path.Combine(DataPath, "stats.json"));
-            List<GameStats> list = JsonConvert.DeserializeObject<List<GameStats>>(jsonStr);
+            List<CreatureBaseStats> list = JsonConvert.DeserializeObject<List<CreatureBaseStats>>(jsonStr);
 
             list.ForEach(item =>
             {
-                if (!StatsTemplates.ContainsKey(item.Job))
-                    StatsTemplates.Add(item.Job, item);
+                if (!StatsTemplates.ContainsKey(item.PlayerClass))
+                    StatsTemplates.Add(item.PlayerClass, item);
             });
 
             return StatsTemplates.Count;

@@ -1,4 +1,6 @@
-﻿using Data.Interfaces;
+﻿using Data.Enums;
+using Data.Enums.Item;
+using Data.Interfaces;
 using Data.Structures.World;
 
 namespace Data.Structures.Player
@@ -11,11 +13,19 @@ namespace Data.Structures.Player
         public ISession Session;
         public IController Controller;
 
+        public Appearance Appearance;
+        public Storage Inventory = new Storage { StorageType = StorageType.Inventory };
+
         public int PlayerId;
-        public int ServerId { get; set; }
+        public int AccountId;
+        public string Name;
+        public int Index;
         public int Level = 1;
+        public PlayerClass Job;
         public int JobLevel = 1;
         public long Exp = 0;
+        public int Title = 0;
+        public int Faction;
         public int SkillPoint = 0;
         public int AbilityPoint = 0;
         public int AscensionPoint = 0;

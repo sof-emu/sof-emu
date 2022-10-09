@@ -1,4 +1,4 @@
-﻿using Data.Models.Player;
+﻿using Data.Structures.Player;
 using System.IO;
 
 namespace GameServer.Networks.Packets.Response
@@ -51,7 +51,7 @@ namespace GameServer.Networks.Packets.Response
             WriteD(writer, Target);
 
             writer.Seek(2, SeekOrigin.Begin);
-            WriteH(writer, (int)Player.GetSession().SessionId);
+            WriteH(writer, (int)Player.UID);
             writer.Seek(0, SeekOrigin.End);
         }
     }

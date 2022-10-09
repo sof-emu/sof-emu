@@ -1,11 +1,10 @@
 ﻿using Communicate;
 using Communicate.Interfaces;
 using Data.Interfaces;
-using Data.Models.Npc;
-using Data.Models.Player;
+using Data.Structures.Npc;
+using Data.Structures.Player;
 using GameServer.Networks.Packets.Response;
 using System.Threading.Tasks;
-using Utility;
 
 namespace GameServer.Services
 {
@@ -69,8 +68,8 @@ namespace GameServer.Services
         /// <param name="tagert"></param>
         public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
-            player
-                .Moved(x1, y1, z1, x2, y2, z2);
+            //player
+            //    .Moved(x1, y1, z1, x2, y2, z2);
 
             Global
                 .VisibleService
@@ -84,7 +83,7 @@ namespace GameServer.Services
         public void SendViewProfile(Player player)
         {
             new ResponseViewProfile()
-                .Send(player.GetSession());
+                .Send(player.Session);
         }
 
         /// <summary>

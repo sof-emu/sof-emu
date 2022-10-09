@@ -1,11 +1,9 @@
-﻿using Communicate;
-using Communicate.Interfaces;
-using Data.Models.Creature;
-using Data.Models.Npc;
-using Data.Models.Player;
-using Data.Models.Template.Creatures;
-using Data.Models.World;
-using GameServer.Networks.Packets.Response;
+﻿using Communicate.Interfaces;
+using Data.Structures.Creature;
+using Data.Structures.Npc;
+using Data.Structures.Player;
+using Data.Structures.Template.Creature;
+using Data.Structures.World;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,18 +31,14 @@ namespace GameServer.Services
             list.ForEach(map =>
             {
                 MapInstance mapInstance = new MapInstance();
-                mapInstance.Template = map;
+                //mapInstance.Template = map;
 
                 if (Data.Data.SpawnTemplates.ContainsKey(map.Id))
                 {
                     Data.Data.SpawnTemplates[map.Id].ForEach(spawn =>
                     {
-                        int objId = GameServer
-                            .IDFactory
-                            .GetNextStatic();
-
                         NpcTemplate template = Data.Data.NpcTemplates[spawn.NpcId];
-                        Npc npc = new Npc(objId, template, spawn);
+                        Npc npc = new Npc(template, spawn);
                         SpawnCreature(npc, mapInstance);
                     });
                 }
@@ -66,8 +60,8 @@ namespace GameServer.Services
             MapInstance map = Maps[player.Position.MapId];
             SpawnCreature(player, map);
 
-            map.GetPlayers()
-                .ForEach(people => Global.VisibleService.Broadcast(player, new ResponsePlayerInfo(people)));
+            //map.GetPlayers()
+            //    .ForEach(people => Global.VisibleService.Broadcast(player, new ResponsePlayerInfo(people)));
         }
 
         /// <summary>
@@ -79,15 +73,15 @@ namespace GameServer.Services
         {
             if (creature != null)
             {
-                lock (map.CreaturesLock)
+                /*lock (map.CreaturesLock)
                 {
                     if (creature is Player)
                         map.AddCreature((Player)creature);
                     if (creature is Npc)
                         map.AddCreature((Npc)creature);
-                }
+                }*/
 
-                creature.SetMap(map);
+                //creature.SetMap(map);
             }
         }
     }

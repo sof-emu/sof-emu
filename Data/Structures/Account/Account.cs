@@ -10,5 +10,6 @@
         public string LastIp { get; set; }
         public string Email { get; set; }
         public double Balance { get; set; }
+        public string DeletePlayerKey { get; set; }
     }
 }

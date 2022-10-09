@@ -1,10 +1,7 @@
 ﻿using Data.Interfaces;
-using Data.Models.Player;
-using Data.Models.World;
+using Data.Structures.Player;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Utility;
 
 namespace Communicate.Logics
 {
@@ -65,8 +62,8 @@ namespace Communicate.Logics
         /// <param name="player"></param>
         public static void SendMapNpcList(Player player)
         {
-            MapInstance map = player.GetMap();
-            NpcService.SendNpcList(player, map);
+            //MapInstance map = player.GetMap();
+            //NpcService.SendNpcList(player, map);
         }
     }
 }

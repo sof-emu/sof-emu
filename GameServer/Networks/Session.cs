@@ -1,6 +1,6 @@
 ﻿using Data.Interfaces;
-using Data.Models.Account;
-using Data.Models.Player;
+using Data.Structures.Account;
+using Data.Structures.Player;
 using GameServer.Networks.Messages;
 using GameServer.Networks.Packets;
 using GameServer.Networks.Protocols;
@@ -28,7 +28,7 @@ namespace GameServer.Networks
         protected DateTime _lastPing;
 
         // Game Properties
-        protected AccountData account;
+        protected Account account;
         protected Dictionary<int, Player> players = new Dictionary<int, Player>();
         protected Player selectedPlayer;
         protected SettingOption setting;
@@ -44,10 +44,6 @@ namespace GameServer.Networks
             Channel = channel;
 
             //players = new Dictionary<int, Player>();
-
-            _sessionId = GameServer
-                .IDFactory
-                .GetNext();
 
             Client.WireProtocol = new GameProtocol();
             Client.Disconnected += OnDisconnected;
@@ -140,7 +136,7 @@ namespace GameServer.Networks
         /// 
         /// </summary>
         /// <returns></returns>
-        public AccountData GetAccount()
+        public Account GetAccount()
         {
             return account;
         }
@@ -149,7 +145,7 @@ namespace GameServer.Networks
         /// 
         /// </summary>
         /// <param name="acc"></param>
-        public void SetAccount(AccountData acc)
+        public void SetAccount(Account acc)
         {
             account = acc;
         }

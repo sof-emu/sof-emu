@@ -1,6 +1,7 @@
 ﻿using Communicate;
 using Communicate.Logics;
 using GameServer.Configs;
+using GameServer.Database;
 using GameServer.Networks;
 using GameServer.Services;
 using System;
@@ -16,7 +17,7 @@ namespace GameServer
 
         public static Server Server;
 
-        public static IDFactory IDFactory;
+        public static DatabaseFactory DBFactory;
 
         /// <summary>
         /// 
@@ -54,7 +55,7 @@ namespace GameServer
 
             Config = new Config();
             OpCodes.Init();
-            IDFactory = new IDFactory();
+            DBFactory = new DatabaseFactory();
 
             // Services
             AccountService = new AccountService();

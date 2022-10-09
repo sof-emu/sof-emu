@@ -1,5 +1,5 @@
-﻿using Data.Models.Account;
-using Data.Models.Player;
+﻿using Data.Structures.Account;
+using Data.Structures.Player;
 using System.IO;
 using Utility;
 
@@ -17,7 +17,7 @@ namespace GameServer.Networks.Packets.Response
         public override void Write(BinaryWriter writer)
         {
             WriteD(writer, 1);
-            WriteD(writer, (int)Player.GetSession().SessionId);
+            WriteD(writer, (int)Player.UID);
             WriteSN(writer, Player.Name);
 
             WriteD(writer, 0); // Guild ID
@@ -32,7 +32,7 @@ namespace GameServer.Networks.Packets.Response
 
             WriteC(writer, 0);
 
-            WriteB(writer, Player.HairColor.ToBytes()); // HairColor
+            WriteB(writer, Player.Appearance.HairColor.ToBytes()); // HairColor
             WriteH(writer, 1); // Hair Style
             WriteH(writer, 1); // Face Shape
 
@@ -40,8 +40,8 @@ namespace GameServer.Networks.Packets.Response
             WriteH(writer, 0);
             WriteH(writer, 0);
 
-            WriteC(writer, (byte)Player.Voice);
-            WriteC(writer, (byte)Player.Gender);
+            WriteC(writer, (byte)Player.Appearance.Voice);
+            WriteC(writer, (byte)Player.Appearance.Gender);
 
             WriteF(writer, Player.Position.X);
             WriteF(writer, Player.Position.Z); // Flying = 270f
@@ -63,7 +63,7 @@ namespace GameServer.Networks.Packets.Response
             WriteC(writer, 0); // equipment slot 3 reinforcements
             WriteQ(writer, 0); // equipmeny slot 11 item id // 16900672
 
-            int setting = SettingOption.GetSettings(Player.GetSession().GetSetting());
+            int setting = SettingOption.GetSettings(Player.Session.GetSetting());
             Log.Debug($"Account Setting = {setting}");
             /*
             if (Player.AppendStatusList != null && Player.AppendStatusList.ContainsKey(700014))

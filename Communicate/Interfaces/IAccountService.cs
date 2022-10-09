@@ -1,5 +1,5 @@
 ﻿using Data.Interfaces;
-using Data.Models.Account;
+using Data.Structures.Account;
 
 namespace Communicate.Interfaces
 {

@@ -1,7 +1,6 @@
 ﻿using Data.Interfaces;
-using Data.Models.Account;
-using Data.Models.Npc;
-using Data.Models.Player;
+using Data.Structures.Account;
+using Data.Structures.Player;
 using Utility;
 
 namespace Communicate.Logics
@@ -12,8 +11,10 @@ namespace Communicate.Logics
         {
             Player p = session.GetPlayer(index);
 
-            var result = await ApiService
-                .SendDeletePlayer(p.Id, password);
+            //var result = await ApiService
+            //    .SendDeletePlayer(p.PlayerId, password);
+
+            bool result = false;
 
             // todo send packet delete response
             FeedbackService
@@ -60,13 +61,13 @@ namespace Communicate.Logics
 
         public static void SelectNpc(ISession session, int statisticId)
         {
-            Npc npc = session
+            /*Npc npc = session
                 .GetSelectedPlayer()
                 .GetMap()
                 .GetNpc(statisticId);
 
             FeedbackService
-                .SelectNpc(session, npc);
+                .SelectNpc(session, npc);*/
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Data.Models.Player;
+﻿using Data.Structures.Player;
 using System.IO;
 
 namespace GameServer.Networks.Packets.Response

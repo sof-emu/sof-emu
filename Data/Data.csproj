@@ -77,8 +77,12 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Enums\InventoryType.cs" />
+    <Compile Include="Enums\Item\StorageType.cs" />
     <Compile Include="Enums\ObjectFamily.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
+    <Compile Include="Interfaces\Database\IAccountRepository.cs" />
+    <Compile Include="Interfaces\Database\IInventoryRepository.cs" />
+    <Compile Include="Interfaces\Database\IPlayerRepository.cs" />
     <Compile Include="Interfaces\IAi.cs" />
     <Compile Include="Interfaces\IController.cs" />
     <Compile Include="Interfaces\IEffect.cs" />
@@ -95,6 +99,7 @@
     <Compile Include="Structures\Creature\CreatureLifeStats.cs" />
     <Compile Include="Structures\Geometry\Point3D.cs" />
     <Compile Include="Structures\Npc\Npc.cs" />
+    <Compile Include="Structures\Player\Appearance.cs" />
     <Compile Include="Structures\Player\Player.cs" />
     <Compile Include="Structures\Player\Storage.cs" />
     <Compile Include="Structures\Player\StorageItem.cs" />

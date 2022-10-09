@@ -1,4 +1,4 @@
-﻿using Data.Models.Player;
+﻿using Data.Structures.Player;
 
 namespace Communicate.Interfaces
 {

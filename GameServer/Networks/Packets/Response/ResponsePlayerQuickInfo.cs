@@ -1,4 +1,4 @@
-﻿using Data.Models.Player;
+﻿using Data.Structures.Player;
 using System.IO;
 using Utility;
 
@@ -16,7 +16,7 @@ namespace GameServer.Networks.Packets.Response
         public override void Write(BinaryWriter writer)
         {
             WriteD(writer, 1);
-            WriteD(writer, (int)Player.GetSession().SessionId);
+            WriteD(writer, (int)Player.UID);
             WriteSN(writer, Player.Name);
 
             WriteD(writer, 0); // Guild ID
@@ -33,12 +33,12 @@ namespace GameServer.Networks.Packets.Response
             WriteC(writer, (byte)Player.Job);
             WriteC(writer, 1);
 
-            WriteB(writer, Player.HairColor.ToBytes()); // HairColor
+            WriteB(writer, Player.Appearance.HairColor.ToBytes()); // HairColor
             WriteH(writer, 0); // Hair Style
             WriteH(writer, 0); // Face Shape
 
-            WriteC(writer, (byte)Player.Voice);
-            WriteC(writer, (byte)Player.Gender);
+            WriteC(writer, (byte)Player.Appearance.Voice);
+            WriteC(writer, (byte)Player.Appearance.Gender);
 
             WriteD(writer, 0);
             WriteC(writer, 1);

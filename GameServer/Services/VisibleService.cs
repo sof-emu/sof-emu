@@ -1,9 +1,7 @@
 ﻿using Communicate.Interfaces;
 using Data.Interfaces;
-using Data.Models.Creature;
-using Data.Models.Player;
-using GameServer.Networks.Packets.Response;
-using Utility;
+using Data.Structures.Creature;
+using Data.Structures.Player;
 
 namespace GameServer.Services
 {
@@ -19,13 +17,15 @@ namespace GameServer.Services
             Player player = creature as Player;
 
             if (player != null)
-                if (player.GetSession() != null)
-                    packet.Send(player.GetSession());
+                if (player.Session != null)
+                    packet.Send(player.Session);
 
-            player
-                .GetMap()
-                .GetPlayers()
-                .ForEach(p => packet.Send(p.GetSession()));
+            //todo broadcast to nearest player
+
+            //player
+            //    .GetMap()
+            //    .GetPlayers()
+            //    .ForEach(p => packet.Send(p.GetSession()));
         }
     }
 }

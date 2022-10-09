@@ -3,8 +3,8 @@ using Communicate.Interfaces;
 using Communicate.Logics;
 using Data.Enums;
 using Data.Interfaces;
-using Data.Models.Creature;
-using Data.Models.Player;
+using Data.Structures.Player;
+using Data.Structures.World;
 using GameServer.Networks.Packets.Response;
 
 namespace GameServer.Services
@@ -40,11 +40,12 @@ namespace GameServer.Services
         /// </summary>
         /// <param name="session"></param>
         /// <param name="name"></param>
-        public async void CheckNameExist(ISession session, string name)
+        public void CheckNameExist(ISession session, string name)
         {
-            bool isExists = await Global
-                .ApiService
-                .CheckNameExist(name);
+            bool isExists = false;
+            //await Global
+            //    .ApiService
+            //    .CheckNameExist(name);
 
             new ResponseCheckName(name, isExists).Send(session);
         }
@@ -59,43 +60,33 @@ namespace GameServer.Services
         /// <param name="hairColor"></param>
         /// <param name="voice"></param>
         /// <param name="gender"></param>
-        public async void CreatePlayer(ISession session, string name, PlayerClass playerClass, string hairColor, int voice, int gender)
+        public Player CreatePlayer(ISession session, string name, PlayerClass playerClass, string hairColor, int voice, int gender)
         {
-            Player player = new Player();
-            player.Name = name;
-            player.Level = 1;
-            player.Job = (int)playerClass;
-            player.JobLevel = 1;
-            player.AccountId = session.GetAccount().Id;
-            player.AccountName = session.GetAccount().Username;
-            player.Force = 0;
-            player.HairColor = hairColor;
-            player.Voice = voice;
-            player.Gender = gender;
-            player.Title = 0;
+            Player player = new Player()
+            {
+                Name = name,
+                Level = 1,
+                Job = playerClass,
+                JobLevel = 1,
+                AccountId = session.GetAccount().Id,
+                Faction = 0,
+                Appearance = new Appearance()
+                {
+                    HairColor = hairColor,
+                    HairStyle = 0,
+                    Voice = voice,
+                    Gender = gender,
+                },
+                Position = new WorldPosition()
+                {
+                    MapId = 101,
+                    X = 378.501f,
+                    Y = 1741.1f,
+                    Z = 15f
+                }
+            };
 
-            player.Position = new Data.Models.World.Position();
-            // todo Start Position in game
-            // todo load from data start template
-            player.Position.X = 0;
-            player.Position.Y = 0;
-            player.Position.Z = 0;
-            
-            GameStats stats = new GameStats();
-            Data.Data.StatsTemplates
-                .TryGetValue((int)playerClass, out stats);
-
-            player.SetGameStats(stats);
-
-            var _player = await Global
-                .ApiService
-                .SendCreatePlayer(player, stats);
-
-            player.Index = _player.Index;
-
-            Global
-                .FeedbackService
-                .OnCreatePlayerResult(session, player);
+            return player;
         }
 
         /// <summary>
@@ -119,7 +110,7 @@ namespace GameServer.Services
         /// <param name="player"></param>
         public void EnterWorld(Player player)
         {
-            var session = player.GetSession();
+            var session = player.Session;
 
             new ResponseServerTime((int)Global.ServerTime).Send(session);
             new ResponsePlayerRunning(1).Send(session);
@@ -171,24 +162,19 @@ namespace GameServer.Services
         {
             if (target != 65535)
             {
-                Creature Target = player
+                /*Creature Target = player
                     .GetMap()
                     .GetNpc(target);
 
-                player.SetTarget(Target);
+                player.SetTarget(Target);*/
             }
 
 
             player.Position.X = x1;
             player.Position.Y = y1;
 
-            player.LastPostion.X = x2;
-            player.LastPostion.Y = y2;
-
-            if (player.GetMap() != null)
-                player
-                    .GetMap()
-                    .OnMove(player);
+            player.Position.X2 = x2;
+            player.Position.Y2 = y2;
         }
 
         public void Action()

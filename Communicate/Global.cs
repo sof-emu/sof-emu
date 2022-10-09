@@ -1,4 +1,5 @@
 ﻿using Communicate.Interfaces;
+using Data.Interfaces.Database;
 using System;
 using System.Threading;
 using Utility;
@@ -21,6 +22,10 @@ namespace Communicate
 
         // Engines
 
+        // Database Repositories
+        public static IAccountRepository AccountRepository;
+        public static IPlayerRepository PlayerRepository;
+        public static IInventoryRepository InventoryRepository;
 
         //
         protected static bool ServerIsWork = true;

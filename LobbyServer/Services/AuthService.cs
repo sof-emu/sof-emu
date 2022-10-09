@@ -1,5 +1,4 @@
-﻿using Data.Interfaces;
-using LobbyServer.Networks;
+﻿using LobbyServer.Networks;
 using LobbyServer.Networks.Packets;
 using Utility;
 
@@ -7,15 +6,12 @@ namespace LobbyServer.Services
 {
     public class AuthService
     {
-        public AuthService()
+        public void Authenticate(Session session, string username, string password)
         {
-        }
-
-        public async void Authenticate(Session session, string username, string password)
-        {
-            var account = await LobbyServer
-                .ApiService
-                .RequestAccountData(username);
+            var account = LobbyServer
+                .DbFactory
+                .DbAccount
+                .GetAccountByUsername(username);
 
             if (account == null)
             {

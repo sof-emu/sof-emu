@@ -1,8 +1,7 @@
 ﻿using Communicate.Interfaces;
 using Data.Interfaces;
-using Data.Models.Npc;
-using Data.Models.Player;
-using Data.Models.World;
+using Data.Structures.Player;
+using Data.Structures.World;
 using GameServer.Engines.NpcActions;
 using GameServer.Networks.Packets.Response;
 using System;
@@ -48,7 +47,7 @@ namespace GameServer.Services
             if(Actions.ContainsKey(actionId))
             {
                 ((INpcAction)Activator.CreateInstance(Actions[actionId]))
-                    .Process(session, shopId, actionId, tabIndex);
+                    .Execute(session, shopId, actionId, tabIndex);
             } 
             else
             {
@@ -65,8 +64,8 @@ namespace GameServer.Services
         public void SendNpcList(Player player, MapInstance map)
         {
             //Log.Debug($"player: {player.Id}, MapId: {map.Template.Id}, Npcs: {map.GetNpcs().Count}");
-            List<Npc> npcs =  map.GetNpcs();
-            new ResponseNpcSpawn(npcs).Send(player.GetSession());
+            //List<Npc> npcs =  map.GetNpcs();
+            //new ResponseNpcSpawn(npcs).Send(player.GetSession());
         }
     }
 }

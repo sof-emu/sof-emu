@@ -1,4 +1,4 @@
-﻿using Data.Models.Player;
+﻿using Data.Structures.Player;
 using System.IO;
 using Utility;
 
@@ -40,14 +40,14 @@ namespace GameServer.Networks.Packets.Response
                 // Appearance
                 WriteC(writer, 1); // Unk1
 
-                WriteB(writer, Player.HairColor.ToBytes());
-                WriteC(writer, (byte)(Player.Face));
-                WriteC(writer, (byte)(Player.Voice));
+                WriteB(writer, Player.Appearance.HairColor.ToBytes());
+                WriteC(writer, (byte)(Player.Appearance.Face));
+                WriteC(writer, (byte)(Player.Appearance.Voice));
 
                 WriteB(writer, new byte[8]);
 
-                WriteC(writer, (byte)(Player.Title));
-                WriteC(writer, (byte)(Player.Gender));
+                WriteC(writer, 0); // TITLE
+                WriteC(writer, (byte)(Player.Appearance.Gender));
 
                 WriteF(writer, Player.Position.X);
                 WriteF(writer, Player.Position.Z);

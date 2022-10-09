@@ -1,6 +1,6 @@
 ﻿using Data.Interfaces;
-using Data.Models.Player;
-using Data.Models.World;
+using Data.Structures.Player;
+using Data.Structures.World;
 
 namespace Communicate.Interfaces
 {

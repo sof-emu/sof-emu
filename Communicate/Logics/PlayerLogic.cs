@@ -1,15 +1,17 @@
 ﻿using Data.Interfaces;
 using Data.Structures.Account;
 using Data.Structures.Player;
+using System;
+using System.Linq;
 using Utility;
 
 namespace Communicate.Logics
 {
     public class PlayerLogic : Global
     {
-        public static async void DeletePlayer(ISession session, int index, string password)
+        public static void DeletePlayer(ISession session, int index, string password)
         {
-            Player p = session.GetPlayer(index);
+            //Player p = session.GetPlayer(index);
 
             //var result = await ApiService
             //    .SendDeletePlayer(p.PlayerId, password);
@@ -21,18 +23,28 @@ namespace Communicate.Logics
                 .SendDeletePlayer(session, index, result);
         }
 
-        public static void EnterWorld(ISession session, int playerIndex)
+        public static void PlayerSelected(ISession session, int playerIndex)
         {
-            Player player = session
-                .GetPlayer(playerIndex);
+            session.Player = session.Account.Players.FirstOrDefault(player => player.Index == playerIndex);
 
-            session.SetSelectPlayer(player);
+            if (session.Player == null)
+                return;
 
-            MapService
-                .EnterWorld(player);
+            session.Player.Session = session;
 
-            PlayerService
-                .EnterWorld(player);
+            PlayerService.InitPlayer(session.Player);
+            FeedbackService.SendInitailData(session);
+
+            //Player player = session
+            //    .GetPlayer(playerIndex);
+
+            //session.SetSelectPlayer(player);
+
+            //MapService
+            //    .EnterWorld(player);
+
+            //PlayerService
+            //    .EnterWorld(player);
         }
 
         public static void OptionSetting(ISession session, SettingOption setting)
@@ -68,6 +80,14 @@ namespace Communicate.Logics
 
             FeedbackService
                 .SelectNpc(session, npc);*/
+        }
+
+        public static void PlayerEnterWorld(Player player)
+        {
+            //MapService.PlayerEnterWorld(player);
+            //PlayerService.PlayerEnterWorld(player);
+            //ControllerService.PlayerEnterWorld(player);
+            FeedbackService.OnPlayerEnterWorld(player.Session, player);
         }
     }
 }

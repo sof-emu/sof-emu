@@ -1,6 +1,4 @@
 ﻿using Data.Interfaces;
-using Data.Structures.Player;
-using System;
 using System.Collections.Generic;
 
 namespace Communicate.Logics
@@ -27,43 +25,11 @@ namespace Communicate.Logics
         /// <param name="session"></param>
         public static void ClientPing(ISession session)
         {
-            if ((int)DateTime.Now.Subtract(session.GetLastPing()).TotalMilliseconds < 10000)
-            {
-                int times = 0;
-                hackSpeedDetect.TryGetValue(session.SessionId, out times);
-                times++;
-                if(times > 3)
-                {
-                    // todo send system hint
-                    // The game runs abnormally
-                    // disconnect client
-                }
-            }
-            session.SetLastPing(DateTime.Now);
+            session.Ping();
 
             // todo
             FeedbackService
                 .SendServerTime(session);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public static void ViewProfile(Player player)
-        {
-            FeedbackService
-                .SendViewProfile(player);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public static void SendMapNpcList(Player player)
-        {
-            //MapInstance map = player.GetMap();
-            //NpcService.SendNpcList(player, map);
         }
     }
 }

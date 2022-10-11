@@ -40,7 +40,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            PlayerLogic.PlayerMoved(session.GetSelectedPlayer(), X1, Y1, Z1, X2, Y2, Z2, Distance, Target);
+            PlayerLogic.PlayerMoved(session.Player, X1, Y1, Z1, X2, Y2, Z2, Distance, Target);
         }
     }
 }

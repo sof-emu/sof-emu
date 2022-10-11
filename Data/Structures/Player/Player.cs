@@ -2,6 +2,7 @@
 using Data.Enums.Item;
 using Data.Interfaces;
 using Data.Structures.World;
+using System.Collections.Generic;
 
 namespace Data.Structures.Player
 {
@@ -15,6 +16,7 @@ namespace Data.Structures.Player
 
         public Appearance Appearance;
         public Storage Inventory = new Storage { StorageType = StorageType.Inventory };
+        public List<int> Skills = new List<int>();
 
         public int PlayerId;
         public int AccountId;

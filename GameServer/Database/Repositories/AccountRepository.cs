@@ -33,20 +33,6 @@ namespace GameServer.Database.Repositories
                     .Where("username", username)
                     .FirstOrDefault<Account>();
 
-                Log.Debug(account.ToString());
-
-                /*Account account = new Account() 
-                { 
-                    Name = row.username,
-                    Password = row.password,
-                    Activate = row.activated,
-                    AccessLevel = row.access_level,
-                    LastIp = row.last_ip,
-                    Email = row.email,
-                    Balance = row.balance,
-                    DeletePlayerKey = row.delete_player_key
-                };*/
-
                 return account;
             }
             catch (Exception ex)

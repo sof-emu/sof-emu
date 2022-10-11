@@ -3,16 +3,19 @@ using Communicate.Interfaces;
 using Communicate.Logics;
 using Data.Enums;
 using Data.Interfaces;
+using Data.Structures.Account;
 using Data.Structures.Player;
 using Data.Structures.World;
 using GameServer.Networks.Packets.Response;
+using System.Collections.Generic;
 
 namespace GameServer.Services
 {
     public class PlayerService : IPlayerService
     {
+        public static List<Player> PlayersOnline = new List<Player>();
 
-        public PlayerService()
+        public void Action()
         {
 
         }
@@ -23,9 +26,9 @@ namespace GameServer.Services
         /// <param name="session"></param>
         public void SendPlayerLists(ISession session)
         {
-            if (session.GetPlayers().Count > 0)
+            if (session.Account.Players.Count > 0)
             {
-                session.GetPlayers().ForEach(player =>
+                session.Account.Players.ForEach(player =>
                 {
                     new ResponsePlayerList(player).Send(session);
                 });
@@ -68,7 +71,7 @@ namespace GameServer.Services
                 Level = 1,
                 Job = playerClass,
                 JobLevel = 1,
-                AccountId = session.GetAccount().Id,
+                AccountId = session.Account.Id,
                 Faction = 0,
                 Appearance = new Appearance()
                 {
@@ -95,55 +98,12 @@ namespace GameServer.Services
         /// <param name="session"></param>
         public void OnUpdateSetting(ISession session)
         {
-            var player = session
-                    .GetSelectedPlayer();
+            var player = session.Player;
 
             if (player != null)
                 Global
                     .VisibleService
                     .Broadcast(player, new ResponsePlayerInfo(player));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public void EnterWorld(Player player)
-        {
-            var session = player.Session;
-
-            new ResponseServerTime((int)Global.ServerTime).Send(session);
-            new ResponsePlayerRunning(1).Send(session);
-            new ResponseSkillPassive().Send(session);
-            new ResponsePlayerInfo(player).Send(session);
-            new ResponseInventoryInfo(InventoryType.Item).Send(session);
-            new ResponseInventoryInfo(InventoryType.Orb).Send(session);
-            new ResponseQuestItem().Send(session);
-
-            Global
-                .VisibleService
-                .Broadcast(player, new ResponsePlayerQuickInfo(player));
-
-            // todo Status Effect list
-            new ResponseWeightMoney(player).Send(session);
-            new ResponsePetInfo().Send(session);
-
-            new ResponsePlayerHpMpSp(player).Send(session);
-
-            new ResponseQuestList().Send(session);
-            new ResponseQuestCompleteList().Send(session);
-            //new ResponseBindPoint().Send(session);
-            //new ResponseNpcSpawn().Send(session);
-            //new ResponseSkillCooldown().Send(session);
-            //new ResponseViewProfile(player).Send(session);
-            GlobalLogic
-                .ViewProfile(player);
-
-            //new ResponsePlayerInfo(player).Send(session);
-            //new ResponseEquipInfo(player).Send(session);
-
-            GlobalLogic
-                .SendMapNpcList(player);
         }
 
         /// <summary>
@@ -177,9 +137,42 @@ namespace GameServer.Services
             player.Position.Y2 = y2;
         }
 
-        public void Action()
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public List<Player> OnAuthorized(Account account)
         {
+            var list = Global.PlayerRepository.GetPlayerFromAccountId(account.Id);
 
+            // todo load player inventory, quests, skills
+            // list.ForEach(player =>
+            // {
+            // 
+            // });
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public void InitPlayer(Player player)
+        {
+            player.Level = 1;
+
+            while((player.Level + 1) != Data.Data.PlayerExperience.Count - 1 && player.Exp >= Data.Data.PlayerExperience[player.Level])
+                player.Level++;
+
+            player.GameStats = CreatureLogic.InitGameStats(player);
+            CreatureLogic.UpdateCreatureStats(player);
+
+            // AiLogic.InitAi(player);
+
+            PlayersOnline.Add(player);
         }
     }
 }

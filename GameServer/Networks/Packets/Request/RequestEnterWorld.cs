@@ -1,20 +1,19 @@
 ﻿using Communicate.Logics;
+using GameServer.Networks.Packets.Response;
 
 namespace GameServer.Networks.Packets.Request
 {
-    public class RequestEnterWorld : ARecvPacket
+    public class RequestEnterworld : ARecvPacket
     {
-        protected int PlayerIndex;
-
         public override void ExecuteRead()
         {
-            PlayerIndex = ReadC();
+            
         }
 
         public override void Process()
         {
-            PlayerLogic
-                .EnterWorld(session, PlayerIndex);
+            PlayerLogic.PlayerEnterWorld(session.Player);
+            // new ResponseEnterWorld().Send(session);
         }
     }
 }

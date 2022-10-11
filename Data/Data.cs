@@ -6,9 +6,11 @@ using Data.Structures.Template.World;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml;
 using Utility;
 
 namespace Data
@@ -16,6 +18,8 @@ namespace Data
     public class Data
     {
         public static string DataPath = Path.GetFullPath("Data");
+
+        public static List<long> PlayerExperience;
 
         public static Dictionary<int, MapTemplate> MapTemplates;
         public static Dictionary<int, ItemTemplate> ItemTemplates;
@@ -28,7 +32,7 @@ namespace Data
         protected static List<Loader> Loaders = new List<Loader>
                                                     {
                                                         LoadMapTemplates,
-                                                        //LoadPlayerExperience,
+                                                        LoadPlayerExperience,
                                                         LoadBaseStats,
                                                         LoadItemTemplates,
                                                         //LoadBindPoints,
@@ -89,6 +93,25 @@ namespace Data
             });
 
             return MapTemplates.Count;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadPlayerExperience()
+        {
+            try
+            {
+                PlayerExperience = new List<long>();
+
+                string jsonStr = File.ReadAllText(Path.Combine(DataPath, "exp.json"));
+                PlayerExperience = JsonConvert.DeserializeObject<List<long>>(jsonStr);
+            }
+            catch
+            { }
+
+            return PlayerExperience.Count;
         }
 
         /// <summary>

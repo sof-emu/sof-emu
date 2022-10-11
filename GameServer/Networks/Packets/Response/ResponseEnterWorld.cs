@@ -2,9 +2,9 @@
 
 namespace GameServer.Networks.Packets.Response
 {
-    public class ResponsePlayable : ASendPacket
+    public class ResponseEnterWorld : ASendPacket
     {
-        public ResponsePlayable()
+        public ResponseEnterWorld()
         {
 
         }

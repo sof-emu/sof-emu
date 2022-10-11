@@ -13,11 +13,11 @@ namespace Communicate
         // Services
         public static IAccountService AccountService;
         public static IApiService ApiService;
-        public static IAuthService AuthService;
         public static IFeedbackService FeedbackService;
         public static IMapService MapService;
         public static INpcService NpcService;
         public static IPlayerService PlayerService;
+        public static IStatsService StatsService;
         public static IVisibleService VisibleService;
 
         // Engines

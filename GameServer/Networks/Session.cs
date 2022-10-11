@@ -7,7 +7,7 @@ using GameServer.Networks.Protocols;
 using Hik.Communication.Scs.Server;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.NetworkInformation;
 using Utility;
 
 namespace GameServer.Networks
@@ -29,8 +29,7 @@ namespace GameServer.Networks
 
         // Game Properties
         protected Account account;
-        protected Dictionary<int, Player> players = new Dictionary<int, Player>();
-        protected Player selectedPlayer;
+        public Player Player { get; set; }
         protected SettingOption setting;
 
         /// <summary>
@@ -50,6 +49,27 @@ namespace GameServer.Networks
             Client.MessageReceived += OnMessageReceived;
 
             Sessions.Add(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Account Account
+        {
+            get { return account; }
+            set
+            {
+                if (value.Session != null)
+                    value.Session.Close();
+
+                account = value;
+                account.Session = this;
+            }
+        }
+
+        public bool IsValid
+        {
+            get { return true; }
         }
 
         /// <summary>
@@ -96,7 +116,7 @@ namespace GameServer.Networks
         /// <param name="e"></param>
         private void OnDisconnected(object sender, System.EventArgs e)
         {
-            
+            // todo save data
         }
 
         /// <summary>
@@ -127,122 +147,29 @@ namespace GameServer.Networks
         /// <summary>
         /// 
         /// </summary>
-        public short SessionId
+        public void Close()
         {
-            get { return (short)_sessionId; }
+            if (account != null)
+                account.lastOnlineUtc = Funcs.GetCurrentMilliseconds();
+
+            Client.Disconnect();
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public Account GetAccount()
+        public long Ping()
         {
-            return account;
-        }
+            Ping ping = new Ping();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="acc"></param>
-        public void SetAccount(Account acc)
-        {
-            account = acc;
-        }
+            //"tcp://127.0.0.1:27230"
+            string ipAddress = Client.RemoteEndPoint.ToString().Substring(6);
+            ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(':'));
 
-        /// <summary>
-        /// Get List of Player
-        /// </summary>
-        /// <returns>List<Player></returns>
-        public List<Player> GetPlayers()
-        {
-            return players
-                .Values
-                .ToList();
-        }
+            PingReply pingReply = ping.Send(ipAddress);
 
-        /// <summary>
-        /// Get Player by Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Player</returns>
-        public Player GetPlayer(int index)
-        {
-            return players[index];
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="players"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void SetPlayer(List<Player> players)
-        {
-            this.players = players.Distinct().ToDictionary(i => i.Index, i => i); ;
-        }
-
-        /// <summary>
-        /// Add Player to Dictionary
-        /// </summary>
-        /// <param name="player"></param>
-        public void AddPlayer(Player player)
-        {
-            players.Add(player.Index, player);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public void SetSelectPlayer(Player player)
-        {
-            selectedPlayer = player;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Player GetSelectedPlayer()
-        {
-            return selectedPlayer;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="setting"></param>
-        public void SetSetting(SettingOption setting)
-        {
-            this.setting = setting;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public SettingOption GetSetting()
-        {
-            return setting;
-        }
-
-        /// <summary>
-        /// Set DateTime of lastping
-        /// </summary>
-        /// <param name="last"></param>
-        public void SetLastPing(DateTime last)
-        {
-            _lastPing = last;
-        }
-
-        /// <summary>
-        /// Get Last Ping DateTime
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public DateTime GetLastPing()
-        {
-            return _lastPing;
+            return (pingReply != null) ? pingReply.RoundtripTime : 0;
         }
     }
 }

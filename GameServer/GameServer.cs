@@ -60,11 +60,11 @@ namespace GameServer
             // Services
             AccountService = new AccountService();
             ApiService = new ApiService();
-            AuthService = new AuthService();
             FeedbackService = new FeedbackService();
             MapService = new MapService();
             NpcService = new NpcService();
             PlayerService = new PlayerService();
+            StatsService = new StatsService();
             VisibleService = new VisibleService();
 
             GlobalLogic.ServerStart();

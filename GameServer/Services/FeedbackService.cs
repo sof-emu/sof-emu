@@ -1,10 +1,13 @@
 ﻿using Communicate;
 using Communicate.Interfaces;
+using Data.Enums;
 using Data.Interfaces;
 using Data.Structures.Npc;
 using Data.Structures.Player;
 using GameServer.Networks.Packets.Response;
+using System.Numerics;
 using System.Threading.Tasks;
+using Utility;
 
 namespace GameServer.Services
 {
@@ -24,7 +27,7 @@ namespace GameServer.Services
         /// <param name="session"></param>
         public void OnAuthorized(ISession session)
         {
-            new ResponseAuth(session.GetAccount())
+            new ResponseAuth(session.Account)
                 .Send(session);
         }
 
@@ -38,7 +41,9 @@ namespace GameServer.Services
             if(player != null)
             {
                 session
-                    .AddPlayer(player);
+                    .Account
+                    .Players
+                    .Add(player);
 
                 new ResponseCreatePlayer(true)
                     .Send(session);
@@ -79,21 +84,11 @@ namespace GameServer.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="player"></param>
-        public void SendViewProfile(Player player)
-        {
-            new ResponseViewProfile()
-                .Send(player.Session);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="session"></param>
         /// <exception cref="System.NotImplementedException"></exception>
         public void SendServerTime(ISession session)
         {
-            if(session.GetSelectedPlayer() != null)
+            if(session.Player != null)
                 new ResponseServerTime((int)Global.ServerTime)
                     .Send(session);
         }
@@ -114,6 +109,41 @@ namespace GameServer.Services
         {
             new ResponseDeletePlayer(index, result)
                 .Send(session);
+        }
+
+        public void SendInitailData(ISession session)
+        {
+            new ResponseServerTime((int)Global.ServerTime).Send(session);
+            new ResponsePlayerRunning(1).Send(session);
+
+            new ResponseSkillPassive().Send(session);
+            new ResponsePlayerInfo(session.Player).Send(session);
+
+            new ResponseInventoryInfo(InventoryType.Item).Send(session);
+            new ResponseInventoryInfo(InventoryType.Orb).Send(session);
+            new ResponseQuestItem().Send(session);
+
+            new ResponsePlayerQuickInfo(session.Player).Send(session);
+
+            new ResponseWeightMoney(session.Player).Send(session);
+            new ResponsePetInfo().Send(session);
+
+            new ResponsePlayerHpMpSp(session.Player).Send(session);
+
+            new ResponseQuestList().Send(session);
+            new ResponseQuestCompleteList().Send(session);
+
+            new ResponseViewProfile().Send(session);
+        }
+
+        public void StatsUpdated(Player player)
+        {
+            new ResponsePlayerStats(player).Send(player.Session);
+        }
+
+        public void OnPlayerEnterWorld(ISession session, Player player)
+        {
+            player.Session.Account.lastOnlineUtc = Funcs.GetCurrentMilliseconds();
         }
     }
 }

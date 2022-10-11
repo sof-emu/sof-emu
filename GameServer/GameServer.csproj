@@ -149,7 +149,7 @@
     <Compile Include="Networks\Packets\Request\RequestAuth.cs" />
     <Compile Include="Networks\Packets\Request\RequestCreatePlayer.cs" />
     <Compile Include="Networks\Packets\Request\RequestDeletePlayer.cs" />
-    <Compile Include="Networks\Packets\Request\RequestEnterWorld.cs" />
+    <Compile Include="Networks\Packets\Request\RequestPlay.cs" />
     <Compile Include="Networks\Packets\Request\RequestNpcInteraction.cs" />
     <Compile Include="Networks\Packets\Request\RequestPlayerMove.cs" />
     <Compile Include="Networks\Packets\Request\RequestPing.cs" />
@@ -157,7 +157,7 @@
     <Compile Include="Networks\Packets\Request\RequestSelectNpc.cs" />
     <Compile Include="Networks\Packets\Request\RequestSettingOption.cs" />
     <Compile Include="Networks\Packets\Request\RequestActiveSkillData.cs" />
-    <Compile Include="Networks\Packets\Request\RequestPlayable.cs" />
+    <Compile Include="Networks\Packets\Request\RequestEnterworld.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Request\RequestVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Request\RequestViewProfile.cs" />
@@ -168,6 +168,7 @@
     <Compile Include="Networks\Packets\Response\ResponseNpcSpawn.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcInteraction.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerMove.cs" />
+    <Compile Include="Networks\Packets\Response\ResponsePlayerStats.cs" />
     <Compile Include="Networks\Packets\Response\ResponseQuestCompleteList.cs" />
     <Compile Include="Networks\Packets\Response\ResponseAuth.cs" />
     <Compile Include="Networks\Packets\Response\ResponseCheckName.cs" />
@@ -187,7 +188,7 @@
     <Compile Include="Networks\Packets\Response\ResponseSkillPassive.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePetInfo.cs" />
     <Compile Include="Networks\Packets\Response\ResponseStatusEffect.cs" />
-    <Compile Include="Networks\Packets\Response\ResponsePlayable.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseEnterWorld.cs" />
     <Compile Include="Networks\Packets\Response\ResponseActiveSkillData.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyVersion.cs" />
@@ -200,11 +201,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\ApiService.cs" />
-    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\MapService.cs" />
     <Compile Include="Services\NpcService.cs" />
     <Compile Include="Services\PlayerService.cs" />
+    <Compile Include="Services\StatsService.cs" />
     <Compile Include="Services\VisibleService.cs" />
   </ItemGroup>
   <ItemGroup>

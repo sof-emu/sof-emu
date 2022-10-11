@@ -63,7 +63,7 @@ namespace GameServer.Networks.Packets.Response
             WriteC(writer, 0); // equipment slot 3 reinforcements
             WriteQ(writer, 0); // equipmeny slot 11 item id // 16900672
 
-            int setting = SettingOption.GetSettings(Player.Session.GetSetting());
+            int setting = SettingOption.GetSettings(Player.Session.Account.SettingOption);
             Log.Debug($"Account Setting = {setting}");
             /*
             if (Player.AppendStatusList != null && Player.AppendStatusList.ContainsKey(700014))

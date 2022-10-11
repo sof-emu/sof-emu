@@ -37,7 +37,7 @@ namespace GameServer.Networks.Packets
                             using (BinaryWriter writer = new BinaryWriter(stream, new UTF8Encoding()))
                             {
                                 WriteH(writer, 0); //Reserved for packet length
-                                WriteH(writer, state.SessionId); // object uid
+                                WriteH(writer, (state.Player != null) ? state.Player.UID : 0); // object uid
                                 WriteH(writer, OpCodes.Send[GetType()]);
                                 WriteH(writer, 0); //Reserved for data length
                                 Write(writer);

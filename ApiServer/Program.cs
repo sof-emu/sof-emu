@@ -1,9 +1,6 @@
 using ApiServer.Database;
-using ApiServer.Database.Repository;
-using ApiServer.Models.Contracts.Databases;
 using ApiServer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +12,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddSingleton<ContainerService>();
-builder.Services.AddScoped<IAccountDataRepository, AccountDataRepository>();
-builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
 

@@ -14,6 +14,7 @@ namespace Communicate.Logics
         {
             Data.Data.LoadAll();
 
+            StatsService.Init();
             MapService.Init();
 
             InitMainLoop();

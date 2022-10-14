@@ -1,29 +1,55 @@
 ﻿using Data.Structures.Template.Creature;
 using Data.Structures.Template.World;
+using System.Collections.Generic;
 
 namespace Data.Structures.Npc
 {
     public class Npc : Creature.Creature
     {
-        private NpcTemplate template;
-        private SpawnTemplate spawnTemplate;
+        public int NpcId;
 
-        public Npc(NpcTemplate template, SpawnTemplate spawnTemplate)
-        {
-            this.template = template;
-            this.spawnTemplate = spawnTemplate;
-        }
+        public NpcTemplate NpcTemplate;
 
-        public int NpcId
-        {
-            get { return template.Id; }
-        }
+        public SpawnTemplate SpawnTemplate;
 
-        public SpawnTemplate Spawn { get { return spawnTemplate; } }
+        public Npc ParentNpc;
+        public List<Npc> Childs = new List<Npc>();
+
+        public List<Npc> NamesList;
 
         public override int GetLevel()
         {
-            return 1;
+            return NpcTemplate == null ? 1 : NpcTemplate.Level;
+        }
+
+        public override int GetModelId()
+        {
+            return NpcTemplate.Id;
+        }
+
+        public override void Release()
+        {
+            if (NamesList != null)
+            {
+                NamesList.Remove(this);
+                NamesList = null;
+            }
+
+            base.Release();
+        }
+
+        public Npc Clone()
+        {
+            Npc clone = new Npc
+            {
+                NpcId = NpcId,
+                SpawnTemplate = SpawnTemplate,
+                NpcTemplate = NpcTemplate,
+                Position = Position.Clone(),
+                BindPoint = BindPoint.Clone(),
+            };
+
+            return clone;
         }
     }
 }

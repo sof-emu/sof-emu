@@ -14,5 +14,10 @@
         {
             return -1;
         }
+
+        public override int GetModelId()
+        {
+            return 0;
+        }
     }
 }

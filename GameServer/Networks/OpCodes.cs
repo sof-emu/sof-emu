@@ -17,16 +17,16 @@ namespace GameServer.Networks
         public static void Init()
         {
             Recv.Add(unchecked((short)0x0001), typeof(RequestAuth));
-            Recv.Add(unchecked((short)0x0005), typeof(RequestPlay));
+            Recv.Add(unchecked((short)0x0005), typeof(RequestEnterWorld));
             Recv.Add(unchecked((short)0x0007), typeof(RequestPlayerMove));
             Recv.Add(unchecked((short)0x0010), typeof(RequestPlayerList));
             Recv.Add(unchecked((short)0x0014), typeof(RequestCreatePlayer));
             Recv.Add(unchecked((short)0x0016), typeof(RequestSettingOption));
             Recv.Add(unchecked((short)0x001E), typeof(RequestDeletePlayer));
             Recv.Add(unchecked((short)0x00B0), typeof(RequestPing));
-            Recv.Add(unchecked((short)0x0038), typeof(RequsetCheckName));
+            Recv.Add(unchecked((short)0x0038), typeof(RequestCheckName));
             Recv.Add(unchecked((short)0x003C), typeof(RequestActiveSkillData));
-            Recv.Add(unchecked((short)0x008F), typeof(RequestEnterworld));
+            Recv.Add(unchecked((short)0x008F), typeof(RequestPlay));
             Recv.Add(unchecked((short)0x0090), typeof(RequestNpcInteraction));
             Recv.Add(unchecked((short)0x00B5), typeof(RequestViewProfile));
             Recv.Add(unchecked((short)0x0344), typeof(RequestVerifyLogin));
@@ -38,11 +38,12 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponsePlayerList), unchecked((short)0x0011));
             Send.Add(typeof(ResponseCreatePlayer), unchecked((short)0x0015));
             Send.Add(typeof(ResponseDeletePlayer), unchecked((short)0x001F));
-            Send.Add(typeof(ResponseEnterWorld), unchecked((short)0x0020));
+            Send.Add(typeof(ResponseEnteringWorld), unchecked((short)0x0020));
             Send.Add(typeof(ResponseCheckName), unchecked((short)0x0039));
             Send.Add(typeof(ResponseActiveSkillData), unchecked((short)0x003D));
             Send.Add(typeof(ResponsePlayerInfo), unchecked((short)0x0064));
             Send.Add(typeof(ResponsePlayerMove), unchecked((short)0x0065));
+            Send.Add(typeof(ResponseChatMessage), unchecked((short)0x0066));
             Send.Add(typeof(ResponseNpcSpawn), unchecked((short)0x0067));
             Send.Add(typeof(ResponsePlayerHpMpSp), unchecked((short)0x0069));
             Send.Add(typeof(ResponsePlayerStats), unchecked((short)0x006B));

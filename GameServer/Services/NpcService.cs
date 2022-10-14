@@ -1,7 +1,5 @@
 ﻿using Communicate.Interfaces;
 using Data.Interfaces;
-using Data.Structures.Player;
-using Data.Structures.World;
 using GameServer.Engines.NpcActions;
 using GameServer.Networks.Packets.Response;
 using System;
@@ -54,18 +52,6 @@ namespace GameServer.Services
                 Log.Warn($"Notfound NpcInteraction ActionId: {actionId}");
                 new ResponseNpcInteraction(shopId, actionId).Send(session);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="map"></param>
-        public void SendNpcList(Player player, MapInstance map)
-        {
-            //Log.Debug($"player: {player.Id}, MapId: {map.Template.Id}, Npcs: {map.GetNpcs().Count}");
-            //List<Npc> npcs =  map.GetNpcs();
-            //new ResponseNpcSpawn(npcs).Send(player.GetSession());
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace GameServer.Networks.Packets.Request
+﻿using Communicate.Logics;
+
+namespace GameServer.Networks.Packets.Request
 {
-    public class RequsetCheckName : ARecvPacket
+    public class RequestCheckName : ARecvPacket
     {
         protected string Name;
 
@@ -11,9 +13,7 @@
 
         public override void Process()
         {
-            GameServer
-                .PlayerService
-                .CheckNameExist(session, Name);
+            PlayerLogic.CheckName(session, Name);
         }
     }
 }

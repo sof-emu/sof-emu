@@ -12,12 +12,16 @@ namespace Communicate
 
         // Services
         public static IAccountService AccountService;
+        public static IAiService AiService;
         public static IApiService ApiService;
+        public static IControllerService ControllerService;
         public static IFeedbackService FeedbackService;
         public static IMapService MapService;
         public static INpcService NpcService;
+        public static IObserverService ObserverService;
         public static IPlayerService PlayerService;
         public static IStatsService StatsService;
+        public static IStorageService StorageService;
         public static IVisibleService VisibleService;
 
         // Engines
@@ -48,11 +52,17 @@ namespace Communicate
 
                     //Services:
                     AccountService.Action();
+                    AiService.Action();
                     ApiService.Action();
+                    ControllerService.Action();
                     FeedbackService.Action();
                     MapService.Action();
                     NpcService.Action();
+                    ObserverService.Action();
                     PlayerService.Action();
+                    StatsService.Action();
+                    StorageService.Action();
+                    VisibleService.Action();
 
                     //Engines:
 

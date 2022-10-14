@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DelayedAction.cs" />
+    <Compile Include="Extension\ListExtension.cs" />
     <Compile Include="Funcs.cs" />
     <Compile Include="IdFactory.cs" />
     <Compile Include="Log.cs" />

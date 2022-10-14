@@ -1,4 +1,5 @@
 ﻿using Communicate;
+using Communicate.Logics;
 using Data.Enums;
 using Utility;
 
@@ -25,9 +26,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            Global
-                .PlayerService
-                .CreatePlayer(session, Name, playerClass, HairColor, Voice, Gender);
+            PlayerLogic.CreatePlayer(session, Name, playerClass, HairColor, Voice, Gender);
         }
     }
 }

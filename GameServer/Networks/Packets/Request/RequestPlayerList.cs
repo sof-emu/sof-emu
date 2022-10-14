@@ -1,4 +1,5 @@
 ﻿using Communicate;
+using Communicate.Logics;
 
 namespace GameServer.Networks.Packets.Request
 {
@@ -11,9 +12,7 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            Global
-                .PlayerService
-                .SendPlayerLists(session);
+            AccountLogic.GetPlayerList(session);
         }
     }
 }

@@ -35,12 +35,12 @@ namespace GameServer.Networks.Packets.Response
 
                 WriteD(writer, 0x40800000);
 
-                WriteF(writer, npc.Spawn.Face1);
-                WriteF(writer, npc.Spawn.Face2);
+                WriteF(writer, npc.SpawnTemplate.Face1);
+                WriteF(writer, npc.SpawnTemplate.Face2);
 
-                WriteF(writer, npc.Spawn.X);
-                WriteF(writer, npc.Spawn.Z);
-                WriteF(writer, npc.Spawn.Y);
+                WriteF(writer, npc.SpawnTemplate.X);
+                WriteF(writer, npc.SpawnTemplate.Z);
+                WriteF(writer, npc.SpawnTemplate.Y);
 
                 WriteD(writer, 0);
                 WriteD(writer, 0);

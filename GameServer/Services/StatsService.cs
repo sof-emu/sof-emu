@@ -1,26 +1,52 @@
 ﻿using Communicate.Interfaces;
 using Data.Enums;
 using Data.Structures.Creature;
+using Data.Structures.Npc;
 using Data.Structures.Player;
+using Data.Structures.Template.Item;
 using System.Collections.Generic;
+using Utility;
 
 namespace GameServer.Services
 {
     public class StatsService : IStatsService
     {
         public static Dictionary<PlayerClass, Dictionary<int, CreatureBaseStats>> PlayerStats = new Dictionary<PlayerClass, Dictionary<int, CreatureBaseStats>>();
-        public static Dictionary<int, Dictionary<int, CreatureBaseStats>> NpcStats = new Dictionary<int, Dictionary<int, CreatureBaseStats>>();
 
         public void Action()
         {
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         public CreatureBaseStats GetBaseStats(Player player)
         {
-            return null;
+            return PlayerStats[player.Job][player.GetLevel()];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <returns></returns>
+        private CreatureBaseStats GetNpcStats(Npc npc)
+        {
+            return new CreatureBaseStats()
+            {
+                HpBase = npc.NpcTemplate.Hp,
+                Attack = npc.NpcTemplate.Attack,
+                Defense = npc.NpcTemplate.Defense,
+                Exp = npc.NpcTemplate.Exp,
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void Init()
         {
             for (int i = 1; i <= 13; i++)
@@ -200,14 +226,92 @@ namespace GameServer.Services
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
+        /// <returns></returns>
         public CreatureBaseStats InitStats(Creature creature)
         {
-            return null;
+            Player player = creature as Player;
+            if (player != null)
+                return GetBaseStats(player).Clone();
+
+            Npc npc = creature as Npc;
+            if (npc != null)
+                return GetNpcStats(npc);
+
+            Log.Error("StatsService: Unknown type: {0}.", creature.GetType().Name);
+            return new CreatureBaseStats();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
         public void UpdateStats(Creature creature)
         {
-            
+            Player player = creature as Player;
+            if (player != null)
+            {
+                UpdatePlayerStats(player);
+                return;
+            }
+
+            Npc npc = creature as Npc;
+            if (npc != null)
+            {
+                UpdateNpcStats(npc);
+                return;
+            }
+
+            Log.Error("StatsService: Unknown type: {0}.", creature.GetType().Name);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        private void UpdatePlayerStats(Player player)
+        {
+            CreatureBaseStats baseStats = GetBaseStats(player);
+            baseStats.CopyTo(player.GameStats);
+
+            int itemsAttack = 0,
+                itemsDefense = 0;
+
+            lock (player.Inventory.ItemsLock)
+            {
+                foreach (var item in player.Inventory.EquipItems.Values)
+                {
+                    if (item == null)
+                        continue;
+
+                    ItemTemplate itemTemplate = item.ItemTemplate;
+
+                    if (itemTemplate != null)
+                    {
+                        itemsAttack += itemTemplate.MinAttack;
+                        itemsDefense += itemTemplate.Defense;
+                    }
+                }
+            }
+
+            player.GameStats.Attack = (int)(baseStats.Attack + (0.03f * baseStats.Strength + 3) + itemsAttack);
+            player.GameStats.Defense = (int)(baseStats.Defense + (0.01f * baseStats.Stamina + 0.5) + itemsDefense);
+
+            player.EffectsImpact.ResetChanges(player);
+            player.EffectsImpact.ApplyChanges(player.GameStats);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="npc"></param>
+        private void UpdateNpcStats(Npc npc)
+        {
+            npc.EffectsImpact.ResetChanges(npc);
+            npc.EffectsImpact.ApplyChanges(npc.GameStats);
         }
     }
 }

@@ -4,10 +4,14 @@ using Communicate.Logics;
 using Data.Enums;
 using Data.Interfaces;
 using Data.Structures.Account;
+using Data.Structures.Npc;
 using Data.Structures.Player;
 using Data.Structures.World;
 using GameServer.Networks.Packets.Response;
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using Utility;
 
 namespace GameServer.Services
 {
@@ -17,40 +21,28 @@ namespace GameServer.Services
 
         public void Action()
         {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="session"></param>
-        public void SendPlayerLists(ISession session)
-        {
-            if (session.Account.Players.Count > 0)
+            for (int i = 0; i < PlayersOnline.Count; i++)
             {
-                session.Account.Players.ForEach(player =>
+                try
                 {
-                    new ResponsePlayerList(player).Send(session);
-                });
+                    if (PlayersOnline[i].Ai != null)
+                        PlayersOnline[i].Ai.Action();
+
+                    if (PlayersOnline[i].Visible != null)
+                        PlayersOnline[i].Visible.Update();
+
+                    if (PlayersOnline[i].Controller != null)
+                        PlayersOnline[i].Controller.Action();
+                }
+                catch (Exception ex)
+                {
+                    //Collection modified
+                    Log.ErrorException("PlayerService.Action:", ex);
+                }
+
+                if ((i & 511) == 0) // 2^N - 1
+                    Thread.Sleep(1);
             }
-            else
-                new ResponsePlayerList().Send(session);
-        }
-
-        /// <summary>
-        /// Check exist character name
-        /// and then send Response to client
-        /// </summary>
-        /// <param name="session"></param>
-        /// <param name="name"></param>
-        public void CheckNameExist(ISession session, string name)
-        {
-            bool isExists = false;
-            //await Global
-            //    .ApiService
-            //    .CheckNameExist(name);
-
-            new ResponseCheckName(name, isExists).Send(session);
         }
 
         /// <summary>
@@ -89,6 +81,11 @@ namespace GameServer.Services
                 }
             };
 
+            player.PlayerId = Global.PlayerRepository.SavePlayer(player);
+            Global.StorageService.AddStartItemsToPlayer(player);
+
+            player.GameStats = Global.StatsService.InitStats(player);
+            session.Account.Players.Add(player);
             return player;
         }
 
@@ -103,7 +100,7 @@ namespace GameServer.Services
             if (player != null)
                 Global
                     .VisibleService
-                    .Broadcast(player, new ResponsePlayerInfo(player));
+                    .Send(player, new ResponsePlayerInfo(player));
         }
 
         /// <summary>
@@ -148,10 +145,10 @@ namespace GameServer.Services
             var list = Global.PlayerRepository.GetPlayerFromAccountId(account.Id);
 
             // todo load player inventory, quests, skills
-            // list.ForEach(player =>
-            // {
-            // 
-            // });
+            list.ForEach(player =>
+            {
+                player.GameStats = Global.StatsService.InitStats(player);
+            });
 
             return list;
         }
@@ -174,5 +171,93 @@ namespace GameServer.Services
 
             PlayersOnline.Add(player);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public CheckNameResult CheckName(string name)
+        {
+            if (Global.PlayerRepository.NameExists(name))
+                return CheckNameResult.Unavailable;
+
+            return CheckNameResult.Ok;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public bool IsPlayerOnline(Player player)
+        {
+            return PlayersOnline.Contains(player);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="exp"></param>
+        /// <param name="npc"></param>
+        public void AddExp(Player player, int exp, Npc npc)
+        {
+            exp *= 1; //Rate.EXP;
+
+            //todo rate modifiers
+            if (player.GetLevel() >= 130) // Rate.LEVEL_CAP
+            {
+                //new SpSystemNotice("Sorry, but now, level cap is " + GamePlay.Default.LevelCap).Send(player);
+                return;
+            }
+
+            int val1 = npc.NpcTemplate.Exp * 1; // Rate.KI_EXP
+            int val2 = val1 / 3;
+            int ki = Funcs.Random().Next(val1 - val2, val1 + val2);
+            player.SkillPoint += ki;
+
+            SetExp(player, player.Exp + exp, npc);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="add"></param>
+        /// <param name="npc"></param>
+        public void SetExp(Player player, long add, Npc npc)
+        {
+
+            int maxLevel = Data.Data.PlayerExperience.Count - 1;
+
+            long maxExp = Data.Data.PlayerExperience[maxLevel - 1];
+            int level = 1;
+
+
+            if (add > maxExp)
+                add = maxExp;
+
+            while ((level + 1) != maxLevel && add >= Data.Data.PlayerExperience[level])
+            {
+                level++;
+            }
+
+            long added = add - player.Exp;
+
+            if (level != player.Level)
+            {
+                player.Level = level;
+                player.Exp = add;
+                player.AbilityPoint += 1;
+                PlayerLogic.LevelUp(player);
+            }
+            else
+                player.Exp = add;
+
+            new ResponsePlayerExpPoint(player, added, npc).Send(player.Session);
+        }
+
+        
     }
 }

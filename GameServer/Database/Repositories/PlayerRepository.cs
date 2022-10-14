@@ -37,8 +37,6 @@ namespace GameServer.Database.Repositories
 
                 list.ForEach(_player =>
                 { 
-                    Log.Debug($"_player = {_player}");
-
                     Player p = new Player()
                     {
                         AccountId = _player.account_id,
@@ -79,6 +77,67 @@ namespace GameServer.Database.Repositories
                 Log.ErrorException("GetPlayerFromAccountId: ", ex);
                 return new List<Player>();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public int SavePlayer(Player p)
+        {
+            try
+            {
+                int index = DB.Query("player").Where("account_id", p.AccountId).Get().Count();
+
+                int id = DB.Query("player")
+                    .InsertGetId<int>(new
+                    {
+                        account_id = p.AccountId,
+                        name = p.Name,
+                        index = index,
+                        level = p.Level,
+                        exp = 0,
+                        online = 0,
+                        job = p.Job,
+                        job_level = p.JobLevel,
+                        map_id = p.Position.MapId,
+                        x = p.Position.X,
+                        y = p.Position.Y,
+                        z = p.Position.Z,
+                        money = p.Inventory.Money,
+                        faction = p.Faction,
+                        hair_color = p.Appearance.HairColor,
+                        hair_style = p.Appearance.HairStyle,
+                        face = p.Appearance.Face,
+                        voice = p.Appearance.Voice,
+                        gender = p.Appearance.Gender,
+                        title = p.Title
+                    });
+
+                p.PlayerId = id;
+                p.Index = index;
+
+                return id;
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorException("SavePlayer: ", ex);
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public bool NameExists(string name)
+        {
+            bool exists = DB.Query("player")
+                .Where("name", name)
+                .Exists();
+
+            return exists;
         }
     }
 }

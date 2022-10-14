@@ -6,12 +6,11 @@ using Data.Structures.Template.World;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Xml;
 using Utility;
+using Utility.Extension;
 
 namespace Data
 {
@@ -27,6 +26,8 @@ namespace Data
         public static Dictionary<int, NpcTemplate> NpcTemplates;
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
         public static Dictionary<int, List<ShopItemTemplate>> ShopItemsTemplates;
+        public static Dictionary<int, List<DropItemTemplate>> DropItemTemplates;
+        
 
         protected delegate int Loader();
         protected static List<Loader> Loaders = new List<Loader>
@@ -43,7 +44,7 @@ namespace Data
                                                         //LoadSkills,
                                                         //LoadAbilities,
                                                         //LoadAbnormalities,
-                                                        //LoadDrop,
+                                                        LoadDrop,
                                                         //LoadTeleports,
                                                         //CalculateNpcExperience,
                                                     };
@@ -238,6 +239,26 @@ namespace Data
             }
 
             return length;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadDrop()
+        {
+            DropItemTemplates = new Dictionary<int, List<DropItemTemplate>>();
+
+            string jsonStr = File.ReadAllText(Path.Combine(DataPath, "drops.json"));
+            var list = JsonConvert.DeserializeObject<List<DropTemplate>>(jsonStr);
+
+            list.Each(drop =>
+            {
+                if(!DropItemTemplates.ContainsKey(drop.NpcId))
+                    DropItemTemplates.Add(drop.NpcId, drop.Drops);
+            });
+
+            return DropItemTemplates.Count;
         }
     }
 }

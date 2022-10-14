@@ -17,6 +17,7 @@ namespace Data.Structures.Player
         public Appearance Appearance;
         public Storage Inventory = new Storage { StorageType = StorageType.Inventory };
         public List<int> Skills = new List<int>();
+        public PlayerMode PlayerMode = PlayerMode.Normal;
 
         public int PlayerId;
         public int AccountId;
@@ -48,6 +49,11 @@ namespace Data.Structures.Player
         public override int GetLevel()
         {
             return Level;
+        }
+
+        public override int GetModelId()
+        {
+            return 0;
         }
     }
 }

@@ -5,6 +5,6 @@ namespace Communicate.Interfaces
 {
     public interface IVisibleService : IComponent
     {
-        void Broadcast(Creature creature, ISendPacket packet);
+        void Send(Creature creature, ISendPacket packet);
     }
 }

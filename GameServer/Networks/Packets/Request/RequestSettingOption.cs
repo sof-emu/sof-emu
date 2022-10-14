@@ -64,7 +64,7 @@ namespace GameServer.Networks.Packets.Request
                 PetExp = PetExp,
             };
 
-            PlayerLogic
+            AccountLogic
                 .OptionSetting(session, setting);
         }
     }

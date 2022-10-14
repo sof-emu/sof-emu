@@ -76,10 +76,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
+    <Compile Include="Enums\AttackStatus.cs" />
+    <Compile Include="Enums\ChatType.cs" />
+    <Compile Include="Enums\CheckNameResult.cs" />
     <Compile Include="Enums\InventoryType.cs" />
+    <Compile Include="Enums\Item\ItemState.cs" />
     <Compile Include="Enums\Item\StorageType.cs" />
     <Compile Include="Enums\ObjectFamily.cs" />
     <Compile Include="Enums\PlayerClass.cs" />
+    <Compile Include="Enums\PlayerMode.cs" />
+    <Compile Include="Enums\SkillEngine\AbnormalityShowType.cs" />
     <Compile Include="Interfaces\Database\IAccountRepository.cs" />
     <Compile Include="Interfaces\Database\IInventoryRepository.cs" />
     <Compile Include="Interfaces\Database\IPlayerRepository.cs" />
@@ -96,18 +102,25 @@
     <Compile Include="Structures\Account\SettingOption.cs" />
     <Compile Include="Structures\Creature\Creature.cs" />
     <Compile Include="Structures\Creature\CreatureBaseStats.cs" />
+    <Compile Include="Structures\Creature\CreatureEffectsImpact.cs" />
     <Compile Include="Structures\Creature\CreatureLifeStats.cs" />
+    <Compile Include="Structures\Geometry\Class1.cs" />
     <Compile Include="Structures\Geometry\Point3D.cs" />
     <Compile Include="Structures\Npc\Npc.cs" />
     <Compile Include="Structures\Player\Appearance.cs" />
     <Compile Include="Structures\Player\Player.cs" />
     <Compile Include="Structures\Player\Storage.cs" />
     <Compile Include="Structures\Player\StorageItem.cs" />
+    <Compile Include="Structures\Player\UseSkillArgs.cs" />
     <Compile Include="Structures\RxjhObject.cs" />
+    <Compile Include="Structures\SkillEngine\Abnormality.cs" />
+    <Compile Include="Structures\SkillEngine\AbnormalityEffect.cs" />
     <Compile Include="Structures\SkillEngine\Attack.cs" />
     <Compile Include="Structures\SkillEngine\Skill.cs" />
     <Compile Include="Structures\Statistical.cs" />
     <Compile Include="Structures\Template\Creature\NpcTemplate.cs" />
+    <Compile Include="Structures\Template\Item\DropItemTemplate.cs" />
+    <Compile Include="Structures\Template\Item\DropTemplate.cs" />
     <Compile Include="Structures\Template\Item\ItemTemplate.cs" />
     <Compile Include="Structures\Template\Item\Passivity.cs" />
     <Compile Include="Structures\Template\Item\ShopItemTemplate.cs" />
@@ -117,6 +130,7 @@
     <Compile Include="Structures\Template\World\SpawnTemplate.cs" />
     <Compile Include="Structures\Uid.cs" />
     <Compile Include="Structures\UidFactory.cs" />
+    <Compile Include="Structures\World\Abnormal.cs" />
     <Compile Include="Structures\World\Item.cs" />
     <Compile Include="Structures\World\MapInstance.cs" />
     <Compile Include="Structures\World\WorldPosition.cs" />

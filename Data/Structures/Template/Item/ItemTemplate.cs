@@ -34,5 +34,12 @@
         public int SalePrice { get; set; }
         public int Wx { get; set; }
         public int Wxjd { get; set; }
+
+        private static readonly ItemTemplate NullTemplate = new ItemTemplate();
+
+        public static ItemTemplate Factory(int id)
+        {
+            return !Data.ItemTemplates.ContainsKey(id) ? NullTemplate : Data.ItemTemplates[id];
+        }
     }
 }

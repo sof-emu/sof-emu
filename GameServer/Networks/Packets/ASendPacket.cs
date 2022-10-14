@@ -9,7 +9,7 @@ namespace GameServer.Networks.Packets
     public abstract class ASendPacket : ISendPacket
     {
 
-        protected byte[] Data;
+        protected byte[] Datas;
         protected object WriteLock = new object();
 
         public void Send(ISession state)
@@ -26,7 +26,7 @@ namespace GameServer.Networks.Packets
 
             lock (WriteLock)
             {
-                if (Data == null)
+                if (Datas == null)
                 {
                     try
                     {
@@ -43,12 +43,12 @@ namespace GameServer.Networks.Packets
                                 Write(writer);
                             }
 
-                            Data = stream.ToArray();
-                            BitConverter.GetBytes((short)(Data.Length - 2)).CopyTo(Data, 0);
-                            BitConverter.GetBytes((short)(Data.Length - 8)).CopyTo(Data, 6);
+                            Datas = stream.ToArray();
+                            BitConverter.GetBytes((short)(Datas.Length - 2)).CopyTo(Datas, 0);
+                            BitConverter.GetBytes((short)(Datas.Length - 8)).CopyTo(Datas, 6);
 
                             //Log.Debug(Data.FormatHex());
-                            WriteScope(ref Data);
+                            WriteScope(ref Datas);
                         }
                     }
                     catch (Exception ex)
@@ -60,7 +60,7 @@ namespace GameServer.Networks.Packets
                 }
             }
 
-            state.SendPacket(Data);
+            state.SendPacket(Datas);
         }
 
         public void WriteScope(ref byte[] Data)

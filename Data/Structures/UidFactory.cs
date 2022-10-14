@@ -1,6 +1,7 @@
 ﻿using Data.Enums;
 using Data.Structures.Player;
 using Data.Structures.SkillEngine;
+using Data.Structures.World;
 using System.Collections.Generic;
 using Utility;
 
@@ -44,6 +45,9 @@ namespace Data.Structures
             if (o is StorageItem)
                 return ObjectFamily.InventoryItem;
 
+            if (o is Item)
+                return ObjectFamily.Item;
+
             Log.Error("UidFactory: Unknown object type: {0}", o.GetType().Name);
             return ObjectFamily.System;
         }
@@ -62,6 +66,9 @@ namespace Data.Structures
         {
             if (family == ObjectFamily.Player)
                 NextUid = 100;
+
+            if (family == ObjectFamily.Item)
+                NextUid = 20000;
         }
 
         public Uid FindObject(int uid)

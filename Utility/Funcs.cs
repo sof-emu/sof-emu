@@ -209,5 +209,20 @@ namespace Utility
 
             return serverTime;
         }
+
+        public static bool IsLuck(int chance)
+        {
+            if (chance >= 100)
+                return true;
+
+            if (chance <= 0)
+                return false;
+
+            int rnd = new Random().Next(0, 100);
+
+            //Log.Debug("IsLuck rnd({0}) <= chance({1}) = {2}", rnd, chance, rnd <= chance);
+
+            return rnd <= chance;
+        }
     }
 }

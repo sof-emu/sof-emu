@@ -73,16 +73,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.cs" />
+    <Compile Include="Interfaces\IAiService.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IApiService.cs" />
     <Compile Include="Interfaces\IComponent.cs" />
+    <Compile Include="Interfaces\IControllerService.cs" />
     <Compile Include="Interfaces\IFeedbackService.cs" />
     <Compile Include="Interfaces\IMapService.cs" />
     <Compile Include="Interfaces\INpcService.cs" />
+    <Compile Include="Interfaces\IObserverService.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
+    <Compile Include="Interfaces\IStorageService.cs" />
     <Compile Include="Interfaces\IStatsService.cs" />
     <Compile Include="Interfaces\IVisibleService.cs" />
     <Compile Include="Logics\AccountLogic.cs" />
+    <Compile Include="Logics\AiLogic.cs" />
     <Compile Include="Logics\CreatureLogic.cs" />
     <Compile Include="Logics\GlobalLogic.cs" />
     <Compile Include="Logics\PlayerLogic.cs" />

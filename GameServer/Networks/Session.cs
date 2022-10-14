@@ -134,7 +134,7 @@ namespace GameServer.Networks
 
                 try
                 {
-                    Log.Debug($"Send Message: {Environment.NewLine}{message.Data.FormatHex()}");
+                    //Log.Debug($"Send Message: {Environment.NewLine}{message.Data.FormatHex()}");
                     Client.SendMessage(message);
                 }
                 catch

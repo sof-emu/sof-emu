@@ -8,13 +8,13 @@ namespace GameServer.Database
     {
         public QueryFactory GetQueryFactory(string db_name)
         {
-            var dbconfig = GameServer.Config["database"];
+            var dbconfig = GameServer.Config["database"].Configs["database"];
 
-            var name = dbconfig.Configs["database"].GetString(db_name);
-            var host = dbconfig.Configs["database"].GetString("host");
-            var port = dbconfig.Configs["database"].GetString("port");
-            var user = dbconfig.Configs["database"].GetString("user");
-            var pass = dbconfig.Configs["database"].GetString("password");
+            var name = dbconfig.GetString(db_name);
+            var host = dbconfig.GetString("host");
+            var port = dbconfig.GetString("port");
+            var user = dbconfig.GetString("user");
+            var pass = dbconfig.GetString("password");
 
             var connection = new MySqlConnection($"Server={host};" +
                 $"Port={port};" +

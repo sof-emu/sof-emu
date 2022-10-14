@@ -1,5 +1,5 @@
-﻿using Data.Models.Player;
-using Data.Models.SkillEngine;
+﻿using Data.Structures.Player;
+using Data.Structures.SkillEngine;
 using System.IO;
 
 namespace GameServer.Networks.Packets.Response
@@ -17,7 +17,7 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            WriteH(writer, Player.GetTarget().ObjectId);
+            WriteH(writer, Player.Target.UID);
             WriteH(writer, 1);
             WriteH(writer, Attack.Args.SkillId);
 
@@ -43,12 +43,12 @@ namespace GameServer.Networks.Packets.Response
             WriteC(writer, 0); // wugong type
             WriteC(writer, 1); // Attack Count
             WriteC(writer, 0);
-            WriteD(writer, Player.GetTarget().GetLifeStats().Hp); // hp
+            WriteD(writer, Player.Target.LifeStats.Hp); // hp
 
             WriteD(writer, 0); // Fail Status 1,2,3
             WriteC(writer, 0);
 
-            if(Player.GetTarget().ObjectId > 10000)
+            if(Player.Target.UID > 10000)
             {
                 // if(petAttack != -1) {
                 //  if(Funcs.IsLuck(80)) {

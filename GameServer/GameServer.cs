@@ -71,6 +71,9 @@ namespace GameServer
             StorageService = new StorageService();
             VisibleService = new VisibleService();
 
+            // Engines
+            SkillEngine = new SkillEngine.SkillEngine();
+
             GlobalLogic.ServerStart();
             Console.WriteLine("\n-------------------------------------------\n");
 

@@ -155,6 +155,7 @@
     <Compile Include="Networks\OpCodes.cs" />
     <Compile Include="Networks\Packets\ARecvPacket.cs" />
     <Compile Include="Networks\Packets\ASendPacket.cs" />
+    <Compile Include="Networks\Packets\Request\RequestAttack.cs" />
     <Compile Include="Networks\Packets\Request\RequestAuth.cs" />
     <Compile Include="Networks\Packets\Request\RequestCreatePlayer.cs" />
     <Compile Include="Networks\Packets\Request\RequestDeletePlayer.cs" />
@@ -171,11 +172,13 @@
     <Compile Include="Networks\Packets\Request\RequestVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Request\RequestViewProfile.cs" />
     <Compile Include="Networks\Packets\Request\RequestCheckName.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseAttack.cs" />
     <Compile Include="Networks\Packets\Response\ResponseBindPoint.cs" />
     <Compile Include="Networks\Packets\Response\ResponseChatMessage.cs" />
     <Compile Include="Networks\Packets\Response\ResponseDeletePlayer.cs" />
     <Compile Include="Networks\Packets\Response\ResponseDropRemove.cs" />
     <Compile Include="Networks\Packets\Response\ResponseEquipInfo.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseNpcMove.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcSpawn.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcInteraction.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePlayerExpPoint.cs" />
@@ -197,11 +200,13 @@
     <Compile Include="Networks\Packets\Response\ResponseSelectNpc.cs" />
     <Compile Include="Networks\Packets\Response\ResponseServerTime.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillCooldown.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseSkillEffect.cs" />
     <Compile Include="Networks\Packets\Response\ResponseSkillPassive.cs" />
     <Compile Include="Networks\Packets\Response\ResponsePetInfo.cs" />
     <Compile Include="Networks\Packets\Response\ResponseStatusEffect.cs" />
     <Compile Include="Networks\Packets\Response\ResponseEnteringWorld.cs" />
     <Compile Include="Networks\Packets\Response\ResponseActiveSkillData.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseStealth.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyLogin.cs" />
     <Compile Include="Networks\Packets\Response\ResponseVerifyVersion.cs" />
     <Compile Include="Networks\Packets\Response\ResponseViewProfile.cs" />
@@ -224,6 +229,11 @@
     <Compile Include="Services\StatsService.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="Services\VisibleService.cs" />
+    <Compile Include="SkillEngine\AbnormalityProcessor.cs" />
+    <Compile Include="SkillEngine\EffectsProvider.cs" />
+    <Compile Include="SkillEngine\Effects\EfDefault.cs" />
+    <Compile Include="SkillEngine\SeUtils.cs" />
+    <Compile Include="SkillEngine\SkillEngine.cs" />
     <Compile Include="Structures\Visible.cs" />
   </ItemGroup>
   <ItemGroup>

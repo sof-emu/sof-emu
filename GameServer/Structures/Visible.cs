@@ -5,15 +5,14 @@ using Data.Structures.Creature;
 using Data.Structures.Npc;
 using Data.Structures.Player;
 using Data.Structures.World;
-using System;
-using System.Linq;
+using Utility;
 using Utility.Extension;
 
 namespace GameServer.Structures
 {
     public class Visible : IVisible
     {
-        protected const int VisibleDistance = 1000;
+        protected const int VisibleDistance = 300;
 
         public Player Player { get; set; }
 
@@ -111,6 +110,8 @@ namespace GameServer.Structures
             {
                 if (!Player.VisibleNpcs.Contains(npc))
                 {
+                    Log.Debug($"Npc: {npc.NpcId} is InTheVision");
+
                     Player.VisibleNpcs.Add(npc);
                     npc.VisiblePlayers.Add(Player);
                     PlayerLogic.InTheVision(Player, npc);
@@ -120,6 +121,8 @@ namespace GameServer.Structures
             {
                 if (Player.VisibleNpcs.Contains(npc))
                 {
+                    Log.Debug($"Npc: {npc.NpcId} is OutOfVision");
+
                     Player.VisibleNpcs.Remove(npc);
                     npc.VisiblePlayers.Remove(Player);
                     PlayerLogic.OutOfVision(Player, npc);

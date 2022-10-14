@@ -1,5 +1,6 @@
 ﻿using Data.Enums;
 using Data.Structures.Creature;
+using Data.Structures.SkillEngine;
 using Data.Structures.Template.Creature;
 using Data.Structures.Template.Item;
 using Data.Structures.Template.World;
@@ -27,7 +28,11 @@ namespace Data
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
         public static Dictionary<int, List<ShopItemTemplate>> ShopItemsTemplates;
         public static Dictionary<int, List<DropItemTemplate>> DropItemTemplates;
-        
+
+        // todo
+        public static Dictionary<int, Abnormality> Abnormalities = new Dictionary<int, Abnormality>();
+        public static Dictionary<int, Skill> Skills = new Dictionary<int, Skill>();
+
 
         protected delegate int Loader();
         protected static List<Loader> Loaders = new List<Loader>

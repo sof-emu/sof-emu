@@ -110,9 +110,10 @@ namespace Data.Structures.SkillEngine
             if (Creature == null)
                 return;
 
-            if (Args != null)
-                Args.Release();
-            Args = null;
+            //if (Args != null)
+            //    Args.Release();
+
+            //Args = null;
 
             Creature = null;
             OnStageEnd = null;

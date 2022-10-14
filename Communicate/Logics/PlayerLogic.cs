@@ -1,6 +1,8 @@
-﻿using Data.Enums;
+﻿using Communicate.Interfaces;
+using Data.Enums;
 using Data.Interfaces;
 using Data.Structures.Creature;
+using Data.Structures.Npc;
 using Data.Structures.Player;
 using Data.Structures.World;
 using System;
@@ -92,16 +94,11 @@ namespace Communicate.Logics
         /// <param name="statisticId"></param>
         public static void SelectNpc(ISession session, int statisticId)
         {
-            /*Npc npc = session
-                .GetSelectedPlayer()
-                .GetMap()
-                .GetNpc(statisticId);
-
-            session.GetSelectedPlayer()
-                .SetTarget(npc);
+            Npc npc = session.Player.VisibleNpcs.Find(n => n.UID == statisticId);
+            session.Player.Target = npc;
 
             FeedbackService
-                .SelectNpc(session, npc);*/
+                .SelectNpc(session, npc);
         }
 
         /// <summary>
@@ -185,6 +182,11 @@ namespace Communicate.Logics
             FeedbackService.PlayerLevelUp(player);
             StatsService.UpdateStats(player);
             //QuestEngine.PlayerLevelUp(player);
+        }
+
+        public static void UseSkill(ISession session, UseSkillArgs args)
+        {
+            SkillEngine.UseSkill(session, args);
         }
     }
 }

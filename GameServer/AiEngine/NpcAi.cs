@@ -104,7 +104,8 @@ namespace GameServer.AiEngine
             MoveController.Action(elapsed);
             BattleController.Action();
 
-            //if (Npc.VisiblePlayers.Count < 1) return;
+            if (Npc.VisiblePlayers.Count < 1)
+                return;
 
             EnemiesListenAction();
 
@@ -169,18 +170,18 @@ namespace GameServer.AiEngine
                 return;
 
             double distanceToBind = Npc.BindPoint.DistanceTo(Creature.Position);
-            if (distanceToBind > 100)
+            if (distanceToBind > 200)
             {
                 MoveController.MoveTo(Creature.BindPoint);
                 return;
             }
 
             MoveController.MoveTo(Npc.Position.X
-                                  + Random.Next(50, 100)
+                                  + Random.Next(20, 50)
                                   * (Random.Next(0, 100) < 50 ? 1 : -1)
                                   ,
                                   Npc.Position.Y
-                                  + Random.Next(50, 100)
+                                  + Random.Next(20, 50)
                                   * (Random.Next(0, 100) < 50 ? 1 : -1));
         }
     }

@@ -4,13 +4,15 @@ namespace GameServer.Networks.Packets.Response
 {
     public class ResponseActiveSkillData : ASendPacket
     {
-        protected int Key;
-        protected int Value;
+        protected int SpellId;
+        protected byte Command;
+        protected byte SpellLevel;
 
-        public ResponseActiveSkillData(int key, int val)
+        public ResponseActiveSkillData(int spellId, byte cmd, byte spelllvl)
         {
-            Key = key;
-            Value = val;
+            SpellId = spellId;
+            Command = cmd;
+            SpellLevel = spelllvl;
         }
 
         public override void Write(BinaryWriter writer)
@@ -20,9 +22,9 @@ namespace GameServer.Networks.Packets.Response
             // 0100
             // 000000000000000000000000000000000000000000000000
             
-            WriteD(writer, Key); // skill id
-            WriteH(writer, 1);
-            WriteH(writer, Value);
+            WriteD(writer, SpellId); // skill id
+            WriteH(writer, Command);
+            WriteH(writer, SpellLevel);
             WriteH(writer, 0);
             WriteB(writer, new byte[14]);
             WriteD(writer, 0);

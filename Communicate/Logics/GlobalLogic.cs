@@ -1,4 +1,6 @@
 ﻿using Data.Interfaces;
+using Data.Structures.Creature;
+using Data.Structures.Player;
 using System.Collections.Generic;
 
 namespace Communicate.Logics
@@ -31,6 +33,28 @@ namespace Communicate.Logics
             // todo
             FeedbackService
                 .SendServerTime(session);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
+        public static void AttackStageEnd(Creature creature)
+        {
+            Player player = creature as Player;
+
+            if (player != null)
+                if (player.Attack.Args.SkillId == 0)
+                    SkillEngine.UseSkill(player.Session, player.Attack.Args);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="creature"></param>
+        public static void AttackFinished(Creature creature)
+        {
+
         }
     }
 }

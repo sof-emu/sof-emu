@@ -25,6 +25,7 @@ namespace Communicate
         public static IVisibleService VisibleService;
 
         // Engines
+        public static ISkillEngine SkillEngine;
 
         // Database Repositories
         public static IAccountRepository AccountRepository;
@@ -65,6 +66,7 @@ namespace Communicate
                     VisibleService.Action();
 
                     //Engines:
+                    SkillEngine.Action();
 
                     //Others:
                     DelayedAction.CheckActions();

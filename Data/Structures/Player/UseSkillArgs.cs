@@ -21,8 +21,8 @@ namespace Data.Structures.Player
 
         public Skill GetSkill(Creature.Creature creature)
         {
-            //if (Data.Skills.ContainsKey(SkillId))
-            //    return Data.Skills[SkillId];
+            if (Data.Skills.ContainsKey(SkillId))
+                return Data.Skills[SkillId];
 
             return null;
         }

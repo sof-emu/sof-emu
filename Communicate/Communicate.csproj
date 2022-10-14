@@ -83,6 +83,7 @@
     <Compile Include="Interfaces\INpcService.cs" />
     <Compile Include="Interfaces\IObserverService.cs" />
     <Compile Include="Interfaces\IPlayerService.cs" />
+    <Compile Include="Interfaces\ISkillEngine.cs" />
     <Compile Include="Interfaces\IStorageService.cs" />
     <Compile Include="Interfaces\IStatsService.cs" />
     <Compile Include="Interfaces\IVisibleService.cs" />

@@ -51,6 +51,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponsePlayerStats), unchecked((short)0x006B));
             Send.Add(typeof(ResponseSkillPassive), unchecked((short)0x006C));
             Send.Add(typeof(ResponseInventoryInfo), unchecked((short)0x0071));
+            Send.Add(typeof(ResponseNpcMove), unchecked((short)0x0074));
             Send.Add(typeof(ResponseEquipInfo), unchecked((short)0x0076));
             Send.Add(typeof(ResponseWeightMoney), unchecked((short)0x007C));
             Send.Add(typeof(ResponseServerTime), unchecked((short)0x0080));

@@ -167,7 +167,7 @@ namespace GameServer.Services
             player.GameStats = CreatureLogic.InitGameStats(player);
             CreatureLogic.UpdateCreatureStats(player);
 
-            // AiLogic.InitAi(player);
+            AiLogic.InitAi(player);
 
             PlayersOnline.Add(player);
         }

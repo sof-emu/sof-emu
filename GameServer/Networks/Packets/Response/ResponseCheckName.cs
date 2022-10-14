@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Enums;
+using System;
 using System.IO;
 using System.Text;
 
@@ -7,9 +8,9 @@ namespace GameServer.Networks.Packets.Response
     public class ResponseCheckName : ASendPacket
     {
         protected string Name;
-        protected bool Result;
+        protected CheckNameResult Result;
 
-        public ResponseCheckName(string name, bool result)
+        public ResponseCheckName(string name, CheckNameResult result)
         {
             Name = name;
             Result = result;
@@ -17,7 +18,7 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            WriteD(writer, (short)(!Result ? 1 : 0));
+            WriteD(writer, (int)Result);
 
             byte[] names = new byte[16];
             byte[] temp = Encoding.Default.GetBytes(Name);

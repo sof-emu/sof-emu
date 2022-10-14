@@ -1,4 +1,5 @@
 ﻿using Data.Enums;
+using Data.Structures.Player;
 using System.IO;
 
 namespace GameServer.Networks.Packets.Response
@@ -6,10 +7,16 @@ namespace GameServer.Networks.Packets.Response
     public class ResponseInventoryInfo : ASendPacket
     {
         protected InventoryType inventoryType;
+        private Storage inventory;
 
         public ResponseInventoryInfo(InventoryType type)
         {
             inventoryType = type;
+        }
+
+        public ResponseInventoryInfo(Storage inventory)
+        {
+            this.inventory = inventory;
         }
 
         public override void Write(BinaryWriter writer)

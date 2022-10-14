@@ -1,4 +1,4 @@
-﻿using Data.Models.Npc;
+﻿using Data.Structures.Npc;
 using System.IO;
 
 namespace GameServer.Networks.Packets.Response
@@ -13,7 +13,7 @@ namespace GameServer.Networks.Packets.Response
 
         public override void Write(BinaryWriter writer)
         {
-            WriteD(writer, Npc.ObjectId);
+            WriteD(writer, Npc.UID);
             WriteD(writer, 0);
         }
     }

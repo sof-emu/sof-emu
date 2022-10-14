@@ -1,4 +1,5 @@
-﻿using LobbyServer.Networks;
+﻿using LobbyServer.Database;
+using LobbyServer.Networks;
 using LobbyServer.Services;
 using System;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ namespace LobbyServer
 {
     internal class LobbyServer
     {
-        //public static DBOManager DBOManager;
+        public static DatabaseFactory DbFactory;
 
         // Services
         public static ApiService ApiService;
@@ -21,7 +22,7 @@ namespace LobbyServer
 
             Stopwatch sw = Stopwatch.StartNew();
 
-            //DBOManager = new DBOManager();
+            DbFactory = new DatabaseFactory();
 
             // Services
             ApiService = new ApiService();

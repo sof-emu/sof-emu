@@ -1,4 +1,4 @@
-﻿using Data.Models.Template.Item;
+﻿using Data.Structures.Template.Item;
 using System.Collections.Generic;
 using System.IO;
 using Utility;

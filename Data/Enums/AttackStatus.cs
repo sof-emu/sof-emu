@@ -8,6 +8,6 @@
         Process,
         Charge,
         Delay,
-        Finished
+        Finished,
     }
 }

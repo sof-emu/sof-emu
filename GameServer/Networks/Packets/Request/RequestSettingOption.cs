@@ -1,8 +1,5 @@
-﻿using Communicate;
-using Communicate.Logics;
-using Data.Models.Account;
-using Data.Models.Player;
-using GameServer.Services;
+﻿using Communicate.Logics;
+using Data.Structures.Account;
 using Utility;
 
 namespace GameServer.Networks.Packets.Request
@@ -67,7 +64,7 @@ namespace GameServer.Networks.Packets.Request
                 PetExp = PetExp,
             };
 
-            PlayerLogic
+            AccountLogic
                 .OptionSetting(session, setting);
         }
     }

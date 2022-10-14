@@ -3,50 +3,46 @@ using Communicate.Interfaces;
 using Communicate.Logics;
 using Data.Enums;
 using Data.Interfaces;
-using Data.Models.Creature;
-using Data.Models.Player;
+using Data.Structures.Account;
+using Data.Structures.Npc;
+using Data.Structures.Player;
+using Data.Structures.World;
 using GameServer.Networks.Packets.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Utility;
 
 namespace GameServer.Services
 {
     public class PlayerService : IPlayerService
     {
+        public static List<Player> PlayersOnline = new List<Player>();
 
-        public PlayerService()
+        public void Action()
         {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="session"></param>
-        public void SendPlayerLists(ISession session)
-        {
-            if (session.GetPlayers().Count > 0)
+            for (int i = 0; i < PlayersOnline.Count; i++)
             {
-                session.GetPlayers().ForEach(player =>
+                try
                 {
-                    new ResponsePlayerList(player).Send(session);
-                });
+                    if (PlayersOnline[i].Ai != null)
+                        PlayersOnline[i].Ai.Action();
+
+                    if (PlayersOnline[i].Visible != null)
+                        PlayersOnline[i].Visible.Update();
+
+                    if (PlayersOnline[i].Controller != null)
+                        PlayersOnline[i].Controller.Action();
+                }
+                catch (Exception ex)
+                {
+                    //Collection modified
+                    Log.ErrorException("PlayerService.Action:", ex);
+                }
+
+                if ((i & 511) == 0) // 2^N - 1
+                    Thread.Sleep(1);
             }
-            else
-                new ResponsePlayerList().Send(session);
-        }
-
-        /// <summary>
-        /// Check exist character name
-        /// and then send Response to client
-        /// </summary>
-        /// <param name="session"></param>
-        /// <param name="name"></param>
-        public async void CheckNameExist(ISession session, string name)
-        {
-            bool isExists = await Global
-                .ApiService
-                .CheckNameExist(name);
-
-            new ResponseCheckName(name, isExists).Send(session);
         }
 
         /// <summary>
@@ -59,46 +55,38 @@ namespace GameServer.Services
         /// <param name="hairColor"></param>
         /// <param name="voice"></param>
         /// <param name="gender"></param>
-        public async void CreatePlayer(ISession session, string name, PlayerClass playerClass, string hairColor, int voice, int gender)
+        public Player CreatePlayer(ISession session, string name, PlayerClass playerClass, string hairColor, int voice, int gender)
         {
-            Player player = new Player();
-            player.Name = name;
-            player.Level = 1;
-            player.Job = (int)playerClass;
-            player.JobLevel = 1;
-            player.AccountId = session.GetAccount().Id;
-            player.AccountName = session.GetAccount().Username;
-            player.Force = 0;
-            player.HairColor = hairColor;
-            player.Voice = voice;
-            player.Gender = gender;
-            player.Title = 0;
+            Player player = new Player()
+            {
+                Name = name,
+                Level = 1,
+                Job = playerClass,
+                JobLevel = 1,
+                AccountId = session.Account.Id,
+                Faction = 0,
+                Appearance = new Appearance()
+                {
+                    HairColor = hairColor,
+                    HairStyle = 0,
+                    Voice = voice,
+                    Gender = gender,
+                },
+                Position = new WorldPosition()
+                {
+                    MapId = 101,
+                    X = 378.501f,
+                    Y = 1741.1f,
+                    Z = 15f
+                }
+            };
 
-            player.Position = new Data.Models.World.Position();
-            // todo Start Position in game
-            player.Position.MapId = 101;
-            player.Position.X = 575f;
-            player.Position.Y = 1565f;
-            player.Position.Z = 15f;
-            
-            GameStats stats = new GameStats();
-            Data.Data.StatsTemplates
-                .TryGetValue((int)playerClass, out stats);
+            player.PlayerId = Global.PlayerRepository.SavePlayer(player);
+            Global.StorageService.AddStartItemsToPlayer(player);
 
-            LifeStats lifeStats = new LifeStats(player);
-
-            player.SetGameStats(stats);
-            player.SetLifeStats(lifeStats);
-
-            var _player = await Global
-                .ApiService
-                .SendCreatePlayer(player, stats);
-
-            player.Index = _player.Index;
-
-            Global
-                .FeedbackService
-                .OnCreatePlayerResult(session, player);
+            player.GameStats = Global.StatsService.InitStats(player);
+            session.Account.Players.Add(player);
+            return player;
         }
 
         /// <summary>
@@ -107,56 +95,12 @@ namespace GameServer.Services
         /// <param name="session"></param>
         public void OnUpdateSetting(ISession session)
         {
-            var player = session
-                    .GetSelectedPlayer();
+            var player = session.Player;
 
             if (player != null)
                 Global
                     .VisibleService
-                    .Broadcast(player, new ResponsePlayerInfo(player));
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        public void EnterWorld(Player player)
-        {
-            var session = player.GetSession();
-
-            new ResponseServerTime((int)Global.ServerTime).Send(session);
-            new ResponsePlayerRunning(1).Send(session);
-            new ResponseSkillPassive().Send(session);
-            new ResponsePlayerInfo(player).Send(session);
-            new ResponseInventoryInfo(InventoryType.Item).Send(session);
-            new ResponseInventoryInfo(InventoryType.Orb).Send(session);
-            new ResponseQuestItem().Send(session);
-            new ResponsePlayerQuickInfo(player).Send(session);
-
-            //Global
-            //    .VisibleService
-            //    .Broadcast(player, new ResponsePlayerQuickInfo(player));
-
-            // todo Status Effect list
-            new ResponseWeightMoney(player).Send(session);
-            new ResponsePetInfo().Send(session);
-
-            new ResponsePlayerHpMpSp(player).Send(session);
-
-            new ResponseQuestList().Send(session);
-            new ResponseQuestCompleteList().Send(session);
-            //new ResponseBindPoint().Send(session);
-            //new ResponseNpcSpawn().Send(session);
-            //new ResponseSkillCooldown().Send(session);
-            //new ResponseViewProfile(player).Send(session);
-            GlobalLogic
-                .ViewProfile(player);
-
-            //new ResponsePlayerInfo(player).Send(session);
-            //new ResponseEquipInfo(player).Send(session);
-
-            GlobalLogic
-                .SendMapNpcList(player);
+                    .Send(player, new ResponsePlayerInfo(player));
         }
 
         /// <summary>
@@ -175,29 +119,145 @@ namespace GameServer.Services
         {
             if (target != 65535)
             {
-                Creature Target = player
+                /*Creature Target = player
                     .GetMap()
                     .GetNpc(target);
 
-                player.SetTarget(Target);
+                player.SetTarget(Target);*/
             }
 
 
             player.Position.X = x1;
             player.Position.Y = y1;
 
-            player.LastPostion.X = x2;
-            player.LastPostion.Y = y2;
-
-            if (player.GetMap() != null)
-                player
-                    .GetMap()
-                    .OnMove(player);
+            player.Position.X2 = x2;
+            player.Position.Y2 = y2;
         }
 
-        public void Action()
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public List<Player> OnAuthorized(Account account)
+        {
+            var list = Global.PlayerRepository.GetPlayerFromAccountId(account.Id);
+
+            // todo load player inventory, quests, skills
+            list.ForEach(player =>
+            {
+                player.GameStats = Global.StatsService.InitStats(player);
+            });
+
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public void InitPlayer(Player player)
+        {
+            player.Level = 1;
+
+            while((player.Level + 1) != Data.Data.PlayerExperience.Count - 1 && player.Exp >= Data.Data.PlayerExperience[player.Level])
+                player.Level++;
+
+            player.GameStats = CreatureLogic.InitGameStats(player);
+            CreatureLogic.UpdateCreatureStats(player);
+
+            // AiLogic.InitAi(player);
+
+            PlayersOnline.Add(player);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public CheckNameResult CheckName(string name)
+        {
+            if (Global.PlayerRepository.NameExists(name))
+                return CheckNameResult.Unavailable;
+
+            return CheckNameResult.Ok;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public bool IsPlayerOnline(Player player)
+        {
+            return PlayersOnline.Contains(player);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="exp"></param>
+        /// <param name="npc"></param>
+        public void AddExp(Player player, int exp, Npc npc)
+        {
+            exp *= 1; //Rate.EXP;
+
+            //todo rate modifiers
+            if (player.GetLevel() >= 130) // Rate.LEVEL_CAP
+            {
+                //new SpSystemNotice("Sorry, but now, level cap is " + GamePlay.Default.LevelCap).Send(player);
+                return;
+            }
+
+            int val1 = npc.NpcTemplate.Exp * 1; // Rate.KI_EXP
+            int val2 = val1 / 3;
+            int ki = Funcs.Random().Next(val1 - val2, val1 + val2);
+            player.SkillPoint += ki;
+
+            SetExp(player, player.Exp + exp, npc);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="add"></param>
+        /// <param name="npc"></param>
+        public void SetExp(Player player, long add, Npc npc)
         {
 
+            int maxLevel = Data.Data.PlayerExperience.Count - 1;
+
+            long maxExp = Data.Data.PlayerExperience[maxLevel - 1];
+            int level = 1;
+
+
+            if (add > maxExp)
+                add = maxExp;
+
+            while ((level + 1) != maxLevel && add >= Data.Data.PlayerExperience[level])
+            {
+                level++;
+            }
+
+            long added = add - player.Exp;
+
+            if (level != player.Level)
+            {
+                player.Level = level;
+                player.Exp = add;
+                player.AbilityPoint += 1;
+                PlayerLogic.LevelUp(player);
+            }
+            else
+                player.Exp = add;
+
+            new ResponsePlayerExpPoint(player, added, npc).Send(player.Session);
         }
+
+        
     }
 }

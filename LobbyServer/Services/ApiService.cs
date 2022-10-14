@@ -1,5 +1,4 @@
-﻿using Data.Models.Account;
-using Data.Models.Server;
+﻿using Data.Structures.Template.Server;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 using System.Collections.Generic;
@@ -29,18 +28,6 @@ namespace LobbyServer.Services
             {
                 {"x-api-token", token}
             });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public async Task<AccountData> RequestAccountData(string username)
-        {
-            var request = new RestRequest($"/api/account/{username}");
-            AccountData accountData = await Client.GetAsync<AccountData>(request);
-            return accountData;
         }
 
         /// <summary>

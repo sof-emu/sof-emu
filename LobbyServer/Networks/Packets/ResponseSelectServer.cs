@@ -1,4 +1,4 @@
-﻿using Data.Models.Server;
+﻿using Data.Structures.Template.Server;
 using System.IO;
 
 namespace LobbyServer.Networks.Packets

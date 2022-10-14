@@ -1,14 +1,13 @@
-﻿using Data.Models.Account;
+﻿using Data.Structures.Account;
 using System.IO;
-using Utility;
 
 namespace GameServer.Networks.Packets.Response
 {
     public class ResponseAuth : ASendPacket
     {
-        protected AccountData AccountData;
+        protected Account AccountData;
 
-        public ResponseAuth(AccountData accountData)
+        public ResponseAuth(Account accountData)
         {
             AccountData = accountData;
         }

@@ -1,5 +1,4 @@
-﻿using Data.Interfaces;
-using Data.Models.Server;
+﻿using Data.Structures.Template.Server;
 using LobbyServer.Networks;
 using LobbyServer.Networks.Packets;
 using System.Collections.Generic;

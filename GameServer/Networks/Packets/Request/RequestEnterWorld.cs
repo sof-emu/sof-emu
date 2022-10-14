@@ -13,8 +13,8 @@ namespace GameServer.Networks.Packets.Request
 
         public override void Process()
         {
-            PlayerLogic
-                .EnterWorld(session, PlayerIndex);
+            PlayerLogic.PlayerSelected(session, PlayerIndex);
+            PlayerLogic.PlayerEnterWorld(session.Player);
         }
     }
 }

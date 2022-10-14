@@ -1,5 +1,5 @@
 ﻿using Communicate;
-using Data.Models.Server;
+using Data.Structures.Template.Server;
 using Hik.Communication.Scs.Communication.EndPoints.Tcp;
 using Hik.Communication.Scs.Server;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using Communicate;
 using Communicate.Logics;
 using GameServer.Configs;
-using GameServer.Engines;
+using GameServer.Database;
 using GameServer.Networks;
 using GameServer.Services;
 using System;
@@ -17,7 +17,7 @@ namespace GameServer
 
         public static Server Server;
 
-        public static IDFactory IDFactory;
+        public static DatabaseFactory DBFactory;
 
         /// <summary>
         /// 
@@ -55,21 +55,21 @@ namespace GameServer
 
             Config = new Config();
             OpCodes.Init();
-            IDFactory = new IDFactory();
+            DBFactory = new DatabaseFactory();
 
             // Services
             AccountService = new AccountService();
+            AiService = new AiService();
             ApiService = new ApiService();
-            AuthService = new AuthService();
+            ControllerService = new ControllerService();
             FeedbackService = new FeedbackService();
             MapService = new MapService();
             NpcService = new NpcService();
+            ObserverService = new ObserverService();
             PlayerService = new PlayerService();
+            StatsService = new StatsService();
+            StorageService = new StorageService();
             VisibleService = new VisibleService();
-
-            // Engines
-            AttackEngine = new AttackEngine();
-            SkillEngine = new SkillEngine();
 
             GlobalLogic.ServerStart();
             Console.WriteLine("\n-------------------------------------------\n");

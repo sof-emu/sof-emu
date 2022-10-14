@@ -42,6 +42,9 @@
     <Reference Include="Google.Protobuf, Version=3.19.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.19.4\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
+    <Reference Include="Humanizer, Version=2.8.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.8.26\lib\netstandard2.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="K4os.Compression.LZ4, Version=1.2.6.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Compression.LZ4.1.2.6\lib\net46\K4os.Compression.LZ4.dll</HintPath>
     </Reference>
@@ -71,6 +74,12 @@
     </Reference>
     <Reference Include="Scs, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Scs.1.1.1\lib\net40-client\Scs.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlKata, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlKata.2.3.9\lib\netstandard2.0\SqlKata.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlKata.Execution, Version=2.3.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlKata.Execution.2.3.9\lib\netstandard2.0\SqlKata.Execution.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -121,8 +130,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs\Config.cs" />
-    <Compile Include="Database\AccountDBO.cs" />
-    <Compile Include="Database\DBOManager.cs" />
+    <Compile Include="Database\DbAccount.cs" />
+    <Compile Include="Database\DatabaseFactory.cs" />
     <Compile Include="Database\MySQL.cs" />
     <Compile Include="Networks\ARecvPacket.cs" />
     <Compile Include="Networks\ASendPacket.cs" />

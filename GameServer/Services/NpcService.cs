@@ -1,8 +1,5 @@
 ﻿using Communicate.Interfaces;
 using Data.Interfaces;
-using Data.Models.Npc;
-using Data.Models.Player;
-using Data.Models.World;
 using GameServer.Engines.NpcActions;
 using GameServer.Networks.Packets.Response;
 using System;
@@ -48,25 +45,13 @@ namespace GameServer.Services
             if(Actions.ContainsKey(actionId))
             {
                 ((INpcAction)Activator.CreateInstance(Actions[actionId]))
-                    .Process(session, shopId, actionId, tabIndex);
+                    .Execute(session, shopId, actionId, tabIndex);
             } 
             else
             {
                 Log.Warn($"Notfound NpcInteraction ActionId: {actionId}");
                 new ResponseNpcInteraction(shopId, actionId).Send(session);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="map"></param>
-        public void SendNpcList(Player player, MapInstance map)
-        {
-            //Log.Debug($"player: {player.Id}, MapId: {map.Template.Id}, Npcs: {map.GetNpcs().Count}");
-            List<Npc> npcs =  map.GetNpcs();
-            new ResponseNpcSpawn(npcs).Send(player.GetSession());
         }
     }
 }

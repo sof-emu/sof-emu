@@ -1,4 +1,4 @@
-﻿using Data.Models.Npc;
+﻿using Data.Structures.Npc;
 using System.Collections.Generic;
 using System.IO;
 
@@ -19,28 +19,28 @@ namespace GameServer.Networks.Packets.Response
 
             foreach(var npc in Npcs)
             {
-                WriteH(writer, npc.ObjectId);
-                WriteH(writer, npc.ObjectId);
+                WriteH(writer, npc.UID);
+                WriteH(writer, npc.UID);
 
-                WriteH(writer, npc.GetNpcTemplate().Id);
+                WriteH(writer, npc.NpcId);
 
                 WriteD(writer, 1);
 
-                WriteD(writer, npc.GetLifeStats().Hp);
-                WriteD(writer, npc.GetLifeStats().MaxHp);
+                WriteD(writer, npc.LifeStats.Hp);
+                WriteD(writer, npc.GameStats.HpBase);
 
-                WriteF(writer, npc.GetSpawnTemplate().X);
-                WriteF(writer, npc.GetSpawnTemplate().Z);
-                WriteF(writer, npc.GetSpawnTemplate().Y);
+                WriteF(writer, npc.Position.X);
+                WriteF(writer, npc.Position.Z);
+                WriteF(writer, npc.Position.Y);
 
                 WriteD(writer, 0x40800000);
 
-                WriteF(writer, npc.GetSpawnTemplate().Face1);
-                WriteF(writer, npc.GetSpawnTemplate().Face2);
+                WriteF(writer, npc.SpawnTemplate.Face1);
+                WriteF(writer, npc.SpawnTemplate.Face2);
 
-                WriteF(writer, npc.GetSpawnTemplate().X);
-                WriteF(writer, npc.GetSpawnTemplate().Z);
-                WriteF(writer, npc.GetSpawnTemplate().Y);
+                WriteF(writer, npc.SpawnTemplate.X);
+                WriteF(writer, npc.SpawnTemplate.Z);
+                WriteF(writer, npc.SpawnTemplate.Y);
 
                 WriteD(writer, 0);
                 WriteD(writer, 0);

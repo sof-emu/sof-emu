@@ -1,7 +1,8 @@
-﻿using Data.Models.Creature;
-using Data.Models.Template.Creatures;
-using Data.Models.Template.Item;
-using Data.Models.Template.World;
+﻿using Data.Enums;
+using Data.Structures.Creature;
+using Data.Structures.Template.Creature;
+using Data.Structures.Template.Item;
+using Data.Structures.Template.World;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Utility;
+using Utility.Extension;
 
 namespace Data
 {
@@ -16,18 +18,22 @@ namespace Data
     {
         public static string DataPath = Path.GetFullPath("Data");
 
+        public static List<long> PlayerExperience;
+
         public static Dictionary<int, MapTemplate> MapTemplates;
         public static Dictionary<int, ItemTemplate> ItemTemplates;
-        public static Dictionary<int, GameStats> StatsTemplates;
+        public static Dictionary<PlayerClass, CreatureBaseStats> StatsTemplates;
         public static Dictionary<int, NpcTemplate> NpcTemplates;
         public static Dictionary<int, List<SpawnTemplate>> SpawnTemplates;
         public static Dictionary<int, List<ShopItemTemplate>> ShopItemsTemplates;
+        public static Dictionary<int, List<DropItemTemplate>> DropItemTemplates;
+        
 
         protected delegate int Loader();
         protected static List<Loader> Loaders = new List<Loader>
                                                     {
                                                         LoadMapTemplates,
-                                                        //LoadPlayerExperience,
+                                                        LoadPlayerExperience,
                                                         LoadBaseStats,
                                                         LoadItemTemplates,
                                                         //LoadBindPoints,
@@ -38,7 +44,7 @@ namespace Data
                                                         //LoadSkills,
                                                         //LoadAbilities,
                                                         //LoadAbnormalities,
-                                                        //LoadDrop,
+                                                        LoadDrop,
                                                         //LoadTeleports,
                                                         //CalculateNpcExperience,
                                                     };
@@ -94,17 +100,36 @@ namespace Data
         /// 
         /// </summary>
         /// <returns></returns>
+        public static int LoadPlayerExperience()
+        {
+            try
+            {
+                PlayerExperience = new List<long>();
+
+                string jsonStr = File.ReadAllText(Path.Combine(DataPath, "exp.json"));
+                PlayerExperience = JsonConvert.DeserializeObject<List<long>>(jsonStr);
+            }
+            catch
+            { }
+
+            return PlayerExperience.Count;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static int LoadBaseStats()
         {
-            StatsTemplates = new Dictionary<int, GameStats>();
+            StatsTemplates = new Dictionary<PlayerClass, CreatureBaseStats>();
 
             string jsonStr = File.ReadAllText(Path.Combine(DataPath, "stats.json"));
-            List<GameStats> list = JsonConvert.DeserializeObject<List<GameStats>>(jsonStr);
+            List<CreatureBaseStats> list = JsonConvert.DeserializeObject<List<CreatureBaseStats>>(jsonStr);
 
             list.ForEach(item =>
             {
-                if (!StatsTemplates.ContainsKey(item.Job))
-                    StatsTemplates.Add(item.Job, item);
+                if (!StatsTemplates.ContainsKey(item.PlayerClass))
+                    StatsTemplates.Add(item.PlayerClass, item);
             });
 
             return StatsTemplates.Count;
@@ -214,6 +239,26 @@ namespace Data
             }
 
             return length;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static int LoadDrop()
+        {
+            DropItemTemplates = new Dictionary<int, List<DropItemTemplate>>();
+
+            string jsonStr = File.ReadAllText(Path.Combine(DataPath, "drops.json"));
+            var list = JsonConvert.DeserializeObject<List<DropTemplate>>(jsonStr);
+
+            list.Each(drop =>
+            {
+                if(!DropItemTemplates.ContainsKey(drop.NpcId))
+                    DropItemTemplates.Add(drop.NpcId, drop.Drops);
+            });
+
+            return DropItemTemplates.Count;
         }
     }
 }

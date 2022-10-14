@@ -1,4 +1,4 @@
-﻿using Data.Models.Player;
+﻿using Data.Structures.Player;
 using System.IO;
 
 namespace GameServer.Networks.Packets.Response
@@ -16,13 +16,13 @@ namespace GameServer.Networks.Packets.Response
         {
             WriteD(writer, 0);
 
-            WriteD(writer, Player.GetLifeStats().Hp);
-            WriteD(writer, Player.GetLifeStats().Mp);
-            WriteD(writer, Player.GetLifeStats().Sp);
+            WriteD(writer, Player.LifeStats.Hp);
+            WriteD(writer, Player.LifeStats.Mp);
+            WriteD(writer, Player.LifeStats.Sp);
 
-            WriteD(writer, Player.GetLifeStats().MaxHp);
-            WriteD(writer, Player.GetLifeStats().MaxMp);
-            WriteD(writer, Player.GetLifeStats().MaxSp);
+            WriteD(writer, Player.GameStats.HpBase);
+            WriteD(writer, Player.GameStats.MpBase);
+            WriteD(writer, Player.GameStats.SpBase);
 
             WriteD(writer, 0);
         }

@@ -1,10 +1,11 @@
 ﻿using Data.Interfaces;
-using Data.Models.Account;
+using Data.Structures.Account;
 
 namespace Communicate.Interfaces
 {
     public interface IAccountService : IComponent
     {
+        void Authorized(ISession session, string username);
         void SetSettingOption(ISession session, SettingOption setting);
     }
 }

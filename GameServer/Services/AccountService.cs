@@ -1,6 +1,7 @@
-﻿using Communicate.Interfaces;
+﻿using Communicate;
+using Communicate.Interfaces;
 using Data.Interfaces;
-using Data.Models.Account;
+using Data.Structures.Account;
 
 namespace GameServer.Services
 {
@@ -11,10 +12,25 @@ namespace GameServer.Services
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="username"></param>
+        public void Authorized(ISession session, string username)
+        {
+            session.Account = Global.AccountRepository.GetAccountByUsername(username);
+            session.Account.Players = Global.PlayerService.OnAuthorized(session.Account);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="setting"></param>
         public void SetSettingOption(ISession session, SettingOption setting)
         {
-            session
-                .SetSetting(setting);
+            session.Account.SettingOption = setting;
         }
     }
 }

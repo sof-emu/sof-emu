@@ -5,6 +5,7 @@ using Data.Interfaces;
 using Data.Structures.Creature;
 using Data.Structures.Npc;
 using Data.Structures.Player;
+using Data.Structures.SkillEngine;
 using Data.Structures.World;
 using GameServer.Networks.Packets;
 using GameServer.Networks.Packets.Response;
@@ -14,7 +15,7 @@ using Utility;
 
 namespace GameServer.Services
 {
-    public class FeedbackService : IFeedbackService
+    public class FeedbackService : Global, IFeedbackService
     {
         /// <summary>
         /// 
@@ -50,8 +51,7 @@ namespace GameServer.Services
             //player
             //    .Moved(x1, y1, z1, x2, y2, z2);
 
-            Global
-                .VisibleService
+            VisibleService
                 .Send(player, new ResponsePlayerMove(player, x1, y1, z1, x2, y2, z2, distance, target));
         }
 
@@ -74,7 +74,8 @@ namespace GameServer.Services
         /// <exception cref="System.NotImplementedException"></exception>
         public void SelectNpc(ISession session, Npc npc)
         {
-            new ResponseSelectNpc(npc).Send(session);
+            if(npc != null)
+                new ResponseSelectNpc(npc).Send(session);
         }
 
         /// <summary>
@@ -270,6 +271,16 @@ namespace GameServer.Services
         {
             //Global.VisibleService.Send(player, new SpPlayerLevelUp(player));
             //Global.VisibleService.Send(player, new SpPlayerHpMpSp(player));
+        }
+
+        public void AttackStageEnd(Creature creature)
+        {
+            VisibleService.Send(creature, new ResponseAttack(creature as Player, creature.Attack));
+        }
+
+        public void NpcDied(Player player, Npc npc)
+        {
+            VisibleService.Send(player, new ResponseCreatureDied(npc));
         }
     }
 }

@@ -41,11 +41,7 @@ namespace Communicate.Logics
         /// <param name="creature"></param>
         public static void AttackStageEnd(Creature creature)
         {
-            Player player = creature as Player;
-
-            if (player != null)
-                if (player.Attack.Args.SkillId == 0)
-                    SkillEngine.UseSkill(player.Session, player.Attack.Args);
+            FeedbackService.AttackStageEnd(creature);
         }
 
         /// <summary>

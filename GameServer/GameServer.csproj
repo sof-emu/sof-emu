@@ -175,9 +175,11 @@
     <Compile Include="Networks\Packets\Response\ResponseAttack.cs" />
     <Compile Include="Networks\Packets\Response\ResponseBindPoint.cs" />
     <Compile Include="Networks\Packets\Response\ResponseChatMessage.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseCreatureDied.cs" />
     <Compile Include="Networks\Packets\Response\ResponseDeletePlayer.cs" />
     <Compile Include="Networks\Packets\Response\ResponseDropRemove.cs" />
     <Compile Include="Networks\Packets\Response\ResponseEquipInfo.cs" />
+    <Compile Include="Networks\Packets\Response\ResponseNpcAttack.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcMove.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcSpawn.cs" />
     <Compile Include="Networks\Packets\Response\ResponseNpcInteraction.cs" />

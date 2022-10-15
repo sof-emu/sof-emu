@@ -117,6 +117,7 @@ namespace GameServer.Services
         /// <param name="target"></param>
         public void PlayerMoved(Player player, float x1, float y1, float z1, float x2, float y2, float z2, float distance, int target)
         {
+            //Log.Debug($"PlayerService.PlayerMove: {distance}, {target}");
             if (target != 65535)
             {
                 /*Creature Target = player
@@ -125,6 +126,8 @@ namespace GameServer.Services
 
                 player.SetTarget(Target);*/
             }
+            else
+                player.Target = null;
 
 
             player.Position.X = x1;

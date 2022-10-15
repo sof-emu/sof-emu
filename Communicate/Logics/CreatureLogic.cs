@@ -65,6 +65,7 @@ namespace Communicate.Logics
                 player.Instance.OnNpcKill(player, npc);
             }
 
+            FeedbackService.NpcDied(player, npc);
             npc.Ai.DealExp();
 
             if (player != null)

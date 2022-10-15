@@ -107,54 +107,30 @@ namespace GameServer.SkillEngine
         {
             try
             {
-                Log.Debug("try attack 1");
                 Creature target = creature.Target;
-
-                Log.Debug($"target == null is {target == null}");
-                Log.Debug($"creature.LifeStats.IsDead() is {creature.LifeStats.IsDead()}");
 
                 if (target == null || creature.LifeStats.IsDead())
                     return;
 
-                Log.Debug("try attack 2");
-
                 if (!target.LifeStats.IsDead())
                 {
-                    Log.Debug("try attack 3");
-
                     creature.Attack = new Attack(creature,
                                              args,
                                              () => GlobalLogic.AttackStageEnd(creature),
                                              () => GlobalLogic.AttackFinished(creature));
 
                     int damage = SeUtils.CalculateDefaultAttackDamage(creature, target, creature.GameStats.Attack);
-
-                    Player player = creature as Player;
-                    if (player != null)
-                        VisibleService.Send(player, new ResponseAttack(player, player.Attack));
-
-                    //Npc npc = creature as Npc;
-                    //if (npc != null)
-                    //    VisibleService.Send(npc, new SpNpcAttack(npc, npc.Attack));
-
                     target.LifeStats.MinusHp(damage);
 
                     AiLogic.OnAttack(creature, target);
-                    AiLogic.OnAttacked(target, creature, damage);
-
-                    if (target is Player)
-                        (target as Player).LifeStats.PlusSp(damage);
-
-                    new DelayedAction(creature
-                        .Attack
-                        .NextStage, 1400);
+                    AiLogic.OnAttacked(target, creature, damage); 
 
                     return;
                 }
 
-                new DelayedAction(creature
+                creature
                     .Attack
-                    .Finish, 300);
+                    .Finish();
             }
             catch (Exception ex)
             {

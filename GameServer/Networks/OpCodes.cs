@@ -37,6 +37,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseAuth), unchecked((short)0x0002));
             Send.Add(typeof(ResponsePlayerRunning), unchecked((short)0x0006));
             Send.Add(typeof(ResponseAttack), unchecked((short)0x000A));
+            Send.Add(typeof(ResponseNpcAttack), unchecked((short)0x000C));
             Send.Add(typeof(ResponsePlayerList), unchecked((short)0x0011));
             Send.Add(typeof(ResponseCreatePlayer), unchecked((short)0x0015));
             Send.Add(typeof(ResponseDeletePlayer), unchecked((short)0x001F));
@@ -58,6 +59,7 @@ namespace GameServer.Networks
             Send.Add(typeof(ResponseQuestItem), unchecked((short)0x0081));
             Send.Add(typeof(ResponseQuestList), unchecked((short)0x0085));
             Send.Add(typeof(ResponseStatusEffect), unchecked((short)0x0087));
+            Send.Add(typeof(ResponseCreatureDied), unchecked((short)0x0088));
             Send.Add(typeof(ResponseSkillEffect), unchecked((short)0x0089));
             Send.Add(typeof(ResponseQuestCompleteList), unchecked((short)0x008B));
             Send.Add(typeof(ResponseNpcInteraction), unchecked((short)0x0091));

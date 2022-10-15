@@ -26,8 +26,15 @@ namespace GameServer.Networks.Packets.Response
 
             WriteD(writer, -1);
             WriteD(writer, MoveStyle);
-            WriteF(writer, Creature.Position.X);
+            WriteF(writer, Creature.Position.X); // Distance ?
             WriteD(writer, (Creature as Npc).LifeStats.Hp);
+
+            WriteF(writer, Creature.Position.X);
+            WriteF(writer, Creature.Position.Z);
+            WriteF(writer, Creature.Position.Y);
+
+            WriteD(writer, 0);
+            WriteH(writer, 0);
 
             writer.Seek(2, SeekOrigin.Begin);
             WriteH(writer, (int)(Creature as Npc).UID);

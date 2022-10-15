@@ -1,0 +1,17 @@
+[
+    {
+        "NpcId": 10001,
+        "Drops": [
+            {
+                "ItemId": 2000000000,
+                "Quanty": 20,
+                "Chance": 100
+            },
+            {
+                "ItemId": 1000000101,
+                "quanty": 1,
+                "Chance": 30
+            }
+        ]
+    }
+]

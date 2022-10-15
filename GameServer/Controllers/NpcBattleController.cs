@@ -116,7 +116,7 @@ namespace GameServer.Controllers
 
             if (distance > 10)
             {
-                if (now > LastMoveUts + 1000)
+                if (now > LastMoveUts + 2000)
                 {
                     LastMoveUts = now;
                     ((NpcAi)Npc.Ai).MoveController.MoveTo(Npc.Target.Position, distance);
@@ -129,7 +129,7 @@ namespace GameServer.Controllers
             if (now > LastAttackUts + 3000 && !Npc.Target.LifeStats.IsDead())
             {
                 LastAttackUts = now;
-                //Global.SkillEngine.UseSkill(Npc, null);
+                Global.SkillEngine.UseSkill(Npc, null);
                 new DelayedAction(SendUpdateHpMpSp, 100);
             }
         }

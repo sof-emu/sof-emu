@@ -210,7 +210,7 @@ namespace GameServer.Services
                     X = spawnTemplate.X,
                     Y = spawnTemplate.Y,
                     Z = spawnTemplate.Z
-                }
+                },
             };
 
             npc.BindPoint = npc.Position.Clone();

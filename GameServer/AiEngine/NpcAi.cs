@@ -68,8 +68,6 @@ namespace GameServer.AiEngine
             BattleController.DealExp();
         }
 
-        //Actions:
-
         public override void Action()
         {
             if (Npc.NpcTemplate.Npc == 1)
@@ -104,8 +102,8 @@ namespace GameServer.AiEngine
             MoveController.Action(elapsed);
             BattleController.Action();
 
-            if (Npc.VisiblePlayers.Count < 1)
-                return;
+            //if (Npc.VisiblePlayers.Count < 1)
+            //    return;
 
             EnemiesListenAction();
 
@@ -146,8 +144,8 @@ namespace GameServer.AiEngine
 
             if (!BattleController.IsHateCreature(player))
             {
-                //if (Npc.NpcTemplate.Level >= 20)
-                //    OnAttacked(creature, 0);
+                if (Npc.NpcTemplate.Auto >= 1)
+                    OnAttacked(player, 0);
             }
         }
 
@@ -170,7 +168,7 @@ namespace GameServer.AiEngine
                 return;
 
             double distanceToBind = Npc.BindPoint.DistanceTo(Creature.Position);
-            if (distanceToBind > 200)
+            if (distanceToBind > 100)
             {
                 MoveController.MoveTo(Creature.BindPoint);
                 return;
@@ -178,8 +176,7 @@ namespace GameServer.AiEngine
 
             MoveController.MoveTo(Npc.Position.X
                                   + Random.Next(20, 50)
-                                  * (Random.Next(0, 100) < 50 ? 1 : -1)
-                                  ,
+                                  * (Random.Next(0, 100) < 50 ? 1 : -1),
                                   Npc.Position.Y
                                   + Random.Next(20, 50)
                                   * (Random.Next(0, 100) < 50 ? 1 : -1));

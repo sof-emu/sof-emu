@@ -84,12 +84,18 @@ namespace GameServer.Controllers
             }
 
             if (Player.IsRage)
-            {
                 if (LastRageUts + Player.GameStats.RageModeDuration < now)
-                {
-                    Log.Debug("Stop Rage !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                     Player.IsRage = false;
-                }
+
+            // todo auto attack
+            if (Player.Target != null && !Player.Target.LifeStats.IsDead())
+            {
+                if (now < LastAttackUts)
+                    return;
+
+                Player.Attack.NextStage();
+                LastAttackUts = now + 1800;
+                Global.SkillEngine.UseSkill(Player.Session, Player.Attack.Args);
             }
         }
 

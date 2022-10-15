@@ -8,7 +8,9 @@ namespace Communicate.Interfaces
 {
     public interface IFeedbackService : IComponent
     {
+        void AttackStageEnd(Creature creature);
         void HpMpSpChanged(Player player);
+        void NpcDied(Player player, Npc npc);
         void OnAuthorized(ISession session);
         void OnPlayerEnterWorld(ISession session, Player player);
         void PlayerDied(Player player);
